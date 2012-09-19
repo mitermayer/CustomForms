@@ -429,3 +429,21 @@ Small Device Styles
   }
 
 }
+
+#demo {
+    padding: 10px 20px;
+    font-weight: bold;
+    display: block;
+    color: #fff;
+    float: left;
+    background: #007EDF;
+    border: 1px solid #fff;
+}
+#demo:hover {
+    background: #212121;
+    box-shadow: 0px 0px 0px  1px #fff;
+}
+#demo:active {
+    position: relative;
+    top: 1px;
+}
