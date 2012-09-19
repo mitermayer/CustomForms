@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Customforms : CustomForms - Javascript Library to aid on creation of beautiful form elements :)" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Customforms</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/mitermayer/CustomForms">View on GitHub</a>
+
+          <h1 id="project_title">Customforms</h1>
+          <h2 id="project_tagline">CustomForms - Javascript Library to aid on creation of beautiful form elements :)</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/mitermayer/CustomForms/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/mitermayer/CustomForms/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>CustomForms - 0.44</h1>
+
+<ul>
+<li>Jquery pluggin to aid on styling forms in all major browsers.</li>
+</ul><h2>Support features</h2>
+
+<ul>
+<li>Placeholders</li>
+<li>Select element</li>
+<li>File uploader</li>
+<li>Checkbox</li>
+<li>Radio</li>
+</ul><h2>Browser support</h2>
+
+<ul>
+<li>Internet Explorer 6+</li>
+<li>Firefox 3.5+</li>
+<li>Google Chrome 5+</li>
+<li>Safari 4+</li>
+</ul><h2>Requirements</h2>
+
+<p>jQuery 1.6+</p>
+
+<h2>Defaults</h2>
+
+<div class="highlight"><pre><span class="p">{</span>
+    <span class="nx">customEle</span>      <span class="o">:</span> <span class="s1">'a'</span><span class="p">,</span>
+    <span class="nx">containerEle</span>   <span class="o">:</span> <span class="s1">'div'</span><span class="p">,</span>
+    <span class="nx">classPrefix</span>    <span class="o">:</span> <span class="s1">'custom-'</span><span class="p">,</span>
+    <span class="nx">autoHide</span>       <span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="c1">// Auto hide the stylized elements</span>
+    <span class="nx">active</span>         <span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="c1">// Load all custom form modules</span>
+    <span class="nx">select</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">active</span><span class="o">:</span> <span class="mi">1</span>
+    <span class="p">},</span>
+    <span class="nx">radio</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">active</span><span class="o">:</span> <span class="mi">1</span>
+    <span class="p">},</span>
+    <span class="nx">checkbox</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">active</span><span class="o">:</span> <span class="mi">1</span>
+    <span class="p">},</span>
+    <span class="nx">file</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">active</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nx">holderTxt</span><span class="o">:</span> <span class="s2">"Upload.."</span>
+    <span class="p">},</span>
+    <span class="nx">text</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">active</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nx">blur_color</span><span class="o">:</span> <span class="s2">"#777"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<h2>Usage</h2>
+
+<div class="highlight"><pre>
+  <span class="c1">// You can overwrite defaults by passing an object with some options</span>
+  <span class="kd">var</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">customEle</span><span class="o">:</span> <span class="s1">'span'</span> <span class="p">};</span>
+
+  <span class="c1">// All Form elements</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">'form'</span><span class="p">).</span><span class="nx">cstmForm</span><span class="p">(</span> <span class="nx">options</span> <span class="p">)</span> 
+
+  <span class="c1">// target a certain group of element </span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">'input[type=file]'</span><span class="p">).</span><span class="nx">cstmForm</span><span class="p">(</span> <span class="nx">options</span> <span class="p">)</span>
+
+  <span class="c1">// You can target specific groups of elements</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">'input[type=radio], input[type=checkbox], select'</span><span class="p">).</span><span class="nx">cstmForm</span><span class="p">(</span> <span class="nx">options</span> <span class="p">)</span>
+</pre></div>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Customforms maintained by <a href="https://github.com/mitermayer">mitermayer</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
