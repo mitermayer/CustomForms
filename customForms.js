@@ -1,10 +1,11 @@
 /*
 
-Version: 0.44
+Version: 0.45
 
 bugs-fixing: 
-    - On ID generation now prioritizes the re-use of ID and only uses name if 
-    not ID exists.
+    -  added support for placeholders on input types of value
+       text, search, url, tel, email, and password.
+    
 
 Copyright (C) 2012 by Mitermayer Reis
 
@@ -141,7 +142,8 @@ THE SOFTWARE.
     {
         generate_id: function( $elem )
         {
-            var _unique = $elem.attr('id') || $elem.attr('name')
+            var _unique = $elem.attr('id') || $elem.attr('name');
+            
             return settings.classPrefix + _unique; 
         },
         hide_element: function( $elem, transparent )
@@ -181,7 +183,10 @@ THE SOFTWARE.
                     c.push($(this));
                 } else if ($(this).is('input[type=radio]')) {
                     r.push($(this));
-                } else if ( $(this).is('input[type=text]') || $(this).is('textarea') ) {
+                } else if ( $(this).is('input[type=text]') || $(this).is('textarea') ||
+                    $(this).is('input[type=search]') || $(this).is('input[type=search]') ||
+                    $(this).is('input[type=url]') || $(this).is('input[type=tel]') ||
+                    $(this).is('input[type=email]') || $(this).is('input[type=password]') ) {
                     t.push($(this));
                 } else if ($(this).is('input[type=file]')) {
                     f.push($(this));
@@ -294,7 +299,7 @@ THE SOFTWARE.
                    {
                         _prevForm_ele[_fId] = []; // instantiate as an array.
 
-                        $("#"+_fId).on("submit", function(e){
+                        $("#"+_fId).on("submit", function(){
                             clearDefaults(_prevForm_ele[_fId]);
                         });
                    }
@@ -597,7 +602,7 @@ THE SOFTWARE.
             });
         }
 
-    },
+    };
     
  /*
   *
@@ -610,7 +615,7 @@ THE SOFTWARE.
   * $arr - Array of elements
   *
   */
-    init = function( options, $arr ) {        
+    (function( options, $arr ) {        
         // check to for object, if it exists start the pluggin, else return
         if ( $arr.length ) 
         {
@@ -623,7 +628,7 @@ THE SOFTWARE.
             //load the modules                  
             core.load_modules( core.sort_elements( $arr ) );                   
         }
-    }( options, $arr );
+    }( options, $arr ));
 
   };
 })( jQuery );
