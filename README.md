@@ -1,6 +1,6 @@
-# CustomForms - 0.44 
+# CustomForms - 0.45 
 
-- Jquery pluggin to aid on styling forms in all major browsers.
+-  added support for placeholders on input types of value text, search, url, tel, email, and password.
 
 ## Support features
 * Placeholders
