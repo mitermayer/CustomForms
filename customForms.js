@@ -1,11 +1,6 @@
 /*
 
-Version: 0.45
-
-bugs-fixing: 
-    -  added support for placeholders on input types of value
-       text, search, url, tel, email, and password.
-    
+Version: 0.46
 
 Copyright (C) 2012 by Mitermayer Reis
 
