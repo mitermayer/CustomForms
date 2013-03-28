@@ -7,7 +7,7 @@ module.exports = function(grunt) {
       '<%= grunt.template.today("yyyy-mm-dd") %> */ \n',
     concat: {
       prod: {
-        src: ['app/vendor/*.js', 'app/vendor/**/*.js', 'app/lib/**/*.js', 'app/app/**/*.js', 'app/*.js' ],
+        src: ['app/lib/*.js', 'app/lib/**/*.js', 'app/*.js' ],
         dest: 'customforms.js',
         banner: '<%= banner %>',
         stripBanners: true
