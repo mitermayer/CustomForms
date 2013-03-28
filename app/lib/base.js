@@ -51,6 +51,11 @@
                 }
             }
 
+            // run custom initializers
+            if ( typeof obj.init === "function" ) {
+
+                obj.init( this );
+            }
         };
 
         // attach event callback
