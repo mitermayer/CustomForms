@@ -1,5 +1,7 @@
 (function( global ){
 
+    "use strict";
+
     var window = global;
 
     window.app.base = function( obj ) {
