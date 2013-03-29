@@ -123,7 +123,7 @@ module.exports = function(grunt) {
   grunt.registerTask('install', 'Install javascript components defined on Gruntfile',  ['bowerful', 'clean:install']);
 
   // test
-  grunt.registerTask('test', 'build and integration test', ['lint', 'utest']);
+  grunt.registerTask('test', 'build and integration test', ['install', 'lint', 'utest']);
 
   // Default task.
   grunt.registerTask('default', ['jshint', 'test', 'concat', 'uglify']);
