@@ -114,7 +114,7 @@ module.exports = function(grunt) {
   // Better naming conventions
   grunt.registerTask('lint', 'Lint javascript files with default validator', 'jshint');
   grunt.registerTask('min',  'Minify files with default minifier', 'uglify');
-  grunt.registerTask('test', 'Unit testing on the command line with default testing framework', ['concat:test', 'qunit']);
+  grunt.registerTask('utest', 'Unit testing on the command line with default testing framework', ['concat:test', 'qunit']);
   grunt.registerTask('dev', 'Watch javascript files and rebuild', 'watch:js');
 
   // docco
@@ -122,6 +122,9 @@ module.exports = function(grunt) {
 
   // install 
   grunt.registerTask('install', 'Install javascript components defined on Gruntfile',  ['bowerful', 'clean:install']);
+
+  // test
+  grunt.registerTask('test', 'build and integration test', ['lint', 'utest']);
 
   // Default task.
   grunt.registerTask('default', ['jshint', 'test', 'concat', 'uglify']);
