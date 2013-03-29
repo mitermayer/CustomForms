@@ -72,7 +72,7 @@ module.exports = function(grunt) {
     watch: {
       js: {
           files: ['<%= concat.prod.src %>'],
-          tasks: ['concat:dev', 'reload']
+          tasks: ['concat:dev']
       },
       gruntfile: {
         files: '<%= jshint.gruntfile.src %>',
