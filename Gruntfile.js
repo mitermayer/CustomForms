@@ -50,7 +50,8 @@ module.exports = function(grunt) {
         eqnull: true,
         browser: true,
         globals: {
-            module: false 
+            module: false,
+            $: false
         }
       },
       gruntfile: {

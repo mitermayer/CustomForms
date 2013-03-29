@@ -20,7 +20,11 @@
 
             var defaultEvents = ["update", "save", "sync", "validate"]; 
 
+            // html element
             element = obj.element;
+
+            // starting value
+            value = element.value;
 
             // setup default events listeners
             for( var i=0, e=defaultEvents.length; i<e; i++ ) {
@@ -95,7 +99,7 @@
             }
 
             return this;
-        }
+        };
 
         // update element value with custom element value
         this.save = function() {

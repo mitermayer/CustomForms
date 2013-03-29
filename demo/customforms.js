@@ -20,7 +20,11 @@
 
             var defaultEvents = ["update", "save", "sync", "validate"]; 
 
+            // html element
             element = obj.element;
+
+            // starting value
+            value = element.value;
 
             // setup default events listeners
             for( var i=0, e=defaultEvents.length; i<e; i++ ) {
@@ -95,7 +99,7 @@
             }
 
             return this;
-        }
+        };
 
         // update element value with custom element value
         this.save = function() {
@@ -159,58 +163,28 @@
 
     "use strict";
 
-    var APP = global.app = global.app || {};
+    var APP    = global.app = global.app || {},
+        module = APP.module = APP.module || {};
 
-    APP.TextField = function( obj ) {
+    module.TextField = function( obj ) {
 
-        this.init = function( obj ) {
-        }
+       var instance = new APP.BaseField({
+            element: obj.element,
+            init: function() {
+            //init: function( obj ) {
+
+                // check for placeholder browser support
+                //var support_placeholder = ('placeholder' in 
+                 //   global.document.createElement('input'));
+
+                //var _$el = $(obj.element);
+            }
+       });
+
+       return instance;
     };
 
 }( this ));
 
-(function( global ){
-
-    var APP = global.app = global.app || {};
-
-    $(function(){
-
-        var a = {
-            value: "miter"
-        };
-
-        var b = new app.BaseField({
-            element: a,
-            validators: [
-                function( value ) {
-                    return value !== "miter"; 
-                }
-            ],
-            init: function() {
-                console.log("ready");
-            }
-        });
-
-        b
-        .bind("validate", function( result ) {
-
-            console.log( "validating:", result );
-        })
-        .bind("update", function() {
-            
-            console.log("succesfuly updated..");
-        })
-        .bind("sync", function( val ) {
-            
-            console.log(a.value, val);
-        });
-
-        b.update("jonas").save();
-
-        a.value = "bostaaaaa";
-
-        console.log(a.value);
-        b.sync();
-    });
-
-}( this ));
+$(function(){
+});

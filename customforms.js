@@ -2,9 +2,9 @@
 
     "use strict";
 
-    var APP = global.app || {};
+    var APP = global.app = global.app || {};
 
-    APP.base = function( obj ) {
+    APP.BaseField = function( obj ) {
 
         //  element   - html element
         //  value     - field value
@@ -18,10 +18,16 @@
         // Constructor
         this.init = function( obj ) {
 
-            var defaultEvents = ["update", "save", "sync", "validate"]; element = obj.element;
+            var defaultEvents = ["update", "save", "sync", "validate"]; 
+
+            // html element
+            element = obj.element;
+
+            // starting value
+            value = element.value;
 
             // setup default events listeners
-            for( var i=0, e=defaultEvents.lenght; i<e; i++ ) {
+            for( var i=0, e=defaultEvents.length; i<e; i++ ) {
                         
                 events[defaultEvents[i]] = [];
             }
@@ -29,23 +35,23 @@
             // setup custom events
             if ( obj.events ) {
 
-                for( var j=0, l=obj.events.lenght; j<l; j++ ) {
+                for( var j=0, l=obj.events.length; j<l; j++ ) {
                     
                     events[obj.events[j]] = [];
                 }
             }
 
             // setup default validator
-            validator.push(function() {
+            validator.push(function( val ) {
                 
                 // checks if value is not undefined
-                return value !== "";
+                return val !== "";
             });
 
             // setup custom validators
             if ( obj.validators ) {
 
-                for( var v=0, k=obj.validators; v<k; v++ ) {
+                for( var v=0, k=obj.validators.length; v<k; v++ ) {
                     
                     validator.push( obj.validators[v] );
                 }
@@ -54,7 +60,7 @@
             // run custom initializers
             if ( typeof obj.init === "function" ) {
 
-                obj.init( this );
+                obj.init();
             }
         };
 
@@ -73,12 +79,23 @@
         this.unbind = function( evnt, func ) {
         
             for( var e=0, v=events[evnt].length; e<v; e++ ) {
+                if( events[evnt][e] === func ) {
 
-                if( events[e] === func ) {
-
-                    events.splice(e, 1);
+                    events[evnt].splice(e, 1);
                     break;
                 } 
+            }
+
+            return this;
+        };
+
+        // 
+        this.update = function( val ) {
+            
+            if( value !== val && this.validate(val) ) {
+
+                value = val;
+                this.trigger("update", value);
             }
 
             return this;
@@ -87,42 +104,30 @@
         // update element value with custom element value
         this.save = function() {
 
-            var _val = this.element.value;
-        
-            this.element.value = value;
+            element.value = value;
 
             this.trigger("save", value);
 
-            // if an update has occured
-            if ( _val !== value ) {
-
-                this.trigger("update", value);
-            }
+            return this;
         };
 
         // update custom element value with element value
         this.sync = function() {
 
-            var _val = value;
-       
-            value = this.element.value;
+            value = element.value;
 
             this.trigger("sync", value);
 
-            // if an update has occured
-            if ( _val !== this.element.value ) {
-
-                this.trigger("update", value);
-            }
+            return this;
         };
 
         // run custom element value over validators
-        this.validate = function() {
+        this.validate = function( val ) {
             var ret = true;
-            
+
             for(var v=0, l=validator.length; v<l; v++ ) {
                 
-                ret = validator[v]();
+                ret = validator[v]( val );
 
                 if( !ret ) {
                     break;
@@ -136,11 +141,16 @@
 
         // trigger custom event
         this.trigger = function( evnt, data ) {
-            
-            for( var e=0, v=events[evnt].lenght; e<v; e++ ) {
 
-                events[evnt][e]( data );
+            if( events[evnt] ) {
+
+                for( var e=0, v=events[evnt].length; e<v; e++ ) {
+
+                    events[evnt][e]( data );
+                }
             }
+            
+            return this;
         };
 
         // call constructor
@@ -149,12 +159,32 @@
 
 }( this ));
 
-/* interface adapter for third party libs */
-
 (function( global ){
 
-    var window = global;
+    "use strict";
 
-    window.app = 1;
+    var APP    = global.app = global.app || {},
+        module = APP.module = APP.module || {};
+
+    module.TextField = function( obj ) {
+
+       var instance = new APP.BaseField({
+            element: obj.element,
+            init: function() {
+            //init: function( obj ) {
+
+                // check for placeholder browser support
+                //var support_placeholder = ('placeholder' in 
+                 //   global.document.createElement('input'));
+
+                //var _$el = $(obj.element);
+            }
+       });
+
+       return instance;
+    };
 
 }( this ));
+
+$(function(){
+});
