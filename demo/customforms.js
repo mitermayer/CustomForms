@@ -193,29 +193,35 @@
 
        instance = new APP.BaseField(obj);
 
+       function toggleColor( state ) {
+            $el.css("color", (state ? color : settings.blur_color));
+       }
+
+       function setDefaultText() {
+           instance.update(placeholder).save();
+       }
+
        instance.bind("validate", function( state ) {
-            
-            if(!state) {
-                $el.css("color", settings.blur_color);
-            } else {
-                $el.css("color", color);
-            }
+            toggleColor(state);
        });
 
        // sync element state
-       instance.sync().validate();
+       if ( !instance.sync().validate() ) {
+           setDefaultText();
+       }
 
        $el
        .focusin(function(){
            if ( !instance.sync().validate() ) {
                instance.update("").save();
+               toggleColor(true);
            }
        })
        .focusout(function(){
            if ( !instance.sync().validate() ) {
-               instance.update(placeholder).save();
+               setDefaultText();
            }
-       })
+       });
 
        return instance;
     };
