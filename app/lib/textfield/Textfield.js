@@ -7,8 +7,7 @@
 
     settings = {
         active: true,
-        blur_color: "blue",
-        //blur_color: "#777",
+        blur_color: "#777",
         placeholder_support: (function() {
 
             return ('placeholder' in global.document.createElement('input'));
@@ -35,6 +34,10 @@
             $el.css("color", (state ? color : settings.blur_color));
        }
 
+       function clearText() {
+           instance.update("").save();
+       }
+
        function setDefaultText() {
            instance.update(placeholder).save();
        }
@@ -51,13 +54,18 @@
        $el
        .focusin(function(){
            if ( !instance.sync().validate() ) {
-               instance.update("").save();
+               clearText();
                toggleColor(true);
            }
        })
        .focusout(function(){
            if ( !instance.sync().validate() ) {
                setDefaultText();
+           }
+       })
+       .closest('form').on("submit", function() {
+           if ( !instance.sync().validate() ) {
+               clearText();
            }
        });
 
