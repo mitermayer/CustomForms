@@ -169,8 +169,7 @@
 
     settings = {
         active: true,
-        blur_color: "blue",
-        //blur_color: "#777",
+        blur_color: "#777",
         placeholder_support: (function() {
 
             return ('placeholder' in global.document.createElement('input'));
@@ -179,49 +178,69 @@
 
     module.TextField = function( obj ) {
 
-       var $el = $(obj.element),
-           color = $el.css("color"), 
-           placeholder = $el.attr("placeholder"),
-           opt = obj,
-           instance;
+       var instance = false;
 
-       opt.validators = [
-            function( val ) {
-                return val !== placeholder;
-            }
-       ];
+       if( !settings.placeholder_support ) {
 
-       instance = new APP.BaseField(obj);
+           var $el = $(obj.element),
+               color = $el.css("color"), 
+               placeholder = $el.attr("placeholder"),
+               opt = obj,
+               toggleColor,
+               clearText,
+               setDefaultText;
 
-       function toggleColor( state ) {
-            $el.css("color", (state ? color : settings.blur_color));
-       }
+           opt.validators = [
+                function( val ) {
+                    return val !== placeholder;
+                }
+           ];
 
-       function setDefaultText() {
-           instance.update(placeholder).save();
-       }
+           instance = new APP.BaseField(obj);
 
-       instance.bind("validate", function( state ) {
-            toggleColor(state);
-       });
+           toggleColor = function( state ) {
 
-       // sync element state
-       if ( !instance.sync().validate() ) {
-           setDefaultText();
-       }
+                $el.css("color", (state ? color : settings.blur_color));
+           };
 
-       $el
-       .focusin(function(){
-           if ( !instance.sync().validate() ) {
+           clearText = function() {
+
                instance.update("").save();
-               toggleColor(true);
-           }
-       })
-       .focusout(function(){
+           };
+
+           setDefaultText = function() {
+
+               instance.update(placeholder).save();
+           };
+
+           instance.bind("validate", function( state ) {
+                toggleColor(state);
+           });
+
+           // sync element state
            if ( !instance.sync().validate() ) {
                setDefaultText();
            }
-       });
+
+           $el
+           .focusin(function(){
+               if ( !instance.sync().validate() ) {
+                   clearText();
+                   toggleColor(true);
+               }
+           })
+           .focusout(function(){
+               if ( !instance.sync().validate() ) {
+                   setDefaultText();
+               }
+           })
+           .closest('form').on("submit", function() {
+               if ( !instance.sync().validate() ) {
+                   clearText();
+               }
+           });
+
+       }
 
        return instance;
     };
