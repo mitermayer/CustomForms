@@ -126,6 +126,6 @@ module.exports = function(grunt) {
   grunt.registerTask('test', 'build and integration test', ['install', 'lint', 'utest']);
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'test', 'concat', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'utest', 'concat', 'uglify']);
 
 };
