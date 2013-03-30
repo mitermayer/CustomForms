@@ -92,9 +92,10 @@
         // 
         this.update = function( val ) {
             
-            if( value !== val && this.validate(val) ) {
+            if( value !== val ) {
 
                 value = val;
+
                 this.trigger("update", value);
             }
 
@@ -127,7 +128,7 @@
 
             for(var v=0, l=validator.length; v<l; v++ ) {
                 
-                ret = validator[v]( val );
+                ret = validator[v]( val || value );
 
                 if( !ret ) {
                     break;
@@ -136,7 +137,7 @@
 
             this.trigger("validate", ret);
 
-            return this;
+            return ret;
         };
 
         // trigger custom event
