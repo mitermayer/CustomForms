@@ -9,7 +9,6 @@
         active: true,
         blur_color: "#777",
         placeholder_support: (function() {
-
             return ('placeholder' in global.document.createElement('input'));
         })()
     },
