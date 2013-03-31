@@ -171,12 +171,11 @@
         active: true,
         blur_color: "#777",
         placeholder_support: (function() {
-
             return ('placeholder' in global.document.createElement('input'));
         })()
     },
 
-    HELPER = {
+    HELPER = APP.Helper.TextField = {
         toggleColor: function( $el, color, state ) {
             $el.css("color", (state ? color : settings.blur_color));
         },

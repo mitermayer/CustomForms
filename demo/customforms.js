@@ -166,17 +166,17 @@
 
     var APP    = global.app = global.app || {},
         module = APP.module = APP.module || {},
+        helper = APP.helper = APP.helper || {},
 
     settings = {
         active: true,
         blur_color: "#777",
         placeholder_support: (function() {
-
             return ('placeholder' in global.document.createElement('input'));
         })()
     },
 
-    HELPER = {
+    HELPER = helper.TextField = {
         toggleColor: function( $el, color, state ) {
             $el.css("color", (state ? color : settings.blur_color));
         },
@@ -276,13 +276,11 @@
 
 $(function(){
 
-    /*
     var a = app.module.TextField({
         element: $("input[type='text']")[0],
         init: function() {
             console.log("starting");
         }
     });
-    */
 
 });

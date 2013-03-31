@@ -4,6 +4,7 @@
 
     var APP    = global.app = global.app || {},
         module = APP.module = APP.module || {},
+        helper = APP.helper = APP.helper || {},
 
     settings = {
         active: true,
@@ -13,7 +14,7 @@
         })()
     },
 
-    HELPER = {
+    HELPER = helper.TextField = {
         toggleColor: function( $el, color, state ) {
             $el.css("color", (state ? color : settings.blur_color));
         },
