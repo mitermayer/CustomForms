@@ -43,7 +43,7 @@
 
             // setup default validator
             validator.push(function( val ) {
-
+                
                 // checks if value is not undefined
                 return val !== "";
             });
@@ -91,7 +91,6 @@
 
         // 
         this.update = function( val, force ) {
-
             
             if( value !== val && (this.validate(val) || force) ) {
 
@@ -236,11 +235,12 @@
                removePlaceholder,
                attachEvents;
 
-           opt.validators = [
-                function( val ) {
+
+           opt.validators = opt.validators || [];    
+
+           opt.validators.push( function( val ) {
                     return val !== placeholder;
-                }
-           ];
+           });
 
            instance = new APP.BaseField(opt);
 

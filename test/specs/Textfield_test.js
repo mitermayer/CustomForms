@@ -97,6 +97,8 @@
      */
     test('Test synchronizing values', function() {
 
+        expect( 10 );
+
         textfield.bind("sync", function(value) {
             strictEqual(input.val(), value, 
                 'Model and input should share same value when input is directly updated and than sync is called, expected: ' + input.val() );
@@ -155,7 +157,7 @@
             '"dummy" should fail validation');
 
         strictEqual(textfield.validate(1), false, 
-            '1 should fail since it uses number validation');
+            '1 should fail since it uses number validation.');
 
     });
 
@@ -164,7 +166,46 @@
      * Test model events handling
      */
     test('Test events', function() {
-        ok(textfield, 'The textfield object must be defined.');
+
+        expect(6);
+
+        textfield.bind("save", function() {
+            ok(true, 
+               'Event save should be called when model is saved.');
+        }).save();
+
+        textfield.bind("sync", function() {
+            ok(true, 
+               'Event save should be called when model is synchronized.');
+        }).sync();
+
+        textfield
+        .bind("update", function() {
+            ok(true, 
+               'Event save should be called when model is updated.');
+        })
+        .bind("validate", function() {
+            ok(true, 
+               'Event validation should be called when model is query for validation.');
+        }).update("bones");
+
+
+        textfield = app.module.TextField({
+            element: input.get(0),
+            force: true,
+            events: ["someevent", "customevent"]
+        });
+
+        textfield.bind("someevent", function() {
+            ok(true, 
+               'Custom Event someevnt should be called when model triggers it.');
+        }).trigger("someevent");
+
+        textfield.bind("customevent", function( data ) {
+            strictEqual(textfield.validate('Somthing else'), true, 
+                '"customevent" should pass "Hello world!" as a parameter when triggered.');
+        }).trigger("customevent", "Hello world!");
+
     });
 
 }(this));
