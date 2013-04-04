@@ -9,7 +9,7 @@
             placeholder: 'defaultText'
         },
         css = {
-            color: 'blue'
+            color: 'rgb(0, 0, 255)'
         };
 
     /*
@@ -55,9 +55,12 @@
      */
     test('Test updating values', function() {
 
+        var inputColor = input.css("color");
         textfield.update('Tomate');
         strictEqual(input.val(), input.attr('placeholder'), 
             'After running the method "update" without saving, should keep the input value unchanged.');
+        strictEqual(input.css("color"), css.color, 
+            'When updating to a valid value, color value should be "blue"');
 
         textfield.save();
         strictEqual(input.val(), 'Tomate', 
@@ -70,6 +73,9 @@
         textfield.update(input.attr('placeholder'), true).save();
         strictEqual(input.val(), input.attr('placeholder'), 
             'Even if failing on validation Input value should now be set to Placeholder value when called with force parameter.');
+        strictEqual(input.css("color"), inputColor, 
+            'When updating to an invalid value, color value placeholder color should be "' + inputColor +'"');
+
 
     });
 
