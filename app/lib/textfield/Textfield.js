@@ -60,7 +60,7 @@
 
        var instance = false;
 
-       if( !settings.placeholder_support ) {
+       if( !settings.placeholder_support || obj.force ) {
 
            var $el = $(obj.element),
                color = $el.css("color"), 

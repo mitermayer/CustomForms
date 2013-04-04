@@ -20,11 +20,11 @@
     "grunt-contrib-uglify": "~0.1.1",
     "grunt-contrib-watch": "~0.2.0",
     "grunt-contrib-clean": "~0.4.0",
-    "grunt-bowerful": "latest",
+    "grunt-bowerful": "git://github.com/mitermayer/grunt-bowerful.git",
     "grunt-docco": "git://github.com/DavidSouther/grunt-docco.git",
     "requireincontext": "0.0.2",
     "nodemock": "~0.2.17",
-    "grunt": "~0.4.0",
+    "grunt": "~0.4.1",
     "grunt-contrib-qunit": "~0.2.0"
   }
 }

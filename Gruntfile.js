@@ -80,11 +80,11 @@ module.exports = function(grunt) {
       },
       lib_test: {
         files: '<%= jshint.lib_test.src %>',
-        tasks: ['jshint:lib_test', 'test']
+        tasks: ['jshint:lib_test', 'utest']
       },
       dev_test: {
         files: 'test/specs/**/*.js',
-        tasks: ['concat:test', 'test']
+        tasks: ['concat:test', 'utest']
       }
     },  
     bowerful: {
