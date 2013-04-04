@@ -90,9 +90,9 @@
         };
 
         // 
-        this.update = function( val ) {
+        this.update = function( val, force ) {
             
-            if( value !== val ) {
+            if( value !== val && (this.validate(val) || force) ) {
 
                 value = val;
 

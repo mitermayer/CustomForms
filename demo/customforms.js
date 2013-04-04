@@ -90,9 +90,9 @@
         };
 
         // 
-        this.update = function( val ) {
+        this.update = function( val, force ) {
             
-            if( value !== val ) {
+            if( value !== val && (this.validate(val) || force) ) {
 
                 value = val;
 
@@ -181,10 +181,10 @@
             $el.css("color", (state ? color : settings.blur_color));
         },
         clearText: function( instance ) {
-           instance.update("").save();
+           instance.update("", true).save();
         },
         setDefaultText: function( instance, placeholder ) {
-           instance.update(placeholder).save();
+           instance.update(placeholder, true).save();
         },
         addPlaceholder: function( instance, setDefaultText ) {
            if ( !instance.sync().validate() ) {
@@ -235,11 +235,12 @@
                removePlaceholder,
                attachEvents;
 
-           opt.validators = [
-                function( val ) {
+
+           opt.validators = opt.validators || [];    
+
+           opt.validators.push( function( val ) {
                     return val !== placeholder;
-                }
-           ];
+           });
 
            instance = new APP.BaseField(opt);
 

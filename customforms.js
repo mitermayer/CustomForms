@@ -43,7 +43,7 @@
 
             // setup default validator
             validator.push(function( val ) {
-                
+
                 // checks if value is not undefined
                 return val !== "";
             });
@@ -90,9 +90,10 @@
         };
 
         // 
-        this.update = function( val ) {
+        this.update = function( val, force ) {
+
             
-            if( value !== val ) {
+            if( value !== val && (this.validate(val) || force) ) {
 
                 value = val;
 
@@ -181,10 +182,10 @@
             $el.css("color", (state ? color : settings.blur_color));
         },
         clearText: function( instance ) {
-           instance.update("").save();
+           instance.update("", true).save();
         },
         setDefaultText: function( instance, placeholder ) {
-           instance.update(placeholder).save();
+           instance.update(placeholder, true).save();
         },
         addPlaceholder: function( instance, setDefaultText ) {
            if ( !instance.sync().validate() ) {
@@ -222,7 +223,7 @@
 
        var instance = false;
 
-       if( !settings.placeholder_support ) {
+       if( !settings.placeholder_support || obj.force ) {
 
            var $el = $(obj.element),
                color = $el.css("color"), 
