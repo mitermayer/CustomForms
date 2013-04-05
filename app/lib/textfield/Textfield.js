@@ -23,26 +23,22 @@
             },
             clearText: function(instance)
             {
-                instance.update("", true)
-                    .save();
+                instance.update("", true).save();
             },
             setDefaultText: function(instance, placeholder)
             {
-                instance.update(placeholder, true)
-                    .save();
+                instance.update(placeholder, true).save();
             },
             addPlaceholder: function(instance, setDefaultText)
             {
-                if (!instance.sync()
-                    .validate())
+                if (!instance.sync().validate())
                 {
                     setDefaultText();
                 }
             },
             removePlaceholder: function(instance, clearText, toggleColor)
             {
-                if (!instance.sync()
-                    .validate())
+                if (!instance.sync().validate())
                 {
                     clearText();
                     toggleColor(true);
@@ -53,8 +49,7 @@
             {
                 $el.focusin(function()
                 {
-                    if (!instance.sync()
-                        .validate())
+                    if (!instance.sync().validate())
                     {
                         clearText();
                         toggleColor(true);
@@ -62,8 +57,7 @@
                 })
                     .focusout(function()
                 {
-                    if (!instance.sync()
-                        .validate())
+                    if (!instance.sync().validate())
                     {
                         setDefaultText();
                     }
@@ -71,8 +65,7 @@
                     .closest('form')
                     .on("submit", function()
                 {
-                    if (!instance.sync()
-                        .validate())
+                    if (!instance.sync().validate())
                     {
                         clearText();
                     }
