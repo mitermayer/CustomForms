@@ -273,7 +273,8 @@
 
 }(this));
 
-$(function() {
+$(function()
+{
 
     /*
     var a = app.module.TextField({
