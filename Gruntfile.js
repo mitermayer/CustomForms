@@ -87,6 +87,26 @@ module.exports = function(grunt) {
         tasks: ['concat:test', 'utest']
       }
     },  
+    jsbeautifier : {
+        files : ['<%= concat.prod.src %>'],
+        options : {
+            indent_size: 4,
+            indent_char: " ",
+            indent_level: 0,
+            indent_with_tabs: false,
+            preserve_newlines: true,
+            max_preserve_newlines: 10,
+            jslint_happy: false,
+            brace_style: "expand",
+            keep_array_indentation: false,
+            keep_function_indentation: false,
+            space_before_conditional: true,
+            eval_code: false,
+            indent_case: false,
+            wrap_line_length: 80,
+            unescape_strings: false
+        }
+    },
     bowerful: {
         store: 'components',
         dest: 'demo',
@@ -124,6 +144,9 @@ module.exports = function(grunt) {
 
   // test
   grunt.registerTask('test', 'build and integration test', ['install', 'lint', 'utest']);
+
+  // js-beautifier
+  grunt.loadNpmTasks('grunt-jsbeautifier');
 
   // Default task.
   grunt.registerTask('default', ['jshint', 'utest', 'concat', 'uglify']);

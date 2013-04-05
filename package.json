@@ -25,6 +25,7 @@
     "requireincontext": "0.0.2",
     "nodemock": "~0.2.17",
     "grunt": "~0.4.1",
-    "grunt-contrib-qunit": "~0.2.0"
+    "grunt-contrib-qunit": "~0.2.0",
+    "grunt-jsbeautifier": "git://github.com/mitermayer/grunt-jsbeautifier.git"
   }
 }
