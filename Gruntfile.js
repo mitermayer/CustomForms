@@ -124,7 +124,7 @@ module.exports = function(grunt) {
     }, 
     clean: {
         install: {
-            src: '<%= bowerful.store.src %>'
+            src: '<%= bowerful.dist.store.src %>'
         }
     }
   });
