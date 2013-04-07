@@ -107,12 +107,20 @@ module.exports = function(grunt) {
             unescape_strings: false
         }
     },
-    bowerful: {
-        store: 'components',
-        dest: 'demo',
-        packages: {
-            jquery: ''
-        }   
+   bowerful: {
+        dist: {
+            store: 'components',
+            dest: 'demo',
+            destfile: 'vendor',
+            /*
+            customtarget: {
+                jquery: 'demo/jquery.js'
+            },
+            */
+            packages: {
+                jquery: ''
+            }   
+        }
     }, 
     clean: {
         install: {

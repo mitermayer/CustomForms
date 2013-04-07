@@ -19,3 +19,7 @@ node_modules
 
 # this is downloaded from bowerful
 assets.js
+vendor.js
+
+# vim ctags
+tags
