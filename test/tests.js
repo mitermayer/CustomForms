@@ -43,10 +43,28 @@
      * Initialization tests
      */
     test('Test initiliazation.', function() {
+
+        var _color;
+
         ok(textfield, 'The textfield object must be defined.');
 
+        _color = input.css("color");
         strictEqual(input.val(), input.attr('placeholder'), 
             'At first input value should be the same as placeholder value.');
+        notStrictEqual(input.css("color"), css.color, 
+            'At first input value should not have default color since it has a placeholder value.');
+
+        input.val("somthing");
+        textfield.sync().validate();
+        _color = input.css("color");
+        textfield = app.module.TextField({
+            element: input.get(0),
+            force: true
+        });
+        notStrictEqual(input.val(), input.attr('placeholder'), 
+            'When element is intialized with a valid value it should remain with its default value.');
+        strictEqual(input.css("color"), css.color, 
+            'When element is intialized with a valid value it should have its default color applied to it.');
     });
 
 
@@ -211,6 +229,30 @@
             strictEqual(textfield.validate('Somthing else'), true, 
                 '"customevent" should pass "Hello world!" as a parameter when triggered.');
         }).trigger("customevent", "Hello world!");
+
+    });
+
+    /*
+     * Markup related tests
+     */
+    test('Test markup', function() {
+
+        input.focus();
+        strictEqual( input.val(), "", 
+            'Value should become empty when input receive focus and has placeholder value on it.');
+
+        input.blur();
+        strictEqual( input.val(), input.attr('placeholder'), 
+            'Value should of placeholder when input receive loses focus has an invalid value on it.');
+
+        input.val("something");
+        input.focus();
+        notStrictEqual( input.val(), "", 
+            'When focus on an element with valid data should not clear it, instead should append text to it.');
+
+        input.blur();
+        notStrictEqual( input.val(), input.attr('placeholder'), 
+            'When losing focus on an elment with valid data it should not update to placeholder value.');
 
     });
 
