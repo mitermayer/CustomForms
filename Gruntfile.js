@@ -114,7 +114,7 @@ module.exports = function(grunt) {
             destfile: 'vendor',
             /*
             customtarget: {
-                jquery: 'demo/jquery.js'
+                jquery: 'demo/jquery'
             },
             */
             packages: {
