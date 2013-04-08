@@ -27,7 +27,7 @@
             var $el = $(obj.element),
                 color = $el.css("color"),
                 placeholder = $el.attr("placeholder"),
-                opt = obj,
+                opt = obj ? $.extend({}, settings, obj) : settings,
 
                 clearText = function()
                 {
@@ -59,6 +59,7 @@
                 {
                     $el.focusin(function()
                     {
+                        $(this).addClass("focus");
                         validationFailProxy(function()
                         {
                             clearText();
@@ -69,6 +70,7 @@
                     })
                         .focusout(function()
                     {
+                        $(this).removeClass("focus");
                         addPlaceholder();
                     })
                         .closest('form')
