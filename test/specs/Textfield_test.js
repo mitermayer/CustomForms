@@ -4,6 +4,8 @@
         input,
         form,
         attr = {
+            name: 'something',
+            id: 'something',
             type: 'text',
             value: '',
             placeholder: 'defaultText'
