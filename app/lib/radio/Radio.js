@@ -12,8 +12,10 @@
             autoHide: true,
             classPrefix: 'custom-',
             hideCss: {
-                position: 'absolute',
-                left: '-9999px'
+                /*
+                 *position: 'absolute',
+                 *left: '-9999px'
+                 */
             }
         };
 
@@ -50,7 +52,9 @@
                 $customEl.click(function(e)
                 {
                     e.preventDefault();
-                    instance.trigger("validate");
+
+                    $el.prop('checked', true);
+                    instance.trigger("validate", true);
                 });
             };
 
@@ -71,8 +75,8 @@
 
             $customEl.attr(
             {
-                id: settings.classPrefix + ($el.attr("id") || $el.attr("name") +
-                    "-" + $el.val()),
+                id: settings.classPrefix + ($el.attr("id") || $el.attr("name")) + "-" + $el
+                    .val(),
                 'class': _class + ' customForm-hidden ' + _groupClass
             });
 
@@ -84,14 +88,12 @@
 
         instance = new APP.BaseField(opt);
 
-        instance.bind('validate', function()
+        instance.bind('validate', function(state)
         {
             // uncheck them
-            $('input[name="' + _group + '"]').prop('checked', false);
             $('.' + _groupClass).removeClass('checked');
 
-            $el.prop('checked', true);
-            $customEl.addClass('checked');
+            $customEl[(!state ? 'remove' : 'add') + 'Class']('checked');
         });
 
         instance.trigger("validate", $el.prop('checked'));

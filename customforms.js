@@ -320,7 +320,9 @@
                 $customEl.click(function(e)
                 {
                     e.preventDefault();
-                    instance.trigger("validate");
+
+                    $el.prop('checked', true);
+                    instance.trigger("validate", true);
                 });
             };
 
@@ -341,8 +343,8 @@
 
             $customEl.attr(
             {
-                id: settings.classPrefix + ($el.attr("id") || $el.attr("name") +
-                    "-" + $el.val()),
+                id: settings.classPrefix + ($el.attr("id") || $el.attr("name")) + "-" + $el
+                    .val(),
                 'class': _class + ' customForm-hidden ' + _groupClass
             });
 
@@ -354,14 +356,12 @@
 
         instance = new APP.BaseField(opt);
 
-        instance.bind('validate', function()
+        instance.bind('validate', function(state)
         {
             // uncheck them
-            $('input[name="' + _group + '"]').prop('checked', false);
             $('.' + _groupClass).removeClass('checked');
 
-            $el.prop('checked', true);
-            $customEl.addClass('checked');
+            $customEl[(!state ? 'remove' : 'add') + 'Class']('checked');
         });
 
         instance.trigger("validate", $el.prop('checked'));
@@ -484,35 +484,35 @@
 
 $(function()
 {
-
     /*
-     *    $('input[type="text"]').each(function() {
-     *        var a = app.module.TextField({
-     *            element: $(this)[0],
-     *            force: true, 
-     *            init: function() {
-     *                console.log("starting placeholder..");
-     *            }
-     *        });
-     *    });
      *
-     *    $('input[type="checkbox"]').each(function() {
-     *        var b = app.module.Checkbox({
-     *            element: $(this)[0],
-     *            init: function() {
-     *                console.log("starting checkbox..");
-     *            }
+     *        $('input[type="text"]').each(function() {
+     *            var a = app.module.TextField({
+     *                element: $(this)[0],
+     *                force: true, 
+     *                init: function() {
+     *                    console.log("starting placeholder..");
+     *                }
+     *            });
      *        });
-     *    });
-     *
-     *    $('input[type="radio"]').each(function() {
-     *        var c = app.module.Radio({
-     *            element: $(this)[0],
-     *            init: function() {
-     *                console.log("starting radio..");
-     *            }
+     *    
+     *        $('input[type="checkbox"]').each(function() {
+     *            var b = app.module.Checkbox({
+     *                element: $(this)[0],
+     *                init: function() {
+     *                    console.log("starting checkbox..");
+     *                }
+     *            });
      *        });
-     *    });
+     *    
+     *        $('input[type="radio"]').each(function() {
+     *            var c = app.module.Radio({
+     *                element: $(this)[0],
+     *                init: function() {
+     *                    console.log("starting radio..");
+     *                }
+     *            });
+     *        });
      */
 
 });

@@ -39,6 +39,7 @@
         },
         teardown: function() {
             checkbox = null;
+            customEl = null;
             form = null;
             input = null;
             $('#qunit-fixture').html('');
