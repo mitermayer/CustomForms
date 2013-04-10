@@ -280,10 +280,8 @@
             autoHide: true,
             classPrefix: 'custom-',
             hideCss: {
-                /*
-                 *position: 'absolute',
-                 *left: '-9999px'
-                 */
+                position: 'absolute',
+                left: '-9999px'
             }
         };
 
@@ -343,8 +341,7 @@
 
             $customEl.attr(
             {
-                id: settings.classPrefix + ($el.attr("id") || $el.attr("name")) + "-" + $el
-                    .val(),
+                id: settings.classPrefix + $el.attr("name") + "-" + $el.val(),
                 'class': _class + ' customForm-hidden ' + _groupClass
             });
 
