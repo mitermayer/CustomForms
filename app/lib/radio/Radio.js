@@ -12,20 +12,24 @@
             autoHide: true,
             classPrefix: 'custom-',
             hideCss: {
-                position: 'absolute',
-                left: '-9999px'
+                /*
+                 *position: 'absolute',
+                 *left: '-9999px'
+                 */
             }
         };
 
 
-    module.Checkbox = function(obj)
+    module.Radio = function(obj)
     {
 
         var instance = false;
 
         var $el = $(obj.element),
             $customEl,
-            _class = settings.classPrefix + 'checkbox',
+            _class = settings.classPrefix + 'radio',
+            _group = $el.attr("name"),
+            _groupClass = _class + '-' + _group,
             _callback = obj.init || function() {},
             opt = obj ? $.extend(
             {}, settings, obj) : settings,
@@ -47,9 +51,7 @@
                 $customEl.click(function(e)
                 {
                     e.preventDefault();
-
-                    $el.prop('checked', !$el.prop('checked'));
-                    instance.trigger("validate", $el.prop('checked'));
+                    instance.trigger("validate");
                 });
             };
 
@@ -70,8 +72,8 @@
 
             $customEl.attr(
             {
-                id: settings.classPrefix + ($el.attr("id") || $el.attr("name")),
-                'class': _class + ' customForm-hidden'
+                id: settings.classPrefix + ($el.attr("id") || $el.attr("name") + "-" + $el.val()),
+                'class': _class + ' customForm-hidden ' + _groupClass
             });
 
             // append it to the markup before the element
@@ -82,9 +84,14 @@
 
         instance = new APP.BaseField(opt);
 
-        instance.bind('validate', function(state)
+        instance.bind('validate', function()
         {
-            $customEl[(!state ? 'remove' : 'add') + 'Class']('checked');
+            // uncheck them
+            $('input[name="' + _group + '"]').prop('checked', false);
+            $('.'+ _groupClass ).removeClass('checked');
+
+            $el.prop('checked', true);
+            $customEl.addClass('checked');
         });
 
         instance.trigger("validate", $el.prop('checked'));
