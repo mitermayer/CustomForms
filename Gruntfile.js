@@ -147,16 +147,16 @@ module.exports = function(grunt) {
   // docco
   grunt.loadNpmTasks('grunt-docco');
 
+  // js-beautifier
+  grunt.loadNpmTasks('grunt-jsbeautifier');
+
   // install 
   grunt.registerTask('install', 'Install javascript components defined on Gruntfile',  ['bowerful', 'clean:install']);
 
   // test
   grunt.registerTask('test', 'build and integration test', ['install', 'lint', 'utest']);
 
-  // js-beautifier
-  grunt.loadNpmTasks('grunt-jsbeautifier');
-
   // Default task.
-  grunt.registerTask('default', ['jshint', 'utest', 'concat', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'utest', 'jsbeautifier', 'concat', 'uglify']);
 
 };

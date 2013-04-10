@@ -27,7 +27,8 @@
             var $el = $(obj.element),
                 color = $el.css("color"),
                 placeholder = $el.attr("placeholder"),
-                opt = obj ? $.extend({}, settings, obj) : settings,
+                opt = obj ? $.extend(
+                {}, settings, obj) : settings,
 
                 clearText = function()
                 {

@@ -195,7 +195,8 @@
         var $el = $(obj.element),
             $customEl,
             _class = settings.classPrefix + 'checkbox',
-            _callback = obj.init || function() {},
+            _callback = obj.init || function()
+            {},
             opt = obj ? $.extend(
             {}, settings, obj) : settings,
             attachEvents = function()
@@ -279,10 +280,8 @@
             autoHide: true,
             classPrefix: 'custom-',
             hideCss: {
-                /*
-                 *position: 'absolute',
-                 *left: '-9999px'
-                 */
+                position: 'absolute',
+                left: '-9999px'
             }
         };
 
@@ -297,7 +296,8 @@
             _class = settings.classPrefix + 'radio',
             _group = $el.attr("name"),
             _groupClass = _class + '-' + _group,
-            _callback = obj.init || function() {},
+            _callback = obj.init || function()
+            {},
             opt = obj ? $.extend(
             {}, settings, obj) : settings,
             attachEvents = function()
@@ -339,7 +339,8 @@
 
             $customEl.attr(
             {
-                id: settings.classPrefix + ($el.attr("id") || $el.attr("name") + "-" + $el.val()),
+                id: settings.classPrefix + ($el.attr("id") || $el.attr("name") +
+                    "-" + $el.val()),
                 'class': _class + ' customForm-hidden ' + _groupClass
             });
 
@@ -355,7 +356,7 @@
         {
             // uncheck them
             $('input[name="' + _group + '"]').prop('checked', false);
-            $('.'+ _groupClass ).removeClass('checked');
+            $('.' + _groupClass).removeClass('checked');
 
             $el.prop('checked', true);
             $customEl.addClass('checked');
@@ -399,7 +400,8 @@
             var $el = $(obj.element),
                 color = $el.css("color"),
                 placeholder = $el.attr("placeholder"),
-                opt = obj ? $.extend({}, settings, obj) : settings,
+                opt = obj ? $.extend(
+                {}, settings, obj) : settings,
 
                 clearText = function()
                 {
@@ -481,34 +483,34 @@
 $(function()
 {
 
-/*
- *    $('input[type="text"]').each(function() {
- *        var a = app.module.TextField({
- *            element: $(this)[0],
- *            force: true, 
- *            init: function() {
- *                console.log("starting placeholder..");
- *            }
- *        });
- *    });
- *
- *    $('input[type="checkbox"]').each(function() {
- *        var b = app.module.Checkbox({
- *            element: $(this)[0],
- *            init: function() {
- *                console.log("starting checkbox..");
- *            }
- *        });
- *    });
- *
- *    $('input[type="radio"]').each(function() {
- *        var c = app.module.Radio({
- *            element: $(this)[0],
- *            init: function() {
- *                console.log("starting radio..");
- *            }
- *        });
- *    });
- */
+    /*
+     *    $('input[type="text"]').each(function() {
+     *        var a = app.module.TextField({
+     *            element: $(this)[0],
+     *            force: true, 
+     *            init: function() {
+     *                console.log("starting placeholder..");
+     *            }
+     *        });
+     *    });
+     *
+     *    $('input[type="checkbox"]').each(function() {
+     *        var b = app.module.Checkbox({
+     *            element: $(this)[0],
+     *            init: function() {
+     *                console.log("starting checkbox..");
+     *            }
+     *        });
+     *    });
+     *
+     *    $('input[type="radio"]').each(function() {
+     *        var c = app.module.Radio({
+     *            element: $(this)[0],
+     *            init: function() {
+     *                console.log("starting radio..");
+     *            }
+     *        });
+     *    });
+     */
 
 });

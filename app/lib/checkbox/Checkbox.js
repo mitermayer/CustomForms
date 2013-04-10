@@ -26,7 +26,8 @@
         var $el = $(obj.element),
             $customEl,
             _class = settings.classPrefix + 'checkbox',
-            _callback = obj.init || function() {},
+            _callback = obj.init || function()
+            {},
             opt = obj ? $.extend(
             {}, settings, obj) : settings,
             attachEvents = function()
