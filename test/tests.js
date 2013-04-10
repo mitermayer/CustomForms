@@ -62,26 +62,34 @@
      */
     test('Test interactions.', function() {
 
-        // uncked the input 
-        input.prop('checked', false);
-        strictEqual( customEl.hasClass('checked'), false, 
-            'When element has its property changed it should reflect on the customEl class checked state');
-
+        // setting checked state true, than clicking on it.
         input.prop('checked', true);
+        input.click();
         strictEqual( customEl.hasClass('checked'), false, 
-            'When element has its property changed it should reflect on the customEl class checked state');
+            'When element property checked is set to false, customEl should not have class checked.');
+
+        // setting checked state false, than clicking on it.
+        input.prop('checked', false);
+        input.click();
+        strictEqual( customEl.hasClass('checked'), true, 
+            'When element property checked is set to true, customEl should have class checked.');
 
         customEl.click();
         strictEqual( input.prop('checked'), false, 
-            'When element has its property changed it should reflect on the customEl class checked state');
+            'When customEl is clicked and previously it did have class checked, it should updated input checked property to false.');
 
         customEl.click();
         strictEqual( input.prop('checked'), true, 
-            'When element has its property changed it should reflect on the customEl class checked state');
+            'When customEl is clicked and previously it didnt have class checked, it should updated input checked property to true.');
 
+        input.focus();
+        strictEqual( customEl.hasClass('focus'), true, 
+            'When element receive focus, customEl should have class focus added to it.');
 
-        // TO DO
-        // add tests for class focus on custom element
+        input.blur();
+        strictEqual( customEl.hasClass('focus'), false, 
+            'When element loses focus, customEl should have class focus removed from it.');
+
     });
 
 }(this));
