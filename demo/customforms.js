@@ -380,8 +380,158 @@
 
         settings =
         {
+            customEle: 'a',
+            containerEle: 'div',
+            autoHide: true,
+            classPrefix: 'custom-',
+            hideCss:
+            {
+                opacity: '0',
+                filter: 'alpha(opacity=0)',
+                position: 'absolute',
+                top: '0px',
+                left: '0px',
+                '-moz-opacity': '0',
+                '-khtml-opacity': '0'
+            },
+            elCss:
+            {
+                display: "block",
+                '-webkit-appearance': 'none',
+                '-moz-appearance': 'none'
+            },
+            customContainerCss:
+            {
+                position: 'relative'
+            },
+            customElCss:
+            {
+                display: "block",
+                overflow: "hidden",
+                'white-space': "nowrap",
+                'text-overflow': "ellipsis"
+            }
+        };
+
+
+    module.Select = function(obj)
+    {
+
+        var instance = false;
+
+        var $el = $(obj.element),
+            $customEl,
+            $customContainer,
+            opt = obj ? $.extend({}, settings, obj) : settings,
+            _id = settings.classPrefix + ($el.attr('id') || $el.attr('name')),
+            _class = settings.classPrefix + 'select',
+            _containerClass = _class + '-container',
+            _callback = obj.init || function(){},
+            _size =
+            {
+                width: 0,
+                height: 0
+            },
+            attachEvents = function()
+            {
+                $el.focusin(function()
+                {
+                    $customContainer.addClass("focus");
+                })
+                    .focusout(function()
+                {
+                    $customContainer.removeClass("focus");
+                })
+                    .change(function()
+                {
+                    instance.validate();
+                });
+            };
+
+        opt.validators = opt.validators || [];
+
+        opt.validators.push(function()
+        {
+            // selected options must have a value
+            return !!$el.find('option:selected').attr('value');
+        });
+
+        opt.init = function()
+        {
+            // hide element
+            $el.css(settings.hideCss);
+
+            //// create custom element
+            $customContainer = $("<" + opt.containerEle + "/>");
+
+            // setup attr and styles to container
+            $customContainer.attr(
+            {
+                id: _id + '-container',
+                'class': _containerClass
+            }).css(opt.customContainerCss);
+
+            // create custom element
+            $customEl = $("<" + opt.customEle + "/>");
+
+            // setup attr and styles to custom element
+            $customEl.attr(
+            {
+                id: _id,
+                'class': _class
+            }).css(opt.customElCss);
+
+
+            // add container before element
+            $el.before($customContainer);
+
+            // move element inside container
+            $el.appendTo($customContainer);
+
+            // move custom element inside container
+            $customContainer.append($customEl);
+
+            // only after object is added to the DOM we can calculate its dimensions
+            _size.height = $customContainer.css("height");
+            _size.width = $customContainer.css("width");
+
+            // we than extend elCss with the dimensions and apply them to element.
+            $el.css($.extend({}, opt.elCss, _size));
+
+            _callback();
+        };
+
+        instance = new APP.BaseField(opt);
+
+        instance.bind('validate', function()
+        {
+            var _selectedText = $el.find('option:selected').text();
+
+            $customEl.html(_selectedText);
+        });
+
+        instance.trigger("validate");
+
+        attachEvents();
+
+        return instance;
+    };
+
+}(this));
+
+(function(global)
+{
+
+    "use strict";
+
+    var APP = global.app = global.app || {},
+        module = APP.module = APP.module || {},
+
+        settings =
+        {
             active: true,
             blur_color: "#777",
+            classPrefix: 'custom-',
             placeholder_support: (function()
             {
                 return ('placeholder' in global.document.createElement('input'));
@@ -401,6 +551,8 @@
                 color = $el.css("color"),
                 placeholder = $el.attr("placeholder"),
                 opt = obj ? $.extend({}, settings, obj) : settings,
+                _class = opt.classPrefix + 'textfield',
+                _callback = obj.init || function(){},
 
                 clearText = function()
                 {
@@ -463,6 +615,13 @@
                 return val !== placeholder;
             });
 
+            opt.init = function()
+            {
+                $el.addClass(_class);
+
+                _callback();
+            };
+
             instance = new APP.BaseField(opt);
 
             instance.bind("validate", function(state)
@@ -483,33 +642,42 @@ $(function()
 {
     /*
      *
-     *        $('input[type="text"]').each(function() {
-     *            var a = app.module.TextField({
-     *                element: $(this)[0],
-     *                force: true, 
-     *                init: function() {
-     *                    console.log("starting placeholder..");
-     *                }
-     *            });
+     *    $('input[type="text"]').each(function() {
+     *        var a = app.module.TextField({
+     *            element: $(this)[0],
+     *            force: true, 
+     *            init: function() {
+     *                console.log("starting placeholder..");
+     *            }
      *        });
-     *    
-     *        $('input[type="checkbox"]').each(function() {
-     *            var b = app.module.Checkbox({
-     *                element: $(this)[0],
-     *                init: function() {
-     *                    console.log("starting checkbox..");
-     *                }
-     *            });
+     *    });
+     *
+     *    $('input[type="checkbox"]').each(function() {
+     *        var b = app.module.Checkbox({
+     *            element: $(this)[0],
+     *            init: function() {
+     *                console.log("starting checkbox..");
+     *            }
      *        });
-     *    
-     *        $('input[type="radio"]').each(function() {
-     *            var c = app.module.Radio({
-     *                element: $(this)[0],
-     *                init: function() {
-     *                    console.log("starting radio..");
-     *                }
-     *            });
+     *    });
+     *
+     *    $('input[type="radio"]').each(function() {
+     *        var c = app.module.Radio({
+     *            element: $(this)[0],
+     *            init: function() {
+     *                console.log("starting radio..");
+     *            }
      *        });
+     *    });
+     *
+     *    $('select').each(function() {
+     *        var c = app.module.Select({
+     *            element: $(this)[0],
+     *            init: function() {
+     *                console.log("starting select..");
+     *            }
+     *        });
+     *    });
      */
 
 });

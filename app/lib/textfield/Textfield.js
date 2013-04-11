@@ -10,6 +10,7 @@
         {
             active: true,
             blur_color: "#777",
+            classPrefix: 'custom-',
             placeholder_support: (function()
             {
                 return ('placeholder' in global.document.createElement('input'));
@@ -29,6 +30,8 @@
                 color = $el.css("color"),
                 placeholder = $el.attr("placeholder"),
                 opt = obj ? $.extend({}, settings, obj) : settings,
+                _class = opt.classPrefix + 'textfield',
+                _callback = obj.init || function(){},
 
                 clearText = function()
                 {
@@ -90,6 +93,13 @@
             {
                 return val !== placeholder;
             });
+
+            opt.init = function()
+            {
+                $el.addClass(_class);
+
+                _callback();
+            };
 
             instance = new APP.BaseField(opt);
 
