@@ -444,7 +444,8 @@
                 })
                     .change(function()
                 {
-                    instance.validate();
+                    //instance.validate();
+                    instance.trigger('validate');
                 });
             };
 

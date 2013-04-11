@@ -299,7 +299,7 @@
             'When initialized select should be followed by custom element.');
 
         // checked stated should be a reflection of the input checked property
-        strictEqual(customEl.html(), 'default', 
+        strictEqual(customEl.html(), optVal[0], 
             'When initializing customEl text must be "default" since it is the first option node from the select elemet.');
 
     });
@@ -309,15 +309,23 @@
      */
     test('Test interactions.', function() {
 
-        expect(0);
+        // The change event definition
+        // For select boxes, checkboxes, and radio buttons, the event is fired immediately when the user makes a selection with the mouse, but for the other element types the event is deferred until the element loses focus.
+        // So in orther to unit test this, we need to call trigger manually since it can only activate change event with a mouse selection.
+        //
+        for(var i=0, len=optVal.length; i<len; i++ ){
+            input.val(i).trigger('change');
+            strictEqual( customEl.html(), optVal[i], 
+                'When changing the select value, custom element text must reflect to the option selected text.');
+        }
 
-        //input.val('2');
-        //strictEqual( customEl.html(), true, 
-        //    'When changing the select value, custom element text must reflect to the option selected text.');
+        input.focus();
+        strictEqual( customElContainer.hasClass('focus'), true, 
+            'When element loses focus, custom element container should have class focus removed from it.');
 
-        //input[0].blur();
-        //strictEqual( customEl[0].hasClass('focus'), false, 
-        //    'When element loses focus, customEl should have class focus removed from it.');
+        input.blur();
+        strictEqual( customElContainer.hasClass('focus'), false, 
+            'When element loses focus, custom element container should have class focus removed from it.');
 
     });
 
