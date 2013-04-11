@@ -205,6 +205,126 @@
 
 (function(global) {
 
+    var form,
+        select,
+        input, 
+        customEl,
+        customElContainer,
+        settings = {
+            classPrefix: 'custom-'
+        },
+        attr = {
+            name: 'something',
+            id: 'somthingelse'
+        };
+
+    /*
+     * Setup configuration
+     */
+    module('Select', {
+        setup: function() {
+
+            form = $('<form />');
+
+            input = $('<select />');
+            input.attr(attr);
+
+            // add options, make default with no value
+            input.html("<option>default</option>" +
+                       "<option value='foo'>foo</option>" +
+                       "<option value='moo'>moo</option>");
+
+            form.append(input);
+
+            $('#qunit-fixture').append(form);
+
+            select = app.module.Select({
+                element: input.get(0),
+                classPrefix: settings.classPrefix
+            });
+
+            var _customElId = settings.classPrefix + (input.attr("id") || input.attr('name'));
+            var _customElContainerId = _customElId + '-container';
+
+            customEl = $('#' + _customElId );
+            customElContainer = $('#' + _customElContainerId );
+
+        },
+        teardown: function() {
+            form = null;
+            select = null;
+            input = null;
+            customEl = null;
+            customElContainer = null;
+
+            $('#qunit-fixture').html('');
+        }
+    });
+
+    /*
+     * Initialization tests
+     */
+    test('Test initiliazation.', function() {
+
+        // check if we have a radio object
+        ok(select, 'The select object  must be defined.');
+
+        // customEl must be a valid html element
+        notStrictEqual(customEl.length, 0, 
+            'When initializing customEl must be a valid html element.');
+
+        // customEl must be a valid html element
+        notStrictEqual(customElContainer.length, 0, 
+            'When initializing customElContainer must be a valid html element.');
+
+        // customEl must be a valid html element
+        strictEqual(input.parent()[0], customElContainer[0], 
+            'When initialized select should be now instide of custom container.');
+
+        // customEl must be a valid html element
+        strictEqual(input.next()[0], customEl[0], 
+            'When initialized select should be followed by custom element.');
+
+        // checked stated should be a reflection of the input checked property
+        strictEqual(customEl.html(), 'default', 
+            'When initializing customEl text must be "default" since it is the first option node from the select elemet.');
+
+    });
+
+    /*
+     * Interaction tests
+     */
+    test('Test interactions.', function() {
+
+        expect(0);
+
+        //for( var i=0; i<totalItems; i++ )  {
+
+        //    if(i===0) {
+        //        input[i].prop("checked", false);
+        //        customEl[i].click();
+        //        strictEqual( customEl[i].hasClass('checked'), true, 
+        //            'When clicking on item one, it should add a class of Checked to customEl item one.');
+        //    } else {
+        //        strictEqual( customEl[i].hasClass('checked'), false, 
+        //            'Item one is currently checked and only one item can be checked at a time.');
+        //    }
+        //}
+
+        //input[0].focus();
+        //strictEqual( customEl[0].hasClass('focus'), true, 
+        //    'When element receive focus, customEl should have class focus added to it.');
+
+        //input[0].blur();
+        //strictEqual( customEl[0].hasClass('focus'), false, 
+        //    'When element loses focus, customEl should have class focus removed from it.');
+
+    });
+
+}(this));
+
+(function(global) {
+
     var textfield,
         input,
         form,
