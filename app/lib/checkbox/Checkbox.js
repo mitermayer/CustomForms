@@ -6,12 +6,14 @@
     var APP = global.app = global.app || {},
         module = APP.module = APP.module || {},
 
-        settings = {
+        settings =
+        {
             customEle: 'a',
             containerEle: 'div',
             autoHide: true,
             classPrefix: 'custom-',
-            hideCss: {
+            hideCss:
+            {
                 position: 'absolute',
                 left: '-9999px'
             }
@@ -26,10 +28,8 @@
         var $el = $(obj.element),
             $customEl,
             _class = settings.classPrefix + 'checkbox',
-            _callback = obj.init || function()
-            {},
-            opt = obj ? $.extend(
-            {}, settings, obj) : settings,
+            _callback = obj.init || function(){},
+            opt = obj ? $.extend({}, settings, obj) : settings,
             attachEvents = function()
             {
                 $el.focusin(function()

@@ -6,7 +6,8 @@
     var APP = global.app = global.app || {},
         module = APP.module = APP.module || {},
 
-        settings = {
+        settings =
+        {
             active: true,
             blur_color: "#777",
             placeholder_support: (function()
@@ -27,8 +28,7 @@
             var $el = $(obj.element),
                 color = $el.css("color"),
                 placeholder = $el.attr("placeholder"),
-                opt = obj ? $.extend(
-                {}, settings, obj) : settings,
+                opt = obj ? $.extend({}, settings, obj) : settings,
 
                 clearText = function()
                 {
