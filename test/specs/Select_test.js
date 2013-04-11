@@ -116,7 +116,7 @@
 
         input.focus();
         strictEqual( customElContainer.hasClass('focus'), true, 
-            'When element loses focus, custom element container should have class focus removed from it.');
+            'When element gain focus, custom element container should have class focus added to it.');
 
         input.blur();
         strictEqual( customElContainer.hasClass('focus'), false, 
