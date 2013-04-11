@@ -30,7 +30,6 @@
             {
                 display: "block",
                 "text-align": "left",
-                "font-size": "1px",
                 "-moz-appearance": "none",
                 "-webkit-appearance": "none"
             },
