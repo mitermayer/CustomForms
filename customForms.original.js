@@ -75,8 +75,6 @@ THE SOFTWARE.
  * >          active: 1,
  * >          prefix: 0,
  * >          suffix: 0,
- * >          prefix_txt: "Please enter ",
- * >          suffix_txt: "..",
  * >      }
  * >  }
  *
