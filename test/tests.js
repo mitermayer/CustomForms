@@ -213,6 +213,11 @@
         settings = {
             classPrefix: 'custom-'
         },
+        optVal =[
+            'default',
+            'foo',
+            'moo'
+        ],
         attr = {
             name: 'something',
             id: 'somthingelse'
@@ -224,15 +229,24 @@
     module('Select', {
         setup: function() {
 
+            var options;
+
             form = $('<form />');
 
             input = $('<select />');
             input.attr(attr);
 
+
+            for(var i=0, len=optVal.length; i<len; i++ ){
+                if( i===0 ) {
+                   options += "<option>" + optVal[i] + "</option>";
+                } else {
+                   options += "<option value='" + i + "'>" + optVal[i] + "</option>";
+                }
+            }
+
             // add options, make default with no value
-            input.html("<option>default</option>" +
-                       "<option value='foo'>foo</option>" +
-                       "<option value='moo'>moo</option>");
+            input.html(options);
 
             form.append(input);
 
@@ -269,19 +283,18 @@
         // check if we have a radio object
         ok(select, 'The select object  must be defined.');
 
-        // customEl must be a valid html element
-        notStrictEqual(customEl.length, 0, 
-            'When initializing customEl must be a valid html element.');
-
-        // customEl must be a valid html element
+        // custom container must be a valid html element
         notStrictEqual(customElContainer.length, 0, 
             'When initializing customElContainer must be a valid html element.');
 
-        // customEl must be a valid html element
-        strictEqual(input.parent()[0], customElContainer[0], 
-            'When initialized select should be now instide of custom container.');
+        // custom element must be a valid html element
+        notStrictEqual(customEl.length, 0, 
+            'When initializing customEl must be a valid html element.');
 
-        // customEl must be a valid html element
+        // input should now be inside the custom container 
+        strictEqual(input.parent()[0], customElContainer[0], 
+            'When initialized select should be now instide of custom container.'); 
+        // input next sibbling should be custom element
         strictEqual(input.next()[0], customEl[0], 
             'When initialized select should be followed by custom element.');
 
@@ -298,22 +311,9 @@
 
         expect(0);
 
-        //for( var i=0; i<totalItems; i++ )  {
-
-        //    if(i===0) {
-        //        input[i].prop("checked", false);
-        //        customEl[i].click();
-        //        strictEqual( customEl[i].hasClass('checked'), true, 
-        //            'When clicking on item one, it should add a class of Checked to customEl item one.');
-        //    } else {
-        //        strictEqual( customEl[i].hasClass('checked'), false, 
-        //            'Item one is currently checked and only one item can be checked at a time.');
-        //    }
-        //}
-
-        //input[0].focus();
-        //strictEqual( customEl[0].hasClass('focus'), true, 
-        //    'When element receive focus, customEl should have class focus added to it.');
+        //input.val('2');
+        //strictEqual( customEl.html(), true, 
+        //    'When changing the select value, custom element text must reflect to the option selected text.');
 
         //input[0].blur();
         //strictEqual( customEl[0].hasClass('focus'), false, 

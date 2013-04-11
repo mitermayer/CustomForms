@@ -450,12 +450,6 @@
 
         opt.validators = opt.validators || [];
 
-        opt.validators.push(function()
-        {
-            // selected options must have a value
-            return !!$el.find('option:selected').attr('value');
-        });
-
         opt.init = function()
         {
             // hide element
