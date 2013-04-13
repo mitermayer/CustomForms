@@ -130,6 +130,8 @@
         {
             var _selectedText = $el.find('option:selected').text();
 
+            _selectedText = _selectedText || $el.find('option').first().text();
+
             $customEl.html(_selectedText);
         });
 

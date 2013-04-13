@@ -208,7 +208,6 @@
         },
         attr = {
             name: 'something',
-            type: 'radio',
             value: 'dummy',
             checked: false
         };
@@ -227,6 +226,11 @@
             for( var i=0; i<totalItems; i++ )  {
 
                 var _input = $('<input />');
+
+                // Setting the type on a radio button after the value resets the value in IE6-9, 
+                // to avoid that instead of setting all attributes to the radio at the same type, 
+                // manually set type attribute before the other attributes on the test suit setup
+                _input.attr('type', 'radio');
 
                 var optAttr = $.extend({}, attr, {
                     value: attr.value + i      
@@ -554,7 +558,7 @@
         _color = colorProxy(input.css("color"));
         strictEqual(input.val(), input.attr('placeholder'), 
             'Even if failing on validation Input value should now be set to Placeholder value when called with force parameter.');
-        strictEqual( trimrgb(input.css("color")), _color, 
+        strictEqual( colorProxy(input.css("color")), _color, 
             'When updating to an invalid value, color value placeholder color should be "' + _color +'"');
 
 
