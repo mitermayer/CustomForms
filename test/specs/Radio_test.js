@@ -18,7 +18,7 @@
     /*
      * Setup configuration
      */
-    module('Checkbox', {
+    module('Radio', {
         setup: function() {
 
             form = $('<form />');

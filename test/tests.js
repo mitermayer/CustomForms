@@ -216,7 +216,7 @@
     /*
      * Setup configuration
      */
-    module('Checkbox', {
+    module('Radio', {
         setup: function() {
 
             form = $('<form />');
@@ -437,6 +437,30 @@
     var textfield,
         input,
         form,
+        trimrgb = function( rgbcolor ) {
+            return rgbcolor.replace(/[ ]/g, '');
+        },
+        hexToRgb = function(hex, opacity) {
+
+            var h=hex.replace('#', ''),
+                alpha = typeof opacity !== 'undefined',
+                prefix = 'rgb' + ( alpha ? 'a' : '' );
+
+            h = h.match(new RegExp('(.{'+h.length/3+'})', 'g'));
+
+            for(var i=0; i<h.length; i++) {
+                h[i] = parseInt(h[i].length==1? h[i]+h[i]:h[i], 16);
+            }
+
+            if (alpha) {
+              h.push(opacity);
+            } 
+
+            return prefix + '('+h.join(',')+')';
+        },
+        colorProxy = function( color ) {
+            return (/rgb/).test(color) ? trimrgb(color): hexToRgb(color);
+        },
         attr = {
             name: 'something',
             id: 'something',
@@ -445,7 +469,7 @@
             placeholder: 'defaultText'
         },
         css = {
-            color: 'rgb(0, 0, 255)'
+            color: colorProxy('rgb(0, 0, 255)')
         };
 
     /*
@@ -484,22 +508,22 @@
 
         ok(textfield, 'The textfield object must be defined.');
 
-        _color = input.css("color");
+        _color = colorProxy(input.css("color"));
         strictEqual(input.val(), input.attr('placeholder'), 
             'At first input value should be the same as placeholder value.');
-        notStrictEqual(input.css("color"), css.color, 
+        notStrictEqual(_color, css.color, 
             'At first input value should not have default color since it has a placeholder value.');
 
         input.val("somthing");
         textfield.sync().validate();
-        _color = input.css("color");
         textfield = app.module.TextField({
             element: input.get(0),
             force: true
         });
+        _color = colorProxy(input.css("color"));
         notStrictEqual(input.val(), input.attr('placeholder'), 
             'When element is intialized with a valid value it should remain with its default value.');
-        strictEqual(input.css("color"), css.color, 
+        strictEqual(_color, css.color, 
             'When element is intialized with a valid value it should have its default color applied to it.');
     });
 
@@ -509,11 +533,13 @@
      */
     test('Test updating values', function() {
 
-        var inputColor = input.css("color");
+        var _color; 
+
         textfield.update('Tomate');
+        _color = colorProxy(input.css("color"));
         strictEqual(input.val(), input.attr('placeholder'), 
             'After running the method "update" without saving, should keep the input value unchanged.');
-        strictEqual(input.css("color"), css.color, 
+        strictEqual(_color, css.color, 
             'When updating to a valid value, color value should be "blue"');
 
         textfield.save();
@@ -525,10 +551,11 @@
             'Even if failing on validation Input value should now be set to an empty string "" when called with force parameter.');
 
         textfield.update(input.attr('placeholder'), true).save();
+        _color = colorProxy(input.css("color"));
         strictEqual(input.val(), input.attr('placeholder'), 
             'Even if failing on validation Input value should now be set to Placeholder value when called with force parameter.');
-        strictEqual(input.css("color"), inputColor, 
-            'When updating to an invalid value, color value placeholder color should be "' + inputColor +'"');
+        strictEqual( trimrgb(input.css("color")), _color, 
+            'When updating to an invalid value, color value placeholder color should be "' + _color +'"');
 
 
     });
