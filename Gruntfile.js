@@ -16,12 +16,6 @@ module.exports = function(grunt) {
         dest: 'test/tests.js',
         banner: '<%= banner %>',
         stripBanners: false
-      },
-      dev: {
-        src: '<%= concat.prod.src %>',
-        dest: 'demo/customforms.js',
-        banner: '<%= banner %>',
-        stripBanners: false
       }
     },
     uglify: {
@@ -72,7 +66,7 @@ module.exports = function(grunt) {
     watch: {
       js: {
           files: ['<%= concat.prod.src %>'],
-          tasks: ['concat:dev']
+          tasks: ['concat:prod']
       },
       gruntfile: {
         files: '<%= jshint.gruntfile.src %>',
