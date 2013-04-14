@@ -42,7 +42,7 @@
                 })
                     .change(function()
                 {
-                    instance.trigger("validate", $el.prop('checked'));
+                    instance.validate();
                 });
 
                 $customEl.click(function(e)
@@ -50,7 +50,7 @@
                     e.preventDefault();
 
                     $el.prop('checked', !$el.prop('checked'));
-                    instance.trigger("validate", $el.prop('checked'));
+                    instance.validate();
                 });
             };
 
@@ -85,11 +85,11 @@
 
         instance.bind('validate', function(event)
         {
-            var state = event.data;
+            var state = event.data.success;
             $customEl[(!state ? 'remove' : 'add') + 'Class']('checked');
         });
 
-        instance.trigger("validate", $el.prop('checked'));
+        instance.validate();
 
         attachEvents();
 
