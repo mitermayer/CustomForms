@@ -50,7 +50,7 @@
         var $el = $(obj.element),
             $customEl,
             $customContainer,
-            opt = obj ? $.extend({}, settings, obj) : settings,
+            opt = obj ? $.extend(true, {}, settings, obj) : settings,
             _id = settings.classPrefix + ($el.attr('id') || $el.attr('name')),
             _class = settings.classPrefix + 'select',
             _containerClass = _class + '-container',

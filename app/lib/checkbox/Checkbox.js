@@ -29,7 +29,7 @@
             $customEl,
             _class = settings.classPrefix + 'checkbox',
             _callback = obj.init || function(){},
-            opt = obj ? $.extend({}, settings, obj) : settings,
+            opt = obj ? $.extend(true, {}, settings, obj) : settings,
             attachEvents = function()
             {
                 $el.focusin(function()

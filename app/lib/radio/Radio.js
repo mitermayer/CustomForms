@@ -31,7 +31,7 @@
             _group = $el.attr("name"),
             _groupClass = _class + '-' + _group,
             _callback = obj.init || function(){},
-            opt = obj ? $.extend({}, settings, obj) : settings,
+            opt = obj ? $.extend(true, {}, settings, obj) : settings,
             attachEvents = function()
             {
                 $el.focusin(function()

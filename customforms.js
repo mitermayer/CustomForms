@@ -231,7 +231,7 @@
             $customEl,
             _class = settings.classPrefix + 'checkbox',
             _callback = obj.init || function(){},
-            opt = obj ? $.extend({}, settings, obj) : settings,
+            opt = obj ? $.extend(true, {}, settings, obj) : settings,
             attachEvents = function()
             {
                 $el.focusin(function()
@@ -357,7 +357,7 @@
         var $el = $(obj.element),
             $customEl,
             $customContainer,
-            opt = obj ? $.extend({}, settings, obj) : settings,
+            opt = obj ? $.extend(true, {}, settings, obj) : settings,
             _id = settings.classPrefix + ($el.attr('id') || $el.attr('name')),
             _class = settings.classPrefix + 'file',
             _containerClass = _class + '-container',
@@ -492,7 +492,7 @@
             _group = $el.attr("name"),
             _groupClass = _class + '-' + _group,
             _callback = obj.init || function(){},
-            opt = obj ? $.extend({}, settings, obj) : settings,
+            opt = obj ? $.extend(true, {}, settings, obj) : settings,
             attachEvents = function()
             {
                 $el.focusin(function()
@@ -617,7 +617,7 @@
         var $el = $(obj.element),
             $customEl,
             $customContainer,
-            opt = obj ? $.extend({}, settings, obj) : settings,
+            opt = obj ? $.extend(true, {}, settings, obj) : settings,
             _id = settings.classPrefix + ($el.attr('id') || $el.attr('name')),
             _class = settings.classPrefix + 'select',
             _containerClass = _class + '-container',
@@ -741,7 +741,7 @@
             var $el = $(obj.element),
                 color = $el.css("color"),
                 placeholder = $el.attr("placeholder"),
-                opt = obj ? $.extend({}, settings, obj) : settings,
+                opt = obj ? $.extend(true, {}, settings, obj) : settings,
                 _class = opt.classPrefix + 'textfield',
                 _callback = obj.init || function(){},
 

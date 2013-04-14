@@ -29,7 +29,7 @@
             var $el = $(obj.element),
                 color = $el.css("color"),
                 placeholder = $el.attr("placeholder"),
-                opt = obj ? $.extend({}, settings, obj) : settings,
+                opt = obj ? $.extend(true, {}, settings, obj) : settings,
                 _class = opt.classPrefix + 'textfield',
                 _callback = obj.init || function(){},
 
