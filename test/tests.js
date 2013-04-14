@@ -590,7 +590,10 @@
 
         expect( 10 );
 
-        textfield.bind("sync", function(value) {
+        textfield.bind("sync", function(event) {
+
+            var value = event.data;
+
             strictEqual(input.val(), value, 
                 'Model and input should share same value when input is directly updated and than sync is called, expected: ' + input.val() );
 

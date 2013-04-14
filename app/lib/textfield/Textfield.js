@@ -103,8 +103,9 @@
 
             instance = new APP.BaseField(opt);
 
-            instance.bind("validate", function(state)
+            instance.bind("validate", function(event)
             {
+                var state = event.data;
                 toggleColor(state);
             });
 

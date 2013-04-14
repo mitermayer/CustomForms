@@ -154,7 +154,17 @@
             {
                 for (var e = 0, v = events[evnt].length; e < v; e++)
                 {
-                    events[evnt][e](data);
+                    var that = this,
+                        _event =
+                        {
+                            element: element,
+                            model: that,
+                            event: evnt,
+                            data: data,
+                            time: new Date().getTime()
+                        };
+
+                    events[evnt][e](_event);
                 }
             }
 
@@ -252,8 +262,9 @@
 
         instance = new APP.BaseField(opt);
 
-        instance.bind('validate', function(state)
+        instance.bind('validate', function(event)
         {
+            var state = event.data;
             $customEl[(!state ? 'remove' : 'add') + 'Class']('checked');
         });
 
@@ -513,8 +524,10 @@
 
         instance = new APP.BaseField(opt);
 
-        instance.bind('validate', function(state)
+        instance.bind('validate', function(event)
         {
+            var state = event.data;
+
             // uncheck them
             $('.' + _groupClass).removeClass('checked');
 
@@ -781,8 +794,9 @@
 
             instance = new APP.BaseField(opt);
 
-            instance.bind("validate", function(state)
+            instance.bind("validate", function(event)
             {
+                var state = event.data;
                 toggleColor(state);
             });
 

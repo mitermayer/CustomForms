@@ -154,7 +154,17 @@
             {
                 for (var e = 0, v = events[evnt].length; e < v; e++)
                 {
-                    events[evnt][e](data);
+                    var that = this,
+                        _event =
+                        {
+                            element: element,
+                            model: that,
+                            event: evnt,
+                            data: data,
+                            time: new Date().getTime()
+                        };
+
+                    events[evnt][e](_event);
                 }
             }
 
