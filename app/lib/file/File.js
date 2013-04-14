@@ -87,8 +87,7 @@
                 })
                     .change(function()
                 {
-                    //instance.validate();
-                    instance.trigger('validate');
+                    instance.validate();
                 });
             };
 
@@ -149,7 +148,7 @@
             $customEl.html(_selectedText ? _selectedText : opt.holderTxt);
         });
 
-        instance.trigger("validate");
+        instance.validate();
 
         attachEvents();
 
