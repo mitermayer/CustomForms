@@ -82,7 +82,7 @@ module.exports = function(grunt) {
       }
     },  
     jsbeautifier : {
-        files : ['<%= concat.prod.src %>'],
+        files : ['<%= concat.prod.src %>','<%= concat.test.src %>'],
         options : {
             indent_size: 4,
             indent_char: " ",
