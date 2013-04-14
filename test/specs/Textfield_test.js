@@ -186,13 +186,13 @@
      */
     test('Test validators', function() {
 
-        strictEqual(textfield.validate(""), false, 
+        strictEqual(textfield.validate("").success, false, 
             '"" string should fail on validation.');
 
-        strictEqual(textfield.validate(input.attr("placeholder")), false, 
+        strictEqual(textfield.validate(input.attr("placeholder")).success, false, 
             'placeholder value should fail on validation.');
 
-        strictEqual(textfield.validate('Somthing else'), true, 
+        strictEqual(textfield.validate('Somthing else').success, true, 
             '"Something else" should pass on validation.');
 
                 
@@ -209,10 +209,10 @@
             ]
         });
 
-        strictEqual(textfield.validate("dummy"), false, 
+        strictEqual(textfield.validate("dummy").success, false, 
             '"dummy" should fail validation');
 
-        strictEqual(textfield.validate(1), false, 
+        strictEqual(textfield.validate(1).success, false, 
             '1 should fail since it uses number validation.');
 
     });
@@ -257,8 +257,8 @@
                'Custom Event someevnt should be called when model triggers it.');
         }).trigger("someevent");
 
-        textfield.bind("customevent", function( data ) {
-            strictEqual(textfield.validate('Somthing else'), true, 
+        textfield.bind("customevent", function() {
+            strictEqual(textfield.validate('Somthing else').success, true, 
                 '"customevent" should pass "Hello world!" as a parameter when triggered.');
         }).trigger("customevent", "Hello world!");
 

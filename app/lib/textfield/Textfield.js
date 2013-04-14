@@ -47,7 +47,7 @@
                 },
                 validationFailProxy = function(func)
                 {
-                    if (!instance.sync().validate())
+                    if (!instance.sync().validate().success)
                     {
                         func();
                     }
@@ -105,7 +105,7 @@
 
             instance.bind("validate", function(event)
             {
-                var state = event.data;
+                var state = event.data.success;
                 toggleColor(state);
             });
 

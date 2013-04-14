@@ -46,10 +46,14 @@
             }
 
             // setup default validator
-            validator.push(function(val)
+            validator.push(
             {
-                // checks if value is not undefined
-                return val !== "";
+                validator: function(val)
+                {
+                    // checks if value is not undefined
+                    return val !== "";
+                },
+                message: "value can't be undefined."
             });
 
             // setup custom validators
@@ -57,7 +61,13 @@
             {
                 for (var v = 0, k = obj.validators.length; v < k; v++)
                 {
-                    validator.push(obj.validators[v]);
+                    var _validator = obj.validators[v];
+
+                    validator.push(
+                    {
+                        validator: _validator.validator || _validator,
+                        message: _validator.message
+                    });
                 }
             }
 
@@ -130,15 +140,23 @@
         // run custom element value over validators
         this.validate = function(val)
         {
-            var ret = true;
+            var ret =
+            {
+                success: true,
+                message: []
+            },
+                message = '"' + val + '" is not a valid value.';
 
             for (var v = 0, l = validator.length; v < l; v++)
             {
-                ret = validator[v](val || value);
+                var _validator = validator[v],
+                    _ret = _validator.validator(val || value);
 
-                if (!ret)
+                if (!_ret)
                 {
-                    break;
+
+                    ret.success = false;
+                    ret.message.push(_validator.message || message);
                 }
             }
 
@@ -738,7 +756,7 @@
                 },
                 validationFailProxy = function(func)
                 {
-                    if (!instance.sync().validate())
+                    if (!instance.sync().validate().success)
                     {
                         func();
                     }
@@ -796,7 +814,7 @@
 
             instance.bind("validate", function(event)
             {
-                var state = event.data;
+                var state = event.data.success;
                 toggleColor(state);
             });
 
