@@ -40,8 +40,13 @@
             {
                 for (var j = 0, l = obj.events.length; j < l; j++)
                 {
+                    var _e = obj.events[j],
+                        _evnt = events[_e.name || _e] = events[_e.name || _e] || [];
 
-                    events[obj.events[j]] = [];
+                    if (_e.callback && typeof _e.callback === 'function')
+                    {
+                        _evnt.push(_e.callback);
+                    }
                 }
             }
 
