@@ -57,11 +57,19 @@ module.exports = function(grunt) {
     qunit: {
         all: ['test/**/*.html']
     },
-    docco: {
-      all: {
+    dox: {
+      libdocs : {
+          src: ['<%= concat.prod.src %>'],
+          dest: 'doc/lib/'
+      },
+      usagedocs: {
+          src: ['app/main.js'],
+          dest: 'doc/usage'
+      },
+      finaldocs : {
           src: ['<%= concat.prod.dest %>'],
-          dest: 'doc/'
-      }   
+          dest: 'doc/release'
+      }
     },
     watch: {
       js: {
@@ -138,8 +146,8 @@ module.exports = function(grunt) {
   grunt.registerTask('utest', 'Unit testing on the command line with default testing framework', ['concat:test', 'qunit']);
   grunt.registerTask('dev', 'Watch javascript files and rebuild', 'watch:js');
 
-  // docco
-  grunt.loadNpmTasks('grunt-docco');
+  // documentation generation
+  grunt.loadNpmTasks('grunt-dox');
 
   // js-beautifier
   grunt.loadNpmTasks('grunt-jsbeautifier');
@@ -151,6 +159,6 @@ module.exports = function(grunt) {
   grunt.registerTask('test', 'build and integration test', ['install', 'lint', 'utest']);
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'utest', 'jsbeautifier', 'concat', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'utest', 'jsbeautifier', 'concat', 'uglify', 'dox']);
 
 };

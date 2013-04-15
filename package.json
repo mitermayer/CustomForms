@@ -14,18 +14,16 @@
     "test": "grunt test"
   },
   "devDependencies": {
+    "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.1.1",
     "grunt-contrib-concat": "~0.1.2",
     "grunt-contrib-nodeunit": "~0.1.2",
     "grunt-contrib-uglify": "~0.1.1",
     "grunt-contrib-watch": "~0.2.0",
     "grunt-contrib-clean": "~0.4.0",
-    "grunt-bowerful": "git://github.com/mitermayer/grunt-bowerful.git",
-    "grunt-docco": "git://github.com/DavidSouther/grunt-docco.git",
-    "requireincontext": "0.0.2",
-    "nodemock": "~0.2.17",
-    "grunt": "~0.4.1",
     "grunt-contrib-qunit": "~0.2.0",
-    "grunt-jsbeautifier": "git://github.com/mitermayer/grunt-jsbeautifier.git"
+    "grunt-bowerful": "~0.2.2",
+    "grunt-jsbeautifier": "~0.1.7",
+    "grunt-dox": "~0.4.1"
   }
 }
