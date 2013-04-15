@@ -1,6 +1,8 @@
-# CustomForms - 0.45 
+# CustomForms - 0.5 
 
--  added support for placeholders on input types of value text, search, url, tel, email, and password.
+## This branch is under development and it is using travis to do automated continuous integration testing ##
+
+"!https://travis-ci.org/mitermyaer/CustomForms.png?branch=refactor!":https://travis-ci.org/mitermayer/CustomForms
 
 ## Support features
 * Placeholders
