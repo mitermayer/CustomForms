@@ -6,13 +6,11 @@
         input,
         customEl,
         customElContainer,
-        settings =
-        {
+        settings = {
             classPrefix: 'custom-',
             holderTxt: 'insert..'
         },
-        attr =
-        {
+        attr = {
             name: 'something',
             type: 'file',
             id: 'somthingelse'

@@ -6,14 +6,12 @@
     var APP = global.app = global.app || {},
         module = APP.module = APP.module || {},
 
-        settings =
-        {
+        settings = {
             customEle: 'a',
             containerEle: 'div',
             autoHide: true,
             classPrefix: 'custom-',
-            hideCss:
-            {
+            hideCss: {
                 opacity: '0',
                 filter: 'alpha(opacity=0)',
                 position: 'absolute',
@@ -22,18 +20,15 @@
                 '-moz-opacity': '0',
                 '-khtml-opacity': '0'
             },
-            elCss:
-            {
+            elCss: {
                 display: "block",
                 '-webkit-appearance': 'none',
                 '-moz-appearance': 'none'
             },
-            customContainerCss:
-            {
+            customContainerCss: {
                 position: 'relative'
             },
-            customElCss:
-            {
+            customElCss: {
                 display: "block",
                 overflow: "hidden",
                 'white-space': "nowrap",
@@ -50,13 +45,14 @@
         var $el = $(obj.element),
             $customEl,
             $customContainer,
-            opt = obj ? $.extend(true, {}, settings, obj) : settings,
+            opt = obj ? $.extend(true,
+            {}, settings, obj) : settings,
             _id = settings.classPrefix + ($el.attr('id') || $el.attr('name')),
             _class = settings.classPrefix + 'select',
             _containerClass = _class + '-container',
-            _callback = obj.init || function(){},
-            _size =
-            {
+            _callback = obj.init || function()
+            {},
+            _size = {
                 width: 0,
                 height: 0
             },
@@ -118,7 +114,8 @@
             _size.width = $customContainer.css("width");
 
             // we than extend elCss with the dimensions and apply them to element.
-            $el.css($.extend({}, opt.elCss, _size));
+            $el.css($.extend(
+            {}, opt.elCss, _size));
 
             _callback();
         };
@@ -142,8 +139,7 @@
     };
 
     // Define what elements should use this module
-    module.Select.target =
-    {
+    module.Select.target = {
         tagName: 'select'
     };
 

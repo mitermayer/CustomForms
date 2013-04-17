@@ -145,8 +145,7 @@
         // run custom element value over validators
         this.validate = function(val)
         {
-            var ret =
-            {
+            var ret = {
                 success: true,
                 message: []
             },
@@ -178,8 +177,7 @@
                 for (var e = 0, v = events[evnt].length; e < v; e++)
                 {
                     var that = this,
-                        _event =
-                        {
+                        _event = {
                             element: element,
                             model: that,
                             event: evnt,

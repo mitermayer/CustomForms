@@ -17,106 +17,117 @@ code {
   div.description {margin: 14px 0; padding-top: 14px; border-top:1px solid #eee; border-bottom:1px solid #eee; }
   .tags {}
     .tags .types {color:#666}
-.ctx-type { float:right; margin-top:8px }</style></head><body><div class="row"><div class="twelve columns"><h1 class="pagetitle">Documentation</h1></div></div><div class="row"><div id="nav" class="three columns"><ul class="side-nav"><li><a href="../../../doc/usage/app/main.js.html">app/main.js</a><ul><li><a href="../../../doc/usage/app/main.js.html#SUPPORTED_ELMENTS">SUPPORTED_ELMENTS</a></li></ul></li></ul></div><div class="nine columns"><div class="comment"><div class="label radius ctx-type">declaration</div><h1 id="SUPPORTED_ELMENTS">SUPPORTED_ELMENTS</h1><h5 class="subheader">SUPPORTED_ELMENTS</h5><div class="tags"><ul class="no-bullet"></ul></div><div class="description"><p>SUPPORTED_ELMENTS = {<br />   tagName: [<br />       {<br />           filter: { 'attrname': ['arrval'] },<br />           module: "moduleName"<br />       },<br />       {<br />           filter: { 'attrname2': 'strval' }<br />           module: "moduleName"<br />       },<br />       "strmodulename"<br />   ]<br />};</p></div><pre><code class="language-javascript">var SUPPORTED_ELMENTS = {};
+.ctx-type { float:right; margin-top:8px }</style></head><body><div class="row"><div class="twelve columns"><h1 class="pagetitle">Documentation</h1></div></div><div class="row"><div id="nav" class="three columns"><ul class="side-nav"><li><a href="../../../doc/usage/app/main.js.html">app/main.js</a><ul></ul></li></ul></div><div class="nine columns"><div class="comment"><div class="tags"><ul class="no-bullet"></ul></div><div class="description"><p>SUPPORTED_ELMENTS = {<br />   tagName: [<br />       {<br />           filter: { 'attrname': ['arrval'] },<br />           module: "moduleName"<br />       },<br />       {<br />           filter: { 'attrname2': 'strval' }<br />           module: "moduleName"<br />       },<br />       "strmodulename"<br />   ]<br />};</p></div><pre><code class="language-javascript">//    var SUPPORTED_ELMENTS = {},
+//        addSupportedElement = function(module, tag) {
 
+//            var filter = APP.module[module].target.filter || {},
+//                item;
 
-            for (var _module in APP.module)
-            {
+//            // if we dont have element on the hash add it
+//            SUPPORTED_ELMENTS[tag] = SUPPORTED_ELMENTS[tag] || [];
 
-                var _tag = APP.module[_module].target.tagName,
-                    _filter = APP.module[_module].target.filter,
-                    _ref,
-                    blueprint;
+//            // if module has a filter add it, else just add input with module reference.
+//            item = filter[tag] ? { filter: filter[tag], module: module } : module;
 
-                if ($.isArray(_tag))
-                {
-                    for (var i = 0, len = _tag.length; i &lt; len; i++)
-                    {
-                        blueprint = SUPPORTED_ELMENTS[_tag[i]] =
-                            SUPPORTED_ELMENTS[_tag[i]] || [];
-                        _ref = _filter[_tag[i]] ?
-                        {
-                            filter: _filter[_tag[i]],
-                            module: _module
-                        } : _module;
-                        blueprint.push(_ref);
-                    }
-                }
-                else
-                {
-                    blueprint = SUPPORTED_ELMENTS[_tag] = SUPPORTED_ELMENTS[
-                        _tag] || [];
-                    _ref = _filter ?
-                    {
-                        filter: _filter,
-                        module: _module
-                    } : _module;
-                    blueprint.push(_ref);
-                }
+//            // push item to supported hash
+//            SUPPORTED_ELMENTS[tag].push(item);
+//        },
+//        lookUp = {
+//            'arr': function(module, tag) {
+//                $.each(tag, function(key, value){
+//                    addSupportedElement(module, value);
+//                });
+//            },
+//            'default': addSupportedElement
+//        };
 
-            }
+//    $.each(APP.module, function(key) {
+//        var _tag = APP.module[key].target.tagName;
 
-            //return function(options, $arr) {
-            return function()
-            {
-                // TODO:
-                // Loop on all $arr items and check to see if their tageName match
-                // After call all modules from item if they pass on filter or if they dont have one
-            };
+//        lookUp[$.isArray(_tag) ? 'arr' : 'default'](key, _tag);
+//    });
 
-        })();
+//    //return function()
+//    return function(options, $arr) {
+//        // TODO:
+//        // Loop on all $arr items and check to see if their tageName match
+//        // After call all modules from item if they pass on filter or if they dont have one
 
-        $.fn.cstmForm = fieldFactory;
+//        console.log(this, $(this));
+//        $(this).each(function() {
+//            var $element = $(this);
+//            var element = $element.get(0);
+//            var tagname = element.nodeName.toLowerCase();
 
-        //$('input[type=&quot;text&quot;]').each(function() {
-        //    var a = app.module.TextField({
-        //        element: $(this)[0],
-        //        force: true, 
-        //        init: function() {
-        //            console.log(&quot;starting placeholder..&quot;);
-        //        }
-        //    });
-        //});
+//            if( SUPPORTED_ELMENTS[tagname] ) {
+//               $.each(SUPPORTED_ELMENTS[tagname], function( key, value ) {
+//                    if(typeof value === 'string') {
+//                        APP.module[value.module]({ element: element });
+//                    } else {
+//                        $.each(value.filter, function(key, val) {
+//                           if( $element.attr(key) === val) {
+//                                APP.module[value.module]({ element: element });
+//                           }
+//                        });
+//                    }
+//               });
+//            }
+//        });
+//    };
 
-        //$('input[type=&quot;checkbox&quot;]').each(function() {
-        //    var b = app.module.Checkbox({
-        //        element: $(this)[0],
-        //        init: function() {
-        //            console.log(&quot;starting checkbox..&quot;);
-        //        }
-        //    });
-        //});
+//})();
 
-        //$('input[type=&quot;radio&quot;]').each(function() {
-        //    var c = app.module.Radio({
-        //        element: $(this)[0],
-        //        init: function() {
-        //            console.log(&quot;starting radio..&quot;);
-        //        }
-        //    });
-        //});
+//$.fn.cstmForm = fieldFactory;
 
-        //$('input[type=&quot;file&quot;]').each(function() {
-        //    var d = app.module.File({
-        //        element: $(this)[0],
-        //        init: function() {
-        //            console.log(&quot;starting file..&quot;);
-        //        }
-        //    });
-        //});
+//$('input[type=&quot;text&quot;]').each(function() {
+//    var a = app.module.TextField({
+//        element: $(this)[0],
+//        force: true, 
+//        init: function() {
+//            console.log(&quot;starting placeholder..&quot;);
+//        }
+//    });
+//});
 
-        //$('select').each(function() {
-        //    var e = app.module.Select({
-        //        element: $(this)[0],
-        //        init: function() {
-        //            console.log(&quot;starting select..&quot;);
-        //        }
-        //    });
-        //});
+//$('input[type=&quot;checkbox&quot;]').each(function() {
+//    var b = app.module.Checkbox({
+//        element: $(this)[0],
+//        init: function() {
+//            console.log(&quot;starting checkbox..&quot;);
+//        }
+//    });
+//});
 
-    });
+//$('input[type=&quot;radio&quot;]').each(function() {
+//    var c = app.module.Radio({
+//        element: $(this)[0],
+//        init: function() {
+//            console.log(&quot;starting radio..&quot;);
+//        }
+//    });
+//});
 
-}(this));</code></pre></div></div></div><!-- Foundation JS--><script src="http://cdnjs.cloudflare.com/ajax/libs/foundation/3.2.2/javascripts/foundation.min.js"></script><script>/**
+//$('input[type=&quot;file&quot;]').each(function() {
+//    var d = app.module.File({
+//        element: $(this)[0],
+//        init: function() {
+//            console.log(&quot;starting file..&quot;);
+//        }
+//    });
+//});
+
+//$('select').each(function() {
+//    var e = app.module.Select({
+//        element: $(this)[0],
+//        init: function() {
+//            console.log(&quot;starting select..&quot;);
+//        }
+//    });
+//});
+
+//    });
+
+//}(this));</code></pre></div></div></div><!-- Foundation JS--><script src="http://cdnjs.cloudflare.com/ajax/libs/foundation/3.2.2/javascripts/foundation.min.js"></script><script>/**
  * Prism: Lightweight, robust, elegant syntax highlighting
  * MIT license http://www.opensource.org/licenses/mit-license.php/
  * @author Lea Verou http://lea.verou.me

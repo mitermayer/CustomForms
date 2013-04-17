@@ -145,8 +145,7 @@
         // run custom element value over validators
         this.validate = function(val)
         {
-            var ret =
-            {
+            var ret = {
                 success: true,
                 message: []
             },
@@ -178,8 +177,7 @@
                 for (var e = 0, v = events[evnt].length; e < v; e++)
                 {
                     var that = this,
-                        _event =
-                        {
+                        _event = {
                             element: element,
                             model: that,
                             event: evnt,
@@ -208,14 +206,12 @@
     var APP = global.app = global.app || {},
         module = APP.module = APP.module || {},
 
-        settings =
-        {
+        settings = {
             customEle: 'a',
             containerEle: 'div',
             autoHide: true,
             classPrefix: 'custom-',
-            hideCss:
-            {
+            hideCss: {
                 position: 'absolute',
                 left: '-9999px'
             }
@@ -230,8 +226,10 @@
         var $el = $(obj.element),
             $customEl,
             _class = settings.classPrefix + 'checkbox',
-            _callback = obj.init || function(){},
-            opt = obj ? $.extend(true, {}, settings, obj) : settings,
+            _callback = obj.init || function()
+            {},
+            opt = obj ? $.extend(true,
+            {}, settings, obj) : settings,
             attachEvents = function()
             {
                 $el.focusin(function()
@@ -299,13 +297,10 @@
     };
 
     // Define what elements should use this module
-    module.Checkbox.target =
-    {
+    module.Checkbox.target = {
         tagName: 'input',
-        filter:
-        {
-            input:
-            {
+        filter: {
+            input: {
                 type: 'checkbox'
             }
         }
@@ -321,8 +316,7 @@
     var APP = global.app = global.app || {},
         module = APP.module = APP.module || {},
 
-        settings =
-        {
+        settings = {
             // Thats the default 'size' for a button
             // it is used to address some issues on firefox to apply the correct size.
             'BUTTON_BROWSER_SIZE': 36,
@@ -331,8 +325,7 @@
             autoHide: true,
             classPrefix: 'custom-',
             holderTxt: "Upload..",
-            hideCss:
-            {
+            hideCss: {
                 opacity: '0',
                 filter: 'alpha(opacity=0)',
                 position: 'absolute',
@@ -341,19 +334,16 @@
                 '-moz-opacity': '0',
                 '-khtml-opacity': '0'
             },
-            elCss:
-            {
+            elCss: {
                 display: "block",
                 "text-align": "left",
                 "-moz-appearance": "none",
                 "-webkit-appearance": "none"
             },
-            customContainerCss:
-            {
+            customContainerCss: {
                 position: 'relative'
             },
-            customElCss:
-            {
+            customElCss: {
                 display: "block",
                 overflow: "hidden",
                 'white-space': "nowrap",
@@ -370,13 +360,14 @@
         var $el = $(obj.element),
             $customEl,
             $customContainer,
-            opt = obj ? $.extend(true, {}, settings, obj) : settings,
+            opt = obj ? $.extend(true,
+            {}, settings, obj) : settings,
             _id = settings.classPrefix + ($el.attr('id') || $el.attr('name')),
             _class = settings.classPrefix + 'file',
             _containerClass = _class + '-container',
-            _callback = obj.init || function(){},
-            _size =
-            {
+            _callback = obj.init || function()
+            {},
+            _size = {
                 width: 0,
                 height: 0,
                 size: 0
@@ -449,7 +440,8 @@
             _size.size = getButtonSize(parseInt(_size.width, 10));
 
             // we than extend elCss with the dimensions and apply them to element.
-            $el.css($.extend({}, opt.elCss, _size));
+            $el.css($.extend(
+            {}, opt.elCss, _size));
 
             _callback();
         };
@@ -471,13 +463,10 @@
     };
 
     // Define what elements should use this module
-    module.File.target =
-    {
+    module.File.target = {
         tagName: 'input',
-        filter:
-        {
-            input:
-            {
+        filter: {
+            input: {
                 type: 'file'
             }
         }
@@ -493,14 +482,12 @@
     var APP = global.app = global.app || {},
         module = APP.module = APP.module || {},
 
-        settings =
-        {
+        settings = {
             customEle: 'a',
             containerEle: 'div',
             autoHide: true,
             classPrefix: 'custom-',
-            hideCss:
-            {
+            hideCss: {
                 position: 'absolute',
                 left: '-9999px'
             }
@@ -517,8 +504,10 @@
             _class = settings.classPrefix + 'radio',
             _group = $el.attr("name"),
             _groupClass = _class + '-' + _group,
-            _callback = obj.init || function(){},
-            opt = obj ? $.extend(true, {}, settings, obj) : settings,
+            _callback = obj.init || function()
+            {},
+            opt = obj ? $.extend(true,
+            {}, settings, obj) : settings,
             attachEvents = function()
             {
                 $el.focusin(function()
@@ -590,13 +579,10 @@
     };
 
     // Define what elements should use this module
-    module.Radio.target =
-    {
+    module.Radio.target = {
         tagName: 'input',
-        filter:
-        {
-            input:
-            {
+        filter: {
+            input: {
                 type: 'radio'
             }
         }
@@ -612,14 +598,12 @@
     var APP = global.app = global.app || {},
         module = APP.module = APP.module || {},
 
-        settings =
-        {
+        settings = {
             customEle: 'a',
             containerEle: 'div',
             autoHide: true,
             classPrefix: 'custom-',
-            hideCss:
-            {
+            hideCss: {
                 opacity: '0',
                 filter: 'alpha(opacity=0)',
                 position: 'absolute',
@@ -628,18 +612,15 @@
                 '-moz-opacity': '0',
                 '-khtml-opacity': '0'
             },
-            elCss:
-            {
+            elCss: {
                 display: "block",
                 '-webkit-appearance': 'none',
                 '-moz-appearance': 'none'
             },
-            customContainerCss:
-            {
+            customContainerCss: {
                 position: 'relative'
             },
-            customElCss:
-            {
+            customElCss: {
                 display: "block",
                 overflow: "hidden",
                 'white-space': "nowrap",
@@ -656,13 +637,14 @@
         var $el = $(obj.element),
             $customEl,
             $customContainer,
-            opt = obj ? $.extend(true, {}, settings, obj) : settings,
+            opt = obj ? $.extend(true,
+            {}, settings, obj) : settings,
             _id = settings.classPrefix + ($el.attr('id') || $el.attr('name')),
             _class = settings.classPrefix + 'select',
             _containerClass = _class + '-container',
-            _callback = obj.init || function(){},
-            _size =
-            {
+            _callback = obj.init || function()
+            {},
+            _size = {
                 width: 0,
                 height: 0
             },
@@ -724,7 +706,8 @@
             _size.width = $customContainer.css("width");
 
             // we than extend elCss with the dimensions and apply them to element.
-            $el.css($.extend({}, opt.elCss, _size));
+            $el.css($.extend(
+            {}, opt.elCss, _size));
 
             _callback();
         };
@@ -748,8 +731,7 @@
     };
 
     // Define what elements should use this module
-    module.Select.target =
-    {
+    module.Select.target = {
         tagName: 'select'
     };
 
@@ -763,8 +745,7 @@
     var APP = global.app = global.app || {},
         module = APP.module = APP.module || {},
 
-        settings =
-        {
+        settings = {
             active: true,
             blur_color: '#777',
             classPrefix: 'custom-',
@@ -786,9 +767,11 @@
             var $el = $(obj.element),
                 color = $el.css('color'),
                 placeholder = $el.attr('placeholder'),
-                opt = obj ? $.extend(true, {}, settings, obj) : settings,
+                opt = obj ? $.extend(true,
+                {}, settings, obj) : settings,
                 _class = opt.classPrefix + 'textfield',
-                _callback = obj.init || function(){},
+                _callback = obj.init || function()
+                {},
 
                 clearText = function()
                 {
@@ -875,13 +858,10 @@
     };
 
     // Define what elements should use this module
-    module.TextField.target =
-    {
+    module.TextField.target = {
         tagName: ['input', 'textarea'],
-        filter:
-        {
-            input:
-            {
+        filter: {
+            input: {
                 type: ['text', 'search', 'tel', 'url', 'email', 'password']
             }
         }
@@ -889,129 +869,140 @@
 
 }(this));
 
-(function(global)
-{
+//(function(global)
+//{
 
-    $(function()
-    {
-        var APP = global.app = global.app || {};
-
-
-        var fieldFactory = (function()
-        {
-
-            /*
-             *SUPPORTED_ELMENTS = {
-             *    tagName: [
-             *        {
-             *            filter: { 'attrname': ['arrval'] },
-             *            module: "moduleName"
-             *        },
-             *        {
-             *            filter: { 'attrname2': 'strval' }
-             *            module: "moduleName"
-             *        },
-             *        "strmodulename"
-             *    ]
-             *};
-             */
-            var SUPPORTED_ELMENTS = {};
+//    $(function()
+//    {
+//var APP = global.app = global.app || {};
 
 
-            for (var _module in APP.module)
-            {
+//var fieldFactory = (function()
+//{
 
-                var _tag = APP.module[_module].target.tagName,
-                    _filter = APP.module[_module].target.filter,
-                    _ref,
-                    blueprint;
+/*
+ *SUPPORTED_ELMENTS = {
+ *    tagName: [
+ *        {
+ *            filter: { 'attrname': ['arrval'] },
+ *            module: "moduleName"
+ *        },
+ *        {
+ *            filter: { 'attrname2': 'strval' }
+ *            module: "moduleName"
+ *        },
+ *        "strmodulename"
+ *    ]
+ *};
+ */
+//    var SUPPORTED_ELMENTS = {},
+//        addSupportedElement = function(module, tag) {
 
-                if ($.isArray(_tag))
-                {
-                    for (var i = 0, len = _tag.length; i < len; i++)
-                    {
-                        blueprint = SUPPORTED_ELMENTS[_tag[i]] =
-                            SUPPORTED_ELMENTS[_tag[i]] || [];
-                        _ref = _filter[_tag[i]] ?
-                        {
-                            filter: _filter[_tag[i]],
-                            module: _module
-                        } : _module;
-                        blueprint.push(_ref);
-                    }
-                }
-                else
-                {
-                    blueprint = SUPPORTED_ELMENTS[_tag] = SUPPORTED_ELMENTS[
-                        _tag] || [];
-                    _ref = _filter ?
-                    {
-                        filter: _filter,
-                        module: _module
-                    } : _module;
-                    blueprint.push(_ref);
-                }
+//            var filter = APP.module[module].target.filter || {},
+//                item;
 
-            }
+//            // if we dont have element on the hash add it
+//            SUPPORTED_ELMENTS[tag] = SUPPORTED_ELMENTS[tag] || [];
 
-            //return function(options, $arr) {
-            return function()
-            {
-                // TODO:
-                // Loop on all $arr items and check to see if their tageName match
-                // After call all modules from item if they pass on filter or if they dont have one
-            };
+//            // if module has a filter add it, else just add input with module reference.
+//            item = filter[tag] ? { filter: filter[tag], module: module } : module;
 
-        })();
+//            // push item to supported hash
+//            SUPPORTED_ELMENTS[tag].push(item);
+//        },
+//        lookUp = {
+//            'arr': function(module, tag) {
+//                $.each(tag, function(key, value){
+//                    addSupportedElement(module, value);
+//                });
+//            },
+//            'default': addSupportedElement
+//        };
 
-        $.fn.cstmForm = fieldFactory;
+//    $.each(APP.module, function(key) {
+//        var _tag = APP.module[key].target.tagName;
 
-        //$('input[type="text"]').each(function() {
-        //    var a = app.module.TextField({
-        //        element: $(this)[0],
-        //        force: true, 
-        //        init: function() {
-        //            console.log("starting placeholder..");
-        //        }
-        //    });
-        //});
+//        lookUp[$.isArray(_tag) ? 'arr' : 'default'](key, _tag);
+//    });
 
-        //$('input[type="checkbox"]').each(function() {
-        //    var b = app.module.Checkbox({
-        //        element: $(this)[0],
-        //        init: function() {
-        //            console.log("starting checkbox..");
-        //        }
-        //    });
-        //});
+//    //return function()
+//    return function(options, $arr) {
+//        // TODO:
+//        // Loop on all $arr items and check to see if their tageName match
+//        // After call all modules from item if they pass on filter or if they dont have one
 
-        //$('input[type="radio"]').each(function() {
-        //    var c = app.module.Radio({
-        //        element: $(this)[0],
-        //        init: function() {
-        //            console.log("starting radio..");
-        //        }
-        //    });
-        //});
+//        console.log(this, $(this));
+//        $(this).each(function() {
+//            var $element = $(this);
+//            var element = $element.get(0);
+//            var tagname = element.nodeName.toLowerCase();
 
-        //$('input[type="file"]').each(function() {
-        //    var d = app.module.File({
-        //        element: $(this)[0],
-        //        init: function() {
-        //            console.log("starting file..");
-        //        }
-        //    });
-        //});
+//            if( SUPPORTED_ELMENTS[tagname] ) {
+//               $.each(SUPPORTED_ELMENTS[tagname], function( key, value ) {
+//                    if(typeof value === 'string') {
+//                        APP.module[value.module]({ element: element });
+//                    } else {
+//                        $.each(value.filter, function(key, val) {
+//                           if( $element.attr(key) === val) {
+//                                APP.module[value.module]({ element: element });
+//                           }
+//                        });
+//                    }
+//               });
+//            }
+//        });
+//    };
 
-        //$('select').each(function() {
-        //    var e = app.module.Select({
-        //        element: $(this)[0],
-        //        init: function() {
-        //            console.log("starting select..");
-        //        }
-        //    });
-        //});
+//})();
 
-    });
+//$.fn.cstmForm = fieldFactory;
 
-}(this));
+//$('input[type="text"]').each(function() {
+//    var a = app.module.TextField({
+//        element: $(this)[0],
+//        force: true, 
+//        init: function() {
+//            console.log("starting placeholder..");
+//        }
+//    });
+//});
+
+//$('input[type="checkbox"]').each(function() {
+//    var b = app.module.Checkbox({
+//        element: $(this)[0],
+//        init: function() {
+//            console.log("starting checkbox..");
+//        }
+//    });
+//});
+
+//$('input[type="radio"]').each(function() {
+//    var c = app.module.Radio({
+//        element: $(this)[0],
+//        init: function() {
+//            console.log("starting radio..");
+//        }
+//    });
+//});
+
+//$('input[type="file"]').each(function() {
+//    var d = app.module.File({
+//        element: $(this)[0],
+//        init: function() {
+//            console.log("starting file..");
+//        }
+//    });
+//});
+
+//$('select').each(function() {
+//    var e = app.module.Select({
+//        element: $(this)[0],
+//        init: function() {
+//            console.log("starting select..");
+//        }
+//    });
+//});
+
+//    });
+
+//}(this));

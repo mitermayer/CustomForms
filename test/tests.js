@@ -5,12 +5,10 @@
         input,
         customEl,
         form,
-        settings =
-        {
+        settings = {
             classPrefix: 'custom-'
         },
-        attr =
-        {
+        attr = {
             name: 'something',
             id: 'something',
             type: 'checkbox',
@@ -118,13 +116,11 @@
         input,
         customEl,
         customElContainer,
-        settings =
-        {
+        settings = {
             classPrefix: 'custom-',
             holderTxt: 'insert..'
         },
-        attr =
-        {
+        attr = {
             name: 'something',
             type: 'file',
             id: 'somthingelse'
@@ -232,12 +228,10 @@
         input = [],
         customEl = [],
         totalItems = 3,
-        settings =
-        {
+        settings = {
             classPrefix: 'custom-'
         },
-        attr =
-        {
+        attr = {
             name: 'something',
             value: 'dummy',
             checked: false
@@ -266,7 +260,8 @@
                 // manually set type attribute before the other attributes on the test suit setup
                 _input.attr('type', 'radio');
 
-                var optAttr = $.extend({}, attr,
+                var optAttr = $.extend(
+                {}, attr,
                 {
                     value: attr.value + i
                 });
@@ -364,8 +359,7 @@
         input,
         customEl,
         customElContainer,
-        settings =
-        {
+        settings = {
             classPrefix: 'custom-'
         },
         optVal = [
@@ -373,8 +367,7 @@
                 'foo',
                 'moo'
         ],
-        attr =
-        {
+        attr = {
             name: 'something',
             id: 'somthingelse'
         };
@@ -537,16 +530,14 @@
         {
             return (/rgb/).test(color) ? trimrgb(color) : hexToRgb(color);
         },
-        attr =
-        {
+        attr = {
             name: 'something',
             id: 'something',
             type: 'text',
             value: '',
             placeholder: 'defaultText'
         },
-        css =
-        {
+        css = {
             color: colorProxy('rgb(0, 0, 255)')
         };
 

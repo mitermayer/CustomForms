@@ -17,7 +17,7 @@ code {
   div.description {margin: 14px 0; padding-top: 14px; border-top:1px solid #eee; border-bottom:1px solid #eee; }
   .tags {}
     .tags .types {color:#666}
-.ctx-type { float:right; margin-top:8px }</style></head><body><div class="row"><div class="twelve columns"><h1 class="pagetitle">Documentation</h1></div></div><div class="row"><div id="nav" class="three columns"><ul class="side-nav"><li><a href="../../../../../doc/lib/app/lib/BaseField.js.html">app/lib/BaseField.js</a><ul></ul></li><li><a href="../../../../../doc/lib/app/lib/checkbox/Checkbox.js.html">app/lib/checkbox/Checkbox.js</a><ul></ul></li><li><a href="../../../../../doc/lib/app/lib/file/File.js.html">app/lib/file/File.js</a><ul></ul></li><li><a href="../../../../../doc/lib/app/lib/radio/Radio.js.html">app/lib/radio/Radio.js</a><ul></ul></li><li><a href="../../../../../doc/lib/app/lib/select/Select.js.html">app/lib/select/Select.js</a><ul></ul></li><li><a href="../../../../../doc/lib/app/lib/textfield/Textfield.js.html">app/lib/textfield/Textfield.js</a><ul></ul></li><li><a href="../../../../../doc/lib/app/main.js.html">app/main.js</a><ul><li><a href="../../../../../doc/lib/app/main.js.html#SUPPORTED_ELMENTS">SUPPORTED_ELMENTS</a></li></ul></li></ul></div><div class="nine columns"><div class="comment"><div class="tags"><ul class="no-bullet"></ul></div><div class="description"></div><pre><code class="language-javascript">(function(global)
+.ctx-type { float:right; margin-top:8px }</style></head><body><div class="row"><div class="twelve columns"><h1 class="pagetitle">Documentation</h1></div></div><div class="row"><div id="nav" class="three columns"><ul class="side-nav"><li><a href="../../../../../doc/lib/app/lib/BaseField.js.html">app/lib/BaseField.js</a><ul></ul></li><li><a href="../../../../../doc/lib/app/lib/checkbox/Checkbox.js.html">app/lib/checkbox/Checkbox.js</a><ul></ul></li><li><a href="../../../../../doc/lib/app/lib/file/File.js.html">app/lib/file/File.js</a><ul></ul></li><li><a href="../../../../../doc/lib/app/lib/radio/Radio.js.html">app/lib/radio/Radio.js</a><ul></ul></li><li><a href="../../../../../doc/lib/app/lib/select/Select.js.html">app/lib/select/Select.js</a><ul></ul></li><li><a href="../../../../../doc/lib/app/lib/textfield/Textfield.js.html">app/lib/textfield/Textfield.js</a><ul></ul></li><li><a href="../../../../../doc/lib/app/main.js.html">app/main.js</a><ul></ul></li></ul></div><div class="nine columns"><div class="comment"><div class="tags"><ul class="no-bullet"></ul></div><div class="description"></div><pre><code class="language-javascript">(function(global)
 {
 
     &quot;use strict&quot;;
@@ -25,14 +25,12 @@ code {
     var APP = global.app = global.app || {},
         module = APP.module = APP.module || {},
 
-        settings =
-        {
+        settings = {
             customEle: 'a',
             containerEle: 'div',
             autoHide: true,
             classPrefix: 'custom-',
-            hideCss:
-            {
+            hideCss: {
                 position: 'absolute',
                 left: '-9999px'
             }
@@ -47,8 +45,10 @@ code {
         var $el = $(obj.element),
             $customEl,
             _class = settings.classPrefix + 'checkbox',
-            _callback = obj.init || function(){},
-            opt = obj ? $.extend(true, {}, settings, obj) : settings,
+            _callback = obj.init || function()
+            {},
+            opt = obj ? $.extend(true,
+            {}, settings, obj) : settings,
             attachEvents = function()
             {
                 $el.focusin(function()
@@ -116,13 +116,10 @@ code {
     };
 
     // Define what elements should use this module
-    module.Checkbox.target =
-    {
+    module.Checkbox.target = {
         tagName: 'input',
-        filter:
-        {
-            input:
-            {
+        filter: {
+            input: {
                 type: 'checkbox'
             }
         }

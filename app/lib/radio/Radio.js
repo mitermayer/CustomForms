@@ -6,14 +6,12 @@
     var APP = global.app = global.app || {},
         module = APP.module = APP.module || {},
 
-        settings =
-        {
+        settings = {
             customEle: 'a',
             containerEle: 'div',
             autoHide: true,
             classPrefix: 'custom-',
-            hideCss:
-            {
+            hideCss: {
                 position: 'absolute',
                 left: '-9999px'
             }
@@ -30,8 +28,10 @@
             _class = settings.classPrefix + 'radio',
             _group = $el.attr("name"),
             _groupClass = _class + '-' + _group,
-            _callback = obj.init || function(){},
-            opt = obj ? $.extend(true, {}, settings, obj) : settings,
+            _callback = obj.init || function()
+            {},
+            opt = obj ? $.extend(true,
+            {}, settings, obj) : settings,
             attachEvents = function()
             {
                 $el.focusin(function()
@@ -103,13 +103,10 @@
     };
 
     // Define what elements should use this module
-    module.Radio.target =
-    {
+    module.Radio.target = {
         tagName: 'input',
-        filter:
-        {
-            input:
-            {
+        filter: {
+            input: {
                 type: 'radio'
             }
         }

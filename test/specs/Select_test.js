@@ -6,8 +6,7 @@
         input,
         customEl,
         customElContainer,
-        settings =
-        {
+        settings = {
             classPrefix: 'custom-'
         },
         optVal = [
@@ -15,8 +14,7 @@
                 'foo',
                 'moo'
         ],
-        attr =
-        {
+        attr = {
             name: 'something',
             id: 'somthingelse'
         };

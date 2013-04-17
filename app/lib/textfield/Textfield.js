@@ -6,8 +6,7 @@
     var APP = global.app = global.app || {},
         module = APP.module = APP.module || {},
 
-        settings =
-        {
+        settings = {
             active: true,
             blur_color: '#777',
             classPrefix: 'custom-',
@@ -29,9 +28,11 @@
             var $el = $(obj.element),
                 color = $el.css('color'),
                 placeholder = $el.attr('placeholder'),
-                opt = obj ? $.extend(true, {}, settings, obj) : settings,
+                opt = obj ? $.extend(true,
+                {}, settings, obj) : settings,
                 _class = opt.classPrefix + 'textfield',
-                _callback = obj.init || function(){},
+                _callback = obj.init || function()
+                {},
 
                 clearText = function()
                 {
@@ -118,13 +119,10 @@
     };
 
     // Define what elements should use this module
-    module.TextField.target =
-    {
+    module.TextField.target = {
         tagName: ['input', 'textarea'],
-        filter:
-        {
-            input:
-            {
+        filter: {
+            input: {
                 type: ['text', 'search', 'tel', 'url', 'email', 'password']
             }
         }
