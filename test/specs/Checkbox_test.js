@@ -5,12 +5,10 @@
         input,
         customEl,
         form,
-        settings =
-        {
+        settings = {
             classPrefix: 'custom-'
         },
-        attr =
-        {
+        attr = {
             name: 'something',
             id: 'something',
             type: 'checkbox',

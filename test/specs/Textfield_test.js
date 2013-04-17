@@ -33,16 +33,14 @@
         {
             return (/rgb/).test(color) ? trimrgb(color) : hexToRgb(color);
         },
-        attr =
-        {
+        attr = {
             name: 'something',
             id: 'something',
             type: 'text',
             value: '',
             placeholder: 'defaultText'
         },
-        css =
-        {
+        css = {
             color: colorProxy('rgb(0, 0, 255)')
         };
 
