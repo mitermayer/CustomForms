@@ -298,6 +298,19 @@
         return instance;
     };
 
+    // Define what elements should use this module
+    module.Checkbox.target =
+    {
+        tagName: 'input',
+        filter:
+        {
+            input:
+            {
+                type: 'checkbox'
+            }
+        }
+    };
+
 }(this));
 
 (function(global)
@@ -457,6 +470,19 @@
         return instance;
     };
 
+    // Define what elements should use this module
+    module.File.target =
+    {
+        tagName: 'input',
+        filter:
+        {
+            input:
+            {
+                type: 'file'
+            }
+        }
+    };
+
 }(this));
 
 (function(global)
@@ -561,6 +587,19 @@
         attachEvents();
 
         return instance;
+    };
+
+    // Define what elements should use this module
+    module.Radio.target =
+    {
+        tagName: 'input',
+        filter:
+        {
+            input:
+            {
+                type: 'radio'
+            }
+        }
     };
 
 }(this));
@@ -708,12 +747,18 @@
         return instance;
     };
 
+    // Define what elements should use this module
+    module.Select.target =
+    {
+        tagName: 'select'
+    };
+
 }(this));
 
 (function(global)
 {
 
-    "use strict";
+    'use strict';
 
     var APP = global.app = global.app || {},
         module = APP.module = APP.module || {},
@@ -721,7 +766,7 @@
         settings =
         {
             active: true,
-            blur_color: "#777",
+            blur_color: '#777',
             classPrefix: 'custom-',
             placeholder_support: (function()
             {
@@ -739,19 +784,19 @@
         {
 
             var $el = $(obj.element),
-                color = $el.css("color"),
-                placeholder = $el.attr("placeholder"),
+                color = $el.css('color'),
+                placeholder = $el.attr('placeholder'),
                 opt = obj ? $.extend(true, {}, settings, obj) : settings,
                 _class = opt.classPrefix + 'textfield',
                 _callback = obj.init || function(){},
 
                 clearText = function()
                 {
-                    instance.update("", true).save();
+                    instance.update('', true).save();
                 },
                 toggleColor = function(state)
                 {
-                    $el.css("color", (state ? color : settings.blur_color));
+                    $el.css('color', (state ? color : settings.blur_color));
                 },
                 setDefaultText = function()
                 {
@@ -775,7 +820,7 @@
                 {
                     $el.focusin(function()
                     {
-                        $(this).addClass("focus");
+                        $(this).addClass('focus');
                         validationFailProxy(function()
                         {
                             clearText();
@@ -786,11 +831,11 @@
                     })
                         .focusout(function()
                     {
-                        $(this).removeClass("focus");
+                        $(this).removeClass('focus');
                         addPlaceholder();
                     })
                         .closest('form')
-                        .on("submit", function()
+                        .on('submit', function()
                     {
                         validationFailProxy(function()
                         {
@@ -815,7 +860,7 @@
 
             instance = new APP.BaseField(opt);
 
-            instance.bind("validate", function(event)
+            instance.bind('validate', function(event)
             {
                 var state = event.data.success;
                 toggleColor(state);
@@ -825,7 +870,21 @@
             addPlaceholder();
         }
 
+
         return instance;
+    };
+
+    // Define what elements should use this module
+    module.TextField.target =
+    {
+        tagName: ['input', 'textarea'],
+        filter:
+        {
+            input:
+            {
+                type: ['text', 'search', 'tel', 'url', 'email', 'password']
+            }
+        }
     };
 
 }(this));

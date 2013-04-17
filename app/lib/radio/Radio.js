@@ -102,4 +102,17 @@
         return instance;
     };
 
+    // Define what elements should use this module
+    module.Radio.target =
+    {
+        tagName: 'input',
+        filter:
+        {
+            input:
+            {
+                type: 'radio'
+            }
+        }
+    };
+
 }(this));

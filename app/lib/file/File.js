@@ -155,4 +155,17 @@
         return instance;
     };
 
+    // Define what elements should use this module
+    module.File.target =
+    {
+        tagName: 'input',
+        filter:
+        {
+            input:
+            {
+                type: 'file'
+            }
+        }
+    };
+
 }(this));

@@ -96,4 +96,17 @@
         return instance;
     };
 
+    // Define what elements should use this module
+    module.Checkbox.target =
+    {
+        tagName: 'input',
+        filter:
+        {
+            input:
+            {
+                type: 'checkbox'
+            }
+        }
+    };
+
 }(this));

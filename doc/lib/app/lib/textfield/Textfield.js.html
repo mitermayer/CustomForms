@@ -20,7 +20,7 @@ code {
 .ctx-type { float:right; margin-top:8px }</style></head><body><div class="row"><div class="twelve columns"><h1 class="pagetitle">Documentation</h1></div></div><div class="row"><div id="nav" class="three columns"><ul class="side-nav"><li><a href="../../../../../doc/lib/app/lib/BaseField.js.html">app/lib/BaseField.js</a><ul></ul></li><li><a href="../../../../../doc/lib/app/lib/checkbox/Checkbox.js.html">app/lib/checkbox/Checkbox.js</a><ul></ul></li><li><a href="../../../../../doc/lib/app/lib/file/File.js.html">app/lib/file/File.js</a><ul></ul></li><li><a href="../../../../../doc/lib/app/lib/radio/Radio.js.html">app/lib/radio/Radio.js</a><ul></ul></li><li><a href="../../../../../doc/lib/app/lib/select/Select.js.html">app/lib/select/Select.js</a><ul></ul></li><li><a href="../../../../../doc/lib/app/lib/textfield/Textfield.js.html">app/lib/textfield/Textfield.js</a><ul></ul></li><li><a href="../../../../../doc/lib/app/main.js.html">app/main.js</a><ul></ul></li></ul></div><div class="nine columns"><div class="comment"><div class="tags"><ul class="no-bullet"></ul></div><div class="description"></div><pre><code class="language-javascript">(function(global)
 {
 
-    &quot;use strict&quot;;
+    'use strict';
 
     var APP = global.app = global.app || {},
         module = APP.module = APP.module || {},
@@ -28,7 +28,7 @@ code {
         settings =
         {
             active: true,
-            blur_color: &quot;#777&quot;,
+            blur_color: '#777',
             classPrefix: 'custom-',
             placeholder_support: (function()
             {
@@ -46,19 +46,19 @@ code {
         {
 
             var $el = $(obj.element),
-                color = $el.css(&quot;color&quot;),
-                placeholder = $el.attr(&quot;placeholder&quot;),
+                color = $el.css('color'),
+                placeholder = $el.attr('placeholder'),
                 opt = obj ? $.extend(true, {}, settings, obj) : settings,
                 _class = opt.classPrefix + 'textfield',
                 _callback = obj.init || function(){},
 
                 clearText = function()
                 {
-                    instance.update(&quot;&quot;, true).save();
+                    instance.update('', true).save();
                 },
                 toggleColor = function(state)
                 {
-                    $el.css(&quot;color&quot;, (state ? color : settings.blur_color));
+                    $el.css('color', (state ? color : settings.blur_color));
                 },
                 setDefaultText = function()
                 {
@@ -82,7 +82,7 @@ code {
                 {
                     $el.focusin(function()
                     {
-                        $(this).addClass(&quot;focus&quot;);
+                        $(this).addClass('focus');
                         validationFailProxy(function()
                         {
                             clearText();
@@ -93,11 +93,11 @@ code {
                     })
                         .focusout(function()
                     {
-                        $(this).removeClass(&quot;focus&quot;);
+                        $(this).removeClass('focus');
                         addPlaceholder();
                     })
                         .closest('form')
-                        .on(&quot;submit&quot;, function()
+                        .on('submit', function()
                     {
                         validationFailProxy(function()
                         {
@@ -122,7 +122,7 @@ code {
 
             instance = new APP.BaseField(opt);
 
-            instance.bind(&quot;validate&quot;, function(event)
+            instance.bind('validate', function(event)
             {
                 var state = event.data.success;
                 toggleColor(state);
@@ -132,7 +132,21 @@ code {
             addPlaceholder();
         }
 
+
         return instance;
+    };
+
+    // Define what elements should use this module
+    module.TextField.target =
+    {
+        tagName: ['input', 'textarea'],
+        filter:
+        {
+            input:
+            {
+                type: ['text', 'search', 'tel', 'url', 'email', 'password']
+            }
+        }
     };
 
 }(this));</code></pre></div></div></div><!-- Foundation JS--><script src="http://cdnjs.cloudflare.com/ajax/libs/foundation/3.2.2/javascripts/foundation.min.js"></script><script>/**

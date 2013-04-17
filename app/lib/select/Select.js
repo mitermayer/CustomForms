@@ -141,4 +141,10 @@
         return instance;
     };
 
+    // Define what elements should use this module
+    module.Select.target =
+    {
+        tagName: 'select'
+    };
+
 }(this));
