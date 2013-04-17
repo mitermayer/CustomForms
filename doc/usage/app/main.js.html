@@ -17,56 +17,106 @@ code {
   div.description {margin: 14px 0; padding-top: 14px; border-top:1px solid #eee; border-bottom:1px solid #eee; }
   .tags {}
     .tags .types {color:#666}
-.ctx-type { float:right; margin-top:8px }</style></head><body><div class="row"><div class="twelve columns"><h1 class="pagetitle">Documentation</h1></div></div><div class="row"><div id="nav" class="three columns"><ul class="side-nav"><li><a href="../../../doc/usage/app/main.js.html">app/main.js</a><ul></ul></li></ul></div><div class="nine columns"><div class="comment"><div class="tags"><ul class="no-bullet"></ul></div><div class="description"></div><pre><code class="language-javascript">$(function()
-{
+.ctx-type { float:right; margin-top:8px }</style></head><body><div class="row"><div class="twelve columns"><h1 class="pagetitle">Documentation</h1></div></div><div class="row"><div id="nav" class="three columns"><ul class="side-nav"><li><a href="../../../doc/usage/app/main.js.html">app/main.js</a><ul><li><a href="../../../doc/usage/app/main.js.html#SUPPORTED_ELMENTS">SUPPORTED_ELMENTS</a></li></ul></li></ul></div><div class="nine columns"><div class="comment"><div class="label radius ctx-type">declaration</div><h1 id="SUPPORTED_ELMENTS">SUPPORTED_ELMENTS</h1><h5 class="subheader">SUPPORTED_ELMENTS</h5><div class="tags"><ul class="no-bullet"></ul></div><div class="description"><p>SUPPORTED_ELMENTS = {<br />   tagName: [<br />       {<br />           filter: { 'attrname': ['arrval'] },<br />           module: "moduleName"<br />       },<br />       {<br />           filter: { 'attrname2': 'strval' }<br />           module: "moduleName"<br />       },<br />       "strmodulename"<br />   ]<br />};</p></div><pre><code class="language-javascript">var SUPPORTED_ELMENTS = {};
 
-    //$('input[type=&quot;text&quot;]').each(function() {
-    //    var a = app.module.TextField({
-    //        element: $(this)[0],
-    //        force: true, 
-    //        init: function() {
-    //            console.log(&quot;starting placeholder..&quot;);
-    //        }
-    //    });
-    //});
 
-    //$('input[type=&quot;checkbox&quot;]').each(function() {
-    //    var b = app.module.Checkbox({
-    //        element: $(this)[0],
-    //        init: function() {
-    //            console.log(&quot;starting checkbox..&quot;);
-    //        }
-    //    });
-    //});
+            for (var _module in APP.module)
+            {
 
-    //$('input[type=&quot;radio&quot;]').each(function() {
-    //    var c = app.module.Radio({
-    //        element: $(this)[0],
-    //        init: function() {
-    //            console.log(&quot;starting radio..&quot;);
-    //        }
-    //    });
-    //});
+                var _tag = APP.module[_module].target.tagName,
+                    _filter = APP.module[_module].target.filter,
+                    _ref,
+                    blueprint;
 
-    //$('input[type=&quot;file&quot;]').each(function() {
-    //    var d = app.module.File({
-    //        element: $(this)[0],
-    //        init: function() {
-    //            console.log(&quot;starting file..&quot;);
-    //        }
-    //    });
-    //});
+                if ($.isArray(_tag))
+                {
+                    for (var i = 0, len = _tag.length; i &lt; len; i++)
+                    {
+                        blueprint = SUPPORTED_ELMENTS[_tag[i]] =
+                            SUPPORTED_ELMENTS[_tag[i]] || [];
+                        _ref = _filter[_tag[i]] ?
+                        {
+                            filter: _filter[_tag[i]],
+                            module: _module
+                        } : _module;
+                        blueprint.push(_ref);
+                    }
+                }
+                else
+                {
+                    blueprint = SUPPORTED_ELMENTS[_tag] = SUPPORTED_ELMENTS[
+                        _tag] || [];
+                    _ref = _filter ?
+                    {
+                        filter: _filter,
+                        module: _module
+                    } : _module;
+                    blueprint.push(_ref);
+                }
 
-    //$('select').each(function() {
-    //    var e = app.module.Select({
-    //        element: $(this)[0],
-    //        init: function() {
-    //            console.log(&quot;starting select..&quot;);
-    //        }
-    //    });
-    //});
+            }
 
-});</code></pre></div></div></div><!-- Foundation JS--><script src="http://cdnjs.cloudflare.com/ajax/libs/foundation/3.2.2/javascripts/foundation.min.js"></script><script>/**
+            //return function(options, $arr) {
+            return function()
+            {
+                // TODO:
+                // Loop on all $arr items and check to see if their tageName match
+                // After call all modules from item if they pass on filter or if they dont have one
+            };
+
+        })();
+
+        $.fn.cstmForm = fieldFactory;
+
+        //$('input[type=&quot;text&quot;]').each(function() {
+        //    var a = app.module.TextField({
+        //        element: $(this)[0],
+        //        force: true, 
+        //        init: function() {
+        //            console.log(&quot;starting placeholder..&quot;);
+        //        }
+        //    });
+        //});
+
+        //$('input[type=&quot;checkbox&quot;]').each(function() {
+        //    var b = app.module.Checkbox({
+        //        element: $(this)[0],
+        //        init: function() {
+        //            console.log(&quot;starting checkbox..&quot;);
+        //        }
+        //    });
+        //});
+
+        //$('input[type=&quot;radio&quot;]').each(function() {
+        //    var c = app.module.Radio({
+        //        element: $(this)[0],
+        //        init: function() {
+        //            console.log(&quot;starting radio..&quot;);
+        //        }
+        //    });
+        //});
+
+        //$('input[type=&quot;file&quot;]').each(function() {
+        //    var d = app.module.File({
+        //        element: $(this)[0],
+        //        init: function() {
+        //            console.log(&quot;starting file..&quot;);
+        //        }
+        //    });
+        //});
+
+        //$('select').each(function() {
+        //    var e = app.module.Select({
+        //        element: $(this)[0],
+        //        init: function() {
+        //            console.log(&quot;starting select..&quot;);
+        //        }
+        //    });
+        //});
+
+    });
+
+}(this));</code></pre></div></div></div><!-- Foundation JS--><script src="http://cdnjs.cloudflare.com/ajax/libs/foundation/3.2.2/javascripts/foundation.min.js"></script><script>/**
  * Prism: Lightweight, robust, elegant syntax highlighting
  * MIT license http://www.opensource.org/licenses/mit-license.php/
  * @author Lea Verou http://lea.verou.me
