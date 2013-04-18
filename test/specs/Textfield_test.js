@@ -47,7 +47,7 @@
     /*
      * Setup configuration
      */
-    module('TextField',
+    module('Text',
     {
         setup: function()
         {
@@ -60,7 +60,7 @@
 
             $('#qunit-fixture').append(form.append(input));
 
-            textfield = app.module.TextField(
+            textfield = app.module.Text(
             {
                 element: input.get(0),
                 force: true
@@ -93,7 +93,7 @@
 
         input.val("somthing");
         textfield.sync().validate();
-        textfield = app.module.TextField(
+        textfield = app.module.Text(
         {
             element: input.get(0),
             force: true
@@ -218,7 +218,7 @@
             '"Something else" should pass on validation.');
 
 
-        textfield = app.module.TextField(
+        textfield = app.module.Text(
         {
             element: input.get(0),
             force: true,
@@ -274,7 +274,7 @@
         }).update("bones");
 
 
-        textfield = app.module.TextField(
+        textfield = app.module.Text(
         {
             element: input.get(0),
             force: true,

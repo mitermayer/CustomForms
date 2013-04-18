@@ -17,7 +17,7 @@
         };
 
 
-    module.TextField = function(obj)
+    module.Text = function(obj)
     {
 
         var instance = false;
@@ -119,7 +119,7 @@
     };
 
     // Define what elements should use this module
-    module.TextField.target = {
+    module.Text.target = {
         tagName: ['input', 'textarea'],
         filter: {
             input: {

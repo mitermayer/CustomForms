@@ -1,148 +1,152 @@
-//(function(global)
-//{
-
-//    $(function()
-//    {
-//var APP = global.app = global.app || {};
+(function(global)
+{
+    var APP = global.app = global.app || {};
 
 
-/*
- *SUPPORTED_ELMENTS = {
- *    tagName: [
- *        {
- *            filter: { 'attrname': ['arrval'] },
- *            module: "moduleName"
- *        },
- *        {
- *            filter: { 'attrname2': 'strval' }
- *            module: "moduleName"
- *        },
- *        "strmodulename"
- *    ]
- *};
- */
-//    var fieldFactory = (function()
-//    {
+    /*
+     *SUPPORTED_ELMENTS = {
+     *    tagName: [
+     *        {
+     *            filter: { 'attrname': ['arrval'] },
+     *            module: "moduleName"
+     *        },
+     *        {
+     *            filter: { 'attrname2': 'strval' }
+     *            module: "moduleName"
+     *        },
+     *        "strmodulename"
+     *    ]
+     *};
+     */
+    var fieldFactory = (function()
+    {
 
-//        var SUPPORTED_ELMENTS = {},
-//            getTag = function(){
-//                return SUPPORTED_ELMENTS.tag;
-//            },
-//            getFilter = function( supportedTag ){
-//                return supportedTag.filter; 
-//            },
-//            checkFilter = function( supportedTag ){
-//                var filter = getFilter(supportedTag);
+        var SUPPORTED_ELMENTS = {},
+            getTag = function(element)
+            {
+                return SUPPORTED_ELMENTS[element.nodeName.toLowerCase()];
+            },
+            callModule = function(moduleName, element, options)
+            {
+                var opt = options || {};
+                opt.element = element;
 
-//            },
-//            getModule = function(){},
-//            addSupportedElement = function(module, tag) {
+                //console.log(opt);
 
-//                var filter = APP.module[module].target.filter || {},
-//                    item;
+                APP.module[moduleName](opt);
+            },
+            checkFilter = function(filter, $element)
+            {
 
-//                // if we dont have element on the hash add it
-//                SUPPORTED_ELMENTS[tag] = SUPPORTED_ELMENTS[tag] || [];
+                var ret = false;
 
-//                // if module has a filter add it, else just add input with module reference.
-//                item = filter[tag] ? { filter: filter[tag], module: module } : module;
+                $.each(filter, function(key, value)
+                {
 
-//                // push item to supported hash
-//                SUPPORTED_ELMENTS[tag].push(item);
-//            },
-//            lookUp = {
-//                'arr': function(module, tag) {
-//                    $.each(tag, function(key, value){
-//                        addSupportedElement(module, value);
-//                    });
-//                },
-//                'default': addSupportedElement
-//            };
+                    ret = $element.attr(key) === value;
 
-//        $.each(APP.module, function(key) {
-//            var _tag = APP.module[key].target.tagName;
+                    if (ret)
+                    {
+                        return false;
+                    }
+                });
 
-//            lookUp[$.isArray(_tag) ? 'arr' : 'default'](key, _tag);
-//        });
+                return ret;
+            },
+            getModule = function($element, options)
+            {
 
-//        //return function()
-//        return function(options, $arr) {
-//            // TODO:
-//            // Loop on all $arr items and check to see if their tageName match
-//            // After call all modules from item if they pass on filter or if they dont have one
+                var tag = getTag($element[0]);
 
-//            console.log(this, $(this));
-//            $(this).each(function() {
-//                var $element = $(this);
-//                var element = $element.get(0);
-//                var tagname = element.nodeName.toLowerCase();
+                for (var i = 0, len = tag.length; i < len; i++)
+                {
 
-//                if( SUPPORTED_ELMENTS[tagname] ) {
-//                   $.each(SUPPORTED_ELMENTS[tagname], function( key, value ) {
-//                        if(typeof value === 'string') {
-//                            APP.module[value.module]({ element: element });
-//                        } else {
-//                            $.each(value.filter, function(key, val) {
-//                               if( $element.attr(key) === val) {
-//                                    APP.module[value.module]({ element: element });
-//                               }
-//                            });
-//                        }
-//                   });
-//                }
-//            });
-//        };
+                    if (typeof tag[i] === 'string')
+                    {
 
-//    })();
+                        callModule(tag[i], $element[0], options[tag[i].toLowerCase()]);
 
-//$.fn.cstmForm = fieldFactory;
+                    }
+                    else
+                    {
 
-//$('input[type="text"]').each(function() {
-//    var a = app.module.TextField({
-//        element: $(this)[0],
-//        force: true, 
-//        init: function() {
-//            console.log("starting placeholder..");
-//        }
-//    });
-//});
+                        if (checkFilter(tag[i].filter, $element))
+                        {
 
-//$('input[type="checkbox"]').each(function() {
-//    var b = app.module.Checkbox({
-//        element: $(this)[0],
-//        init: function() {
-//            console.log("starting checkbox..");
-//        }
-//    });
-//});
+                            callModule(tag[i].module, $element[0], options[tag[
+                                i].module.toLowerCase()]);
+                        }
+                    }
+                }
+            },
+            getSupportedChildren = function($parent, options)
+            {
+                $.each($parent.children(), function()
+                {
+                    if (getTag($(this)[0]))
+                    {
+                        getModule($(this), options);
+                    }
+                    else
+                    {
+                        getSupportedChildren($(this), options);
+                    }
+                });
+            },
+            addSupportedElement = function(module, tag)
+            {
 
-//$('input[type="radio"]').each(function() {
-//    var c = app.module.Radio({
-//        element: $(this)[0],
-//        init: function() {
-//            console.log("starting radio..");
-//        }
-//    });
-//});
+                var filter = APP.module[module].target.filter || {},
+                    item;
 
-//$('input[type="file"]').each(function() {
-//    var d = app.module.File({
-//        element: $(this)[0],
-//        init: function() {
-//            console.log("starting file..");
-//        }
-//    });
-//});
+                // if we dont have element on the hash add it
+                SUPPORTED_ELMENTS[tag] = SUPPORTED_ELMENTS[tag] || [];
 
-//$('select').each(function() {
-//    var e = app.module.Select({
-//        element: $(this)[0],
-//        init: function() {
-//            console.log("starting select..");
-//        }
-//    });
-//});
+                // if module has a filter add it, else just add input with module reference.
+                item = filter[tag] ? {
+                    filter: filter[tag],
+                    module: module
+                } : module;
 
-//    });
+                // push item to supported hash
+                SUPPORTED_ELMENTS[tag].push(item);
+            },
+            lookUp = {
+                'arr': function(module, tag)
+                {
+                    $.each(tag, function(key, value)
+                    {
+                        addSupportedElement(module, value);
+                    });
+                },
+                'default': addSupportedElement
+            };
 
-//}(this));
+        $.each(APP.module, function(key)
+        {
+            var _tag = APP.module[key].target.tagName;
+
+            lookUp[$.isArray(_tag) ? 'arr' : 'default'](key, _tag);
+        });
+
+        //return function()
+        return function(options)
+        {
+
+            $(this).each(function()
+            {
+                var _lookUp = {
+                    validTag: getModule,
+                    checkChildrenForValidTag: getSupportedChildren
+                };
+
+                _lookUp[getTag($(this)[0]) ? "validTag" :
+                    "checkChildrenForValidTag"]($(this), options);
+            });
+        };
+
+    })();
+
+    $.fn.cstmForm = fieldFactory;
+
+}(this));
