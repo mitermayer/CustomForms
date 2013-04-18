@@ -1,5 +1,4 @@
-(function(global)
-{
+(function(global) {
 
     "use strict";
 
@@ -42,55 +41,45 @@
         };
 
 
-    module.File = function(obj)
-    {
+    module.File = function(obj) {
 
         var instance = false;
 
         var $el = $(obj.element),
             $customEl,
             $customContainer,
-            opt = obj ? $.extend(true,
-            {}, settings, obj) : settings,
+            opt = obj ? $.extend(true, {}, settings, obj) : settings,
             _id = settings.classPrefix + ($el.attr('id') || $el.attr('name')),
             _class = settings.classPrefix + 'file',
             _containerClass = _class + '-container',
-            _callback = obj.init || function()
-            {},
+            _callback = obj.init || function() {},
             _size = {
                 width: 0,
                 height: 0,
                 size: 0
             },
-            getButtonSize = function(width)
-            {
+            getButtonSize = function(width) {
                 // Firefox needs to set size to button in order for it to work
                 return width - opt.BUTTON_BROWSER_SIZE;
             },
-            getFileName = function()
-            {
+            getFileName = function() {
                 return $el.val().split('\\').pop();
             },
-            attachEvents = function()
-            {
-                $el.focusin(function()
-                {
+            attachEvents = function() {
+                $el.focusin(function() {
                     $customContainer.addClass("focus");
                 })
-                    .focusout(function()
-                {
+                    .focusout(function() {
                     $customContainer.removeClass("focus");
                 })
-                    .change(function()
-                {
+                    .change(function() {
                     instance.validate();
                 });
             };
 
         opt.validators = opt.validators || [];
 
-        opt.init = function()
-        {
+        opt.init = function() {
             // hide element
             $el.css(settings.hideCss);
 
@@ -98,8 +87,7 @@
             $customContainer = $("<" + opt.containerEle + "/>");
 
             // setup attr and styles to container
-            $customContainer.attr(
-            {
+            $customContainer.attr({
                 id: _id + '-container',
                 'class': _containerClass
             }).css(opt.customContainerCss);
@@ -108,8 +96,7 @@
             $customEl = $("<" + opt.customEle + "/>");
 
             // setup attr and styles to custom element
-            $customEl.attr(
-            {
+            $customEl.attr({
                 id: _id,
                 'class': _class
             }).css(opt.customElCss);
@@ -130,16 +117,14 @@
             _size.size = getButtonSize(parseInt(_size.width, 10));
 
             // we than extend elCss with the dimensions and apply them to element.
-            $el.css($.extend(
-            {}, opt.elCss, _size));
+            $el.css($.extend({}, opt.elCss, _size));
 
             _callback();
         };
 
         instance = new APP.BaseField(opt);
 
-        instance.bind('validate', function()
-        {
+        instance.bind('validate', function() {
             var _selectedText = getFileName();
 
             $customEl.html(_selectedText ? _selectedText : opt.holderTxt);

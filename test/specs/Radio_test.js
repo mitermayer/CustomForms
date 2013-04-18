@@ -1,5 +1,4 @@
-(function(global)
-{
+(function(global) {
 
     var form,
         radio = [],
@@ -18,18 +17,15 @@
     /*
      * Setup configuration
      */
-    module('Radio',
-    {
-        setup: function()
-        {
+    module('Radio', {
+        setup: function() {
 
             form = $('<form />');
 
             $('#qunit-fixture').append(form);
 
             // generate 3 radio buttons for testing
-            for (var i = 0; i < totalItems; i++)
-            {
+            for (var i = 0; i < totalItems; i++) {
 
                 var _input = $('<input />');
 
@@ -38,9 +34,7 @@
                 // manually set type attribute before the other attributes on the test suit setup
                 _input.attr('type', 'radio');
 
-                var optAttr = $.extend(
-                {}, attr,
-                {
+                var optAttr = $.extend({}, attr, {
                     value: attr.value + i
                 });
 
@@ -48,8 +42,7 @@
 
                 _input.attr(optAttr);
 
-                radio[i] = app.module.Radio(
-                {
+                radio[i] = app.module.Radio({
                     element: _input.get(0),
                     classPrefix: settings.classPrefix
                 });
@@ -61,8 +54,7 @@
 
             }
         },
-        teardown: function()
-        {
+        teardown: function() {
             form = null;
             radio = [];
             input = [];
@@ -74,11 +66,9 @@
     /*
      * Initialization tests
      */
-    test('Test initiliazation.', function()
-    {
+    test('Test initiliazation.', function() {
 
-        for (var i = 0; i < totalItems; i++)
-        {
+        for (var i = 0; i < totalItems; i++) {
 
             // check if we have a radio object
             ok(radio[i], 'The radio object ' + i + '  must be defined.');
@@ -97,21 +87,16 @@
     /*
      * Interaction tests
      */
-    test('Test interactions.', function()
-    {
+    test('Test interactions.', function() {
 
-        for (var i = 0; i < totalItems; i++)
-        {
+        for (var i = 0; i < totalItems; i++) {
 
-            if (i === 0)
-            {
+            if (i === 0) {
                 input[i].prop("checked", false);
                 customEl[i].click();
                 strictEqual(customEl[i].hasClass('checked'), true,
                     'When clicking on item one, it should add a class of Checked to customEl item one.');
-            }
-            else
-            {
+            } else {
                 strictEqual(customEl[i].hasClass('checked'), false,
                     'Item one is currently checked and only one item can be checked at a time.');
             }

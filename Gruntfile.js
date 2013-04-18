@@ -99,7 +99,7 @@ module.exports = function(grunt) {
             preserve_newlines: true,
             max_preserve_newlines: 10,
             jslint_happy: false,
-            brace_style: "expand",
+            brace_style: "collapse",
             keep_array_indentation: false,
             keep_function_indentation: false,
             space_before_conditional: true,

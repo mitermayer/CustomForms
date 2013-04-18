@@ -70,8 +70,11 @@
   <script src="../customforms.js"></script>
   <script> $(document).ready(function() { $('form').cstmForm({ 
     text: {
-      force: 1,
-      blur_color: 'red'
+      force: true,
+      'blur_color': 'red'
+    },
+    file: {
+      holderTxt: "something.."
     }
   }); }); </script>
 </body>
