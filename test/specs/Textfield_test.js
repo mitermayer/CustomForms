@@ -1,12 +1,15 @@
-(function(global) {
+(function(global)
+{
 
     var textfield,
         input,
         form,
-        trimrgb = function(rgbcolor) {
+        trimrgb = function(rgbcolor)
+        {
             return rgbcolor.replace(/[ ]/g, '');
         },
-        hexToRgb = function(hex, opacity) {
+        hexToRgb = function(hex, opacity)
+        {
 
             var h = hex.replace('#', ''),
                 alpha = typeof opacity !== 'undefined',
@@ -14,17 +17,20 @@
 
             h = h.match(new RegExp('(.{' + h.length / 3 + '})', 'g'));
 
-            for (var i = 0; i < h.length; i++) {
+            for (var i = 0; i < h.length; i++)
+            {
                 h[i] = parseInt(h[i].length == 1 ? h[i] + h[i] : h[i], 16);
             }
 
-            if (alpha) {
+            if (alpha)
+            {
                 h.push(opacity);
             }
 
             return prefix + '(' + h.join(',') + ')';
         },
-        colorProxy = function(color) {
+        colorProxy = function(color)
+        {
             return (/rgb/).test(color) ? trimrgb(color) : hexToRgb(color);
         },
         attr = {
@@ -41,8 +47,10 @@
     /*
      * Setup configuration
      */
-    module('Text', {
-        setup: function() {
+    module('Text',
+    {
+        setup: function()
+        {
 
             form = $('<form />');
 
@@ -52,12 +60,14 @@
 
             $('#qunit-fixture').append(form.append(input));
 
-            textfield = app.module.Text({
+            textfield = app.module.Text(
+            {
                 element: input.get(0),
                 force: true
             });
         },
-        teardown: function() {
+        teardown: function()
+        {
             textfield = null;
             form = null;
             input = null;
@@ -68,7 +78,8 @@
     /*
      * Initialization tests
      */
-    test('Test initiliazation.', function() {
+    test('Test initiliazation.', function()
+    {
 
         var _color;
 
@@ -82,7 +93,8 @@
 
         input.val("somthing");
         textfield.sync().validate();
-        textfield = app.module.Text({
+        textfield = app.module.Text(
+        {
             element: input.get(0),
             force: true
         });
@@ -101,7 +113,8 @@
     /*
      * Test model updates
      */
-    test('Test updating values', function() {
+    test('Test updating values', function()
+    {
 
         var _color;
 
@@ -134,7 +147,8 @@
     /*
      * Test model saving
      */
-    test('Test saving values', function() {
+    test('Test saving values', function()
+    {
 
         textfield.update("DUMMY").save();
         strictEqual(input.val(), 'DUMMY',
@@ -153,9 +167,11 @@
     /*
      * Test model synchronization
      */
-    test('Test synchronizing values', function() {
+    test('Test synchronizing values', function()
+    {
 
-        textfield.bind("sync", function(event) {
+        textfield.bind("sync", function(event)
+        {
 
             var value = event.data;
 
@@ -188,7 +204,8 @@
     /*
      * Test model validator integration
      */
-    test('Test validators', function() {
+    test('Test validators', function()
+    {
 
         strictEqual(textfield.validate("").success, false,
             '"" string should fail on validation.');
@@ -201,12 +218,15 @@
             '"Something else" should pass on validation.');
 
 
-        textfield = app.module.Text({
+        textfield = app.module.Text(
+        {
             element: input.get(0),
             force: true,
-            validators: [function(val) {
+            validators: [function(val)
+                {
                     return val !== "dummy";
-                }, function(val) {
+                }, function(val)
+                {
                     return typeof val !== "number";
                 }
             ]
@@ -224,43 +244,51 @@
     /*
      * Test model events handling
      */
-    test('Test events', function() {
+    test('Test events', function()
+    {
 
         expect(6);
 
-        textfield.bind("save", function() {
+        textfield.bind("save", function()
+        {
             ok(true,
                 'Event save should be called when model is saved.');
         }).save();
 
-        textfield.bind("sync", function() {
+        textfield.bind("sync", function()
+        {
             ok(true,
                 'Event save should be called when model is synchronized.');
         }).sync();
 
         textfield
-            .bind("update", function() {
+            .bind("update", function()
+        {
             ok(true,
                 'Event save should be called when model is updated.');
         })
-            .bind("validate", function() {
+            .bind("validate", function()
+        {
             ok(true,
                 'Event validation should be called when model is query for validation.');
         }).update("bones");
 
 
-        textfield = app.module.Text({
+        textfield = app.module.Text(
+        {
             element: input.get(0),
             force: true,
             events: ["someevent", "customevent"]
         });
 
-        textfield.bind("someevent", function() {
+        textfield.bind("someevent", function()
+        {
             ok(true,
                 'Custom Event someevnt should be called when model triggers it.');
         }).trigger("someevent");
 
-        textfield.bind("customevent", function() {
+        textfield.bind("customevent", function()
+        {
             strictEqual(textfield.validate('Somthing else').success, true,
                 '"customevent" should pass "Hello world!" as a parameter when triggered.');
         }).trigger("customevent", "Hello world!");
@@ -270,7 +298,8 @@
     /*
      * Markup related tests
      */
-    test('Test markup', function() {
+    test('Test markup', function()
+    {
 
         input.focus();
         strictEqual(input.val(), "",

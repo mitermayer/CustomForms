@@ -1,138 +1,160 @@
-(function(global) {
-    var APP = global.app = global.app || {};
+(function(global)
+{
+    var APP = global.app = global.app || {},
+
+        fieldFactory = (function()
+        {
+
+            /*
+             *SUPPORTED_ELMENTS = {
+             *    tagName: [
+             *        {
+             *            filter: { 'attrname': ['arrval'] },
+             *            module: "moduleName"
+             *        },
+             *        {
+             *            filter: { 'attrname2': 'strval' }
+             *            module: "moduleName"
+             *        },
+             *        "strmodulename"
+             *    ]
+             *};
+             */
+            var SUPPORTED_ELMENTS = {},
+                callModule = function(moduleName, element, options)
+                {
+                    var opt = options || {};
+                    opt.element = element;
+
+                    APP.module[moduleName](opt);
+                },
+                getTag = function(element)
+                {
+                    return SUPPORTED_ELMENTS[element.nodeName.toLowerCase()];
+                },
+                assertFilter = function(matchvalue, match)
+                {
+                    var lookupTable = {
+                        array: function()
+                        {
+                            return match.indexOf(matchvalue) !== -1;
+                        },
+                        string: function()
+                        {
+                            return matchvalue === match;
+                        }
+                    };
+
+                    return lookupTable[typeof match === 'string' ? 'string' :
+                        'array']();
+                },
+                checkFilter = function(filter, $element)
+                {
+
+                    var ret = false;
+
+                    $.each(filter, function(key, filter)
+                    {
+
+                        ret = assertFilter($element.attr(key), filter);
+
+                        if (ret)
+                        {
+                            return false;
+                        }
+                    });
+
+                    return ret;
+                },
+                getModule = function($element, options)
+                {
+
+                    var element = $element[0],
+                        tag = getTag(element);
+
+                    for (var i = 0, len = tag.length; i < len; i++)
+                    {
+                        var _tag = tag[i],
+                            _modulename = _tag.module || _tag,
+                            _options = options[_modulename.toLowerCase()];
 
 
-    /*
-     *SUPPORTED_ELMENTS = {
-     *    tagName: [
-     *        {
-     *            filter: { 'attrname': ['arrval'] },
-     *            module: "moduleName"
-     *        },
-     *        {
-     *            filter: { 'attrname2': 'strval' }
-     *            module: "moduleName"
-     *        },
-     *        "strmodulename"
-     *    ]
-     *};
-     */
-    var fieldFactory = (function() {
-
-        var SUPPORTED_ELMENTS = {},
-            getTag = function(element) {
-                return SUPPORTED_ELMENTS[element.nodeName.toLowerCase()];
-            },
-            callModule = function(moduleName, element, options) {
-                var opt = options || {};
-                opt.element = element;
-
-                APP.module[moduleName](opt);
-            },
-            assertFilter = function(matchvalue, match) {
-                var _lookUp = {
-                    array: function() {
-                        return match.indexOf(matchvalue) !== -1;
-                    },
-                    string: function() {
-                        return matchvalue === match;
-                    }
-                };
-
-                return _lookUp[typeof match === 'string' ? 'string' : 'array']();
-            },
-            checkFilter = function(filter, $element) {
-
-                var ret = false;
-
-                $.each(filter, function(key, filter) {
-
-                    ret = assertFilter($element.attr(key), filter);
-
-                    if (ret) {
-                        return false;
-                    }
-                });
-
-                return ret;
-            },
-            getModule = function($element, options) {
-
-                var tag = getTag($element[0]);
-
-                for (var i = 0, len = tag.length; i < len; i++) {
-
-                    if (typeof tag[i] === 'string') {
-
-                        callModule(tag[i], $element[0], options[tag[i].toLowerCase()]);
-
-                    } else {
-
-                        if (checkFilter(tag[i].filter, $element)) {
-
-                            callModule(tag[i].module, $element[0], options[tag[
-                                i].module.toLowerCase()]);
+                        if (typeof _tag === 'string' || checkFilter(_tag.filter,
+                            $element))
+                        {
+                            callModule(_modulename, element, _options);
                         }
                     }
-                }
-            },
-            getSupportedChildren = function($parent, options) {
-                $.each($parent.children(), function() {
-                    if (getTag($(this)[0])) {
-                        getModule($(this), options);
-                    } else {
-                        getSupportedChildren($(this), options);
-                    }
-                });
-            },
-            addSupportedElement = function(module, tag) {
+                },
+                getSupportedChildren = function($parent, options)
+                {
+                    $.each($parent.children(), function()
+                    {
+                        var lookupTable = {
+                            getModule: getModule,
+                            getSupportedChildren: getSupportedChildren
+                        };
 
-                var filter = APP.module[module].target.filter || {},
-                    item;
-
-                // if we dont have element on the hash add it
-                SUPPORTED_ELMENTS[tag] = SUPPORTED_ELMENTS[tag] || [];
-
-                // if module has a filter add it, else just add input with module reference.
-                item = filter[tag] ? {
-                    filter: filter[tag],
-                    module: module
-                } : module;
-
-                // push item to supported hash
-                SUPPORTED_ELMENTS[tag].push(item);
-            },
-            lookUp = {
-                'arr': function(module, tag) {
-                    $.each(tag, function(key, value) {
-                        addSupportedElement(module, value);
+                        lookupTable[getTag($(this)[0]) ? 'getModule' :
+                            'getSupportedChildren']($(this), options);
                     });
                 },
-                'default': addSupportedElement
-            };
+                addSupportedElement = function(module, tag)
+                {
 
-        // Build the supported list
-        $.each(APP.module, function(key) {
-            var _tag = APP.module[key].target.tagName;
+                    var filter = APP.module[module].target.filter || {},
+                        item;
 
-            lookUp[$.isArray(_tag) ? 'arr' : 'default'](key, _tag);
-        });
+                    // if we dont have element on the hash add it
+                    SUPPORTED_ELMENTS[tag] = SUPPORTED_ELMENTS[tag] || [];
 
-        //return function()
-        return function(options) {
+                    // if module has a filter add it, else just add input
+                    // with module reference.
+                    item = filter[tag] ? {
+                        filter: filter[tag],
+                        module: module
+                    } : module;
 
-            $(this).each(function() {
-                var _lookUp = {
-                    validTag: getModule,
-                    checkChildrenForValidTag: getSupportedChildren
+                    // push item to supported hash
+                    SUPPORTED_ELMENTS[tag].push(item);
                 };
 
-                _lookUp[getTag($(this)[0]) ? "validTag" :
-                    "checkChildrenForValidTag"]($(this), options);
-            });
-        };
 
-    })();
+            // Build the supported list
+            $.each(APP.module, function(key)
+            {
+                var _tag = APP.module[key].target.tagName,
+                    lookupTable = {
+                        array: function(module, tag)
+                        {
+                            $.each(tag, function(key, value)
+                            {
+                                addSupportedElement(module, value);
+                            });
+                        },
+                        string: addSupportedElement
+                    };
+
+                lookupTable[$.isArray(_tag) ? 'array' : 'string'](key, _tag);
+            });
+
+            //return function()
+            return function(options)
+            {
+
+                $(this).each(function()
+                {
+                    var lookupTable = {
+                        validTag: getModule,
+                        checkChildrenForValidTag: getSupportedChildren
+                    };
+
+                    lookupTable[getTag($(this)[0]) ? "validTag" :
+                        "checkChildrenForValidTag"]($(this), options);
+                });
+            };
+
+        })();
 
     $.fn.cstmForm = fieldFactory;
 

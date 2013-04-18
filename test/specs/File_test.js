@@ -1,4 +1,5 @@
-(function(global) {
+(function(global)
+{
 
     var form,
         file,
@@ -18,8 +19,10 @@
     /*
      * Setup configuration
      */
-    module('file', {
-        setup: function() {
+    module('file',
+    {
+        setup: function()
+        {
 
             var options;
 
@@ -32,7 +35,8 @@
 
             $('#qunit-fixture').append(form);
 
-            file = app.module.File({
+            file = app.module.File(
+            {
                 element: input.get(0),
                 classPrefix: settings.classPrefix,
                 holderTxt: settings.holderTxt
@@ -46,7 +50,8 @@
             customElContainer = $('#' + _customElContainerId);
 
         },
-        teardown: function() {
+        teardown: function()
+        {
             form = null;
             file = null;
             input = null;
@@ -60,7 +65,8 @@
     /*
      * Initialization tests
      */
-    test('Test initiliazation.', function() {
+    test('Test initiliazation.', function()
+    {
 
         // check if we have a radio object
         ok(file, 'The file object  must be defined.');
@@ -93,7 +99,8 @@
     /*
      * Interaction tests
      */
-    test('Test interactions.', function() {
+    test('Test interactions.', function()
+    {
 
         expect(0);
         // Browsers dont allow much functionality to be triggered programaticly on file in puts for security reasons.

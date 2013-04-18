@@ -17,13 +17,15 @@ code {
   div.description {margin: 14px 0; padding-top: 14px; border-top:1px solid #eee; border-bottom:1px solid #eee; }
   .tags {}
     .tags .types {color:#666}
-.ctx-type { float:right; margin-top:8px }</style></head><body><div class="row"><div class="twelve columns"><h1 class="pagetitle">Documentation</h1></div></div><div class="row"><div id="nav" class="three columns"><ul class="side-nav"><li><a href="../../../../doc/lib/app/lib/BaseField.js.html">app/lib/BaseField.js</a><ul></ul></li><li><a href="../../../../doc/lib/app/lib/checkbox/Checkbox.js.html">app/lib/checkbox/Checkbox.js</a><ul></ul></li><li><a href="../../../../doc/lib/app/lib/file/File.js.html">app/lib/file/File.js</a><ul></ul></li><li><a href="../../../../doc/lib/app/lib/radio/Radio.js.html">app/lib/radio/Radio.js</a><ul></ul></li><li><a href="../../../../doc/lib/app/lib/select/Select.js.html">app/lib/select/Select.js</a><ul></ul></li><li><a href="../../../../doc/lib/app/lib/textfield/Textfield.js.html">app/lib/textfield/Textfield.js</a><ul></ul></li><li><a href="../../../../doc/lib/app/main.js.html">app/main.js</a><ul><li><a href="../../../../doc/lib/app/main.js.html#fieldFactory">fieldFactory</a></li></ul></li></ul></div><div class="nine columns"><div class="comment"><div class="tags"><ul class="no-bullet"></ul></div><div class="description"></div><pre><code class="language-javascript">(function(global) {
+.ctx-type { float:right; margin-top:8px }</style></head><body><div class="row"><div class="twelve columns"><h1 class="pagetitle">Documentation</h1></div></div><div class="row"><div id="nav" class="three columns"><ul class="side-nav"><li><a href="../../../../doc/lib/app/lib/BaseField.js.html">app/lib/BaseField.js</a><ul></ul></li><li><a href="../../../../doc/lib/app/lib/checkbox/Checkbox.js.html">app/lib/checkbox/Checkbox.js</a><ul></ul></li><li><a href="../../../../doc/lib/app/lib/file/File.js.html">app/lib/file/File.js</a><ul></ul></li><li><a href="../../../../doc/lib/app/lib/radio/Radio.js.html">app/lib/radio/Radio.js</a><ul></ul></li><li><a href="../../../../doc/lib/app/lib/select/Select.js.html">app/lib/select/Select.js</a><ul></ul></li><li><a href="../../../../doc/lib/app/lib/textfield/Textfield.js.html">app/lib/textfield/Textfield.js</a><ul></ul></li><li><a href="../../../../doc/lib/app/main.js.html">app/main.js</a><ul><li><a href="../../../../doc/lib/app/main.js.html#SUPPORTED_ELMENTS">SUPPORTED_ELMENTS</a></li></ul></li></ul></div><div class="nine columns"><div class="comment"><div class="tags"><ul class="no-bullet"></ul></div><div class="description"></div><pre><code class="language-javascript">(function(global)
+{
 
     &quot;use strict&quot;;
 
     var APP = global.app = global.app || {};
 
-    APP.BaseField = function(obj) {
+    APP.BaseField = function(obj)
+    {
 
         //  element   - html element
         //  value     - field value
@@ -35,7 +37,8 @@ code {
             validator = [];
 
         // Constructor
-        this.init = function(obj) {
+        this.init = function(obj)
+        {
 
             var defaultEvents = [&quot;update&quot;, &quot;save&quot;, &quot;sync&quot;, &quot;validate&quot;];
 
@@ -46,25 +49,31 @@ code {
             value = element.value;
 
             // setup default events listeners
-            for (var i = 0, e = defaultEvents.length; i &lt; e; i++) {
+            for (var i = 0, e = defaultEvents.length; i &lt; e; i++)
+            {
                 events[defaultEvents[i]] = [];
             }
 
             // setup custom events
-            if (obj.events) {
-                for (var j = 0, l = obj.events.length; j &lt; l; j++) {
+            if (obj.events)
+            {
+                for (var j = 0, l = obj.events.length; j &lt; l; j++)
+                {
                     var _e = obj.events[j],
                         _evnt = events[_e.name || _e] = events[_e.name || _e] || [];
 
-                    if (_e.callback &amp;&amp; typeof _e.callback === 'function') {
+                    if (_e.callback &amp;&amp; typeof _e.callback === 'function')
+                    {
                         _evnt.push(_e.callback);
                     }
                 }
             }
 
             // setup default validator
-            validator.push({
-                validator: function(val) {
+            validator.push(
+            {
+                validator: function(val)
+                {
                     // checks if value is not undefined
                     return val !== &quot;&quot;;
                 },
@@ -72,11 +81,14 @@ code {
             });
 
             // setup custom validators
-            if (obj.validators) {
-                for (var v = 0, k = obj.validators.length; v &lt; k; v++) {
+            if (obj.validators)
+            {
+                for (var v = 0, k = obj.validators.length; v &lt; k; v++)
+                {
                     var _validator = obj.validators[v];
 
-                    validator.push({
+                    validator.push(
+                    {
                         validator: _validator.validator || _validator,
                         message: _validator.message
                     });
@@ -84,14 +96,17 @@ code {
             }
 
             // run custom initializers
-            if (typeof obj.init === &quot;function&quot;) {
+            if (typeof obj.init === &quot;function&quot;)
+            {
                 obj.init();
             }
         };
 
         // attach event callback
-        this.bind = function(evnt, func) {
-            if (events[evnt]) {
+        this.bind = function(evnt, func)
+        {
+            if (events[evnt])
+            {
                 events[evnt].push(func);
             }
 
@@ -99,9 +114,12 @@ code {
         };
 
         // remove events
-        this.unbind = function(evnt, func) {
-            for (var e = 0, v = events[evnt].length; e &lt; v; e++) {
-                if (events[evnt][e] === func) {
+        this.unbind = function(evnt, func)
+        {
+            for (var e = 0, v = events[evnt].length; e &lt; v; e++)
+            {
+                if (events[evnt][e] === func)
+                {
                     events[evnt].splice(e, 1);
                     break;
                 }
@@ -111,8 +129,10 @@ code {
         };
 
         // 
-        this.update = function(val, force) {
-            if (value !== val &amp;&amp; (this.validate(val) || force)) {
+        this.update = function(val, force)
+        {
+            if (value !== val &amp;&amp; (this.validate(val) || force))
+            {
                 value = val;
 
                 this.trigger(&quot;update&quot;, value);
@@ -122,7 +142,8 @@ code {
         };
 
         // update element value with custom element value
-        this.save = function() {
+        this.save = function()
+        {
             element.value = value;
 
             this.trigger(&quot;save&quot;, value);
@@ -131,7 +152,8 @@ code {
         };
 
         // update custom element value with element value
-        this.sync = function() {
+        this.sync = function()
+        {
             value = element.value;
 
             this.trigger(&quot;sync&quot;, value);
@@ -140,18 +162,21 @@ code {
         };
 
         // run custom element value over validators
-        this.validate = function(val) {
+        this.validate = function(val)
+        {
             var ret = {
                 success: true,
                 message: []
             },
                 message = '&quot;' + val + '&quot; is not a valid value.';
 
-            for (var v = 0, l = validator.length; v &lt; l; v++) {
+            for (var v = 0, l = validator.length; v &lt; l; v++)
+            {
                 var _validator = validator[v],
                     _ret = _validator.validator(val || value);
 
-                if (!_ret) {
+                if (!_ret)
+                {
 
                     ret.success = false;
                     ret.message.push(_validator.message || message);
@@ -164,9 +189,12 @@ code {
         };
 
         // trigger custom event
-        this.trigger = function(evnt, data) {
-            if (events[evnt]) {
-                for (var e = 0, v = events[evnt].length; e &lt; v; e++) {
+        this.trigger = function(evnt, data)
+        {
+            if (events[evnt])
+            {
+                for (var e = 0, v = events[evnt].length; e &lt; v; e++)
+                {
                     var that = this,
                         _event = {
                             element: element,

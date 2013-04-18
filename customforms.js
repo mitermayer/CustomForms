@@ -1,10 +1,12 @@
-(function(global) {
+(function(global)
+{
 
     "use strict";
 
     var APP = global.app = global.app || {};
 
-    APP.BaseField = function(obj) {
+    APP.BaseField = function(obj)
+    {
 
         //  element   - html element
         //  value     - field value
@@ -16,7 +18,8 @@
             validator = [];
 
         // Constructor
-        this.init = function(obj) {
+        this.init = function(obj)
+        {
 
             var defaultEvents = ["update", "save", "sync", "validate"];
 
@@ -27,25 +30,31 @@
             value = element.value;
 
             // setup default events listeners
-            for (var i = 0, e = defaultEvents.length; i < e; i++) {
+            for (var i = 0, e = defaultEvents.length; i < e; i++)
+            {
                 events[defaultEvents[i]] = [];
             }
 
             // setup custom events
-            if (obj.events) {
-                for (var j = 0, l = obj.events.length; j < l; j++) {
+            if (obj.events)
+            {
+                for (var j = 0, l = obj.events.length; j < l; j++)
+                {
                     var _e = obj.events[j],
                         _evnt = events[_e.name || _e] = events[_e.name || _e] || [];
 
-                    if (_e.callback && typeof _e.callback === 'function') {
+                    if (_e.callback && typeof _e.callback === 'function')
+                    {
                         _evnt.push(_e.callback);
                     }
                 }
             }
 
             // setup default validator
-            validator.push({
-                validator: function(val) {
+            validator.push(
+            {
+                validator: function(val)
+                {
                     // checks if value is not undefined
                     return val !== "";
                 },
@@ -53,11 +62,14 @@
             });
 
             // setup custom validators
-            if (obj.validators) {
-                for (var v = 0, k = obj.validators.length; v < k; v++) {
+            if (obj.validators)
+            {
+                for (var v = 0, k = obj.validators.length; v < k; v++)
+                {
                     var _validator = obj.validators[v];
 
-                    validator.push({
+                    validator.push(
+                    {
                         validator: _validator.validator || _validator,
                         message: _validator.message
                     });
@@ -65,14 +77,17 @@
             }
 
             // run custom initializers
-            if (typeof obj.init === "function") {
+            if (typeof obj.init === "function")
+            {
                 obj.init();
             }
         };
 
         // attach event callback
-        this.bind = function(evnt, func) {
-            if (events[evnt]) {
+        this.bind = function(evnt, func)
+        {
+            if (events[evnt])
+            {
                 events[evnt].push(func);
             }
 
@@ -80,9 +95,12 @@
         };
 
         // remove events
-        this.unbind = function(evnt, func) {
-            for (var e = 0, v = events[evnt].length; e < v; e++) {
-                if (events[evnt][e] === func) {
+        this.unbind = function(evnt, func)
+        {
+            for (var e = 0, v = events[evnt].length; e < v; e++)
+            {
+                if (events[evnt][e] === func)
+                {
                     events[evnt].splice(e, 1);
                     break;
                 }
@@ -92,8 +110,10 @@
         };
 
         // 
-        this.update = function(val, force) {
-            if (value !== val && (this.validate(val) || force)) {
+        this.update = function(val, force)
+        {
+            if (value !== val && (this.validate(val) || force))
+            {
                 value = val;
 
                 this.trigger("update", value);
@@ -103,7 +123,8 @@
         };
 
         // update element value with custom element value
-        this.save = function() {
+        this.save = function()
+        {
             element.value = value;
 
             this.trigger("save", value);
@@ -112,7 +133,8 @@
         };
 
         // update custom element value with element value
-        this.sync = function() {
+        this.sync = function()
+        {
             value = element.value;
 
             this.trigger("sync", value);
@@ -121,18 +143,21 @@
         };
 
         // run custom element value over validators
-        this.validate = function(val) {
+        this.validate = function(val)
+        {
             var ret = {
                 success: true,
                 message: []
             },
                 message = '"' + val + '" is not a valid value.';
 
-            for (var v = 0, l = validator.length; v < l; v++) {
+            for (var v = 0, l = validator.length; v < l; v++)
+            {
                 var _validator = validator[v],
                     _ret = _validator.validator(val || value);
 
-                if (!_ret) {
+                if (!_ret)
+                {
 
                     ret.success = false;
                     ret.message.push(_validator.message || message);
@@ -145,9 +170,12 @@
         };
 
         // trigger custom event
-        this.trigger = function(evnt, data) {
-            if (events[evnt]) {
-                for (var e = 0, v = events[evnt].length; e < v; e++) {
+        this.trigger = function(evnt, data)
+        {
+            if (events[evnt])
+            {
+                for (var e = 0, v = events[evnt].length; e < v; e++)
+                {
                     var that = this,
                         _event = {
                             element: element,
@@ -170,7 +198,8 @@
 
 }(this));
 
-(function(global) {
+(function(global)
+{
 
     "use strict";
 
@@ -189,27 +218,35 @@
         };
 
 
-    module.Checkbox = function(obj) {
+    module.Checkbox = function(obj)
+    {
 
         var instance = false;
 
         var $el = $(obj.element),
             $customEl,
             _class = settings.classPrefix + 'checkbox',
-            _callback = obj.init || function() {},
-            opt = obj ? $.extend(true, {}, settings, obj) : settings,
-            attachEvents = function() {
-                $el.focusin(function() {
+            _callback = obj.init || function()
+            {},
+            opt = obj ? $.extend(true,
+            {}, settings, obj) : settings,
+            attachEvents = function()
+            {
+                $el.focusin(function()
+                {
                     $customEl.addClass("focus");
                 })
-                    .focusout(function() {
+                    .focusout(function()
+                {
                     $customEl.removeClass("focus");
                 })
-                    .change(function() {
+                    .change(function()
+                {
                     instance.validate();
                 });
 
-                $customEl.click(function(e) {
+                $customEl.click(function(e)
+                {
                     e.preventDefault();
 
                     $el.prop('checked', !$el.prop('checked'));
@@ -219,18 +256,21 @@
 
         opt.validators = opt.validators || [];
 
-        opt.validators.push(function() {
+        opt.validators.push(function()
+        {
             return $el.prop('checked');
         });
 
-        opt.init = function() {
+        opt.init = function()
+        {
             // hide element
             $el.css(settings.hideCss);
 
             // create custom element
             $customEl = $("<" + settings.customEle + "/>");
 
-            $customEl.attr({
+            $customEl.attr(
+            {
                 id: settings.classPrefix + ($el.attr("id") || $el.attr("name")),
                 'class': _class + ' customForm-hidden'
             });
@@ -243,7 +283,8 @@
 
         instance = new APP.BaseField(opt);
 
-        instance.bind('validate', function(event) {
+        instance.bind('validate', function(event)
+        {
             var state = event.data.success;
             $customEl[(!state ? 'remove' : 'add') + 'Class']('checked');
         });
@@ -267,7 +308,8 @@
 
 }(this));
 
-(function(global) {
+(function(global)
+{
 
     "use strict";
 
@@ -310,45 +352,55 @@
         };
 
 
-    module.File = function(obj) {
+    module.File = function(obj)
+    {
 
         var instance = false;
 
         var $el = $(obj.element),
             $customEl,
             $customContainer,
-            opt = obj ? $.extend(true, {}, settings, obj) : settings,
+            opt = obj ? $.extend(true,
+            {}, settings, obj) : settings,
             _id = settings.classPrefix + ($el.attr('id') || $el.attr('name')),
             _class = settings.classPrefix + 'file',
             _containerClass = _class + '-container',
-            _callback = obj.init || function() {},
+            _callback = obj.init || function()
+            {},
             _size = {
                 width: 0,
                 height: 0,
                 size: 0
             },
-            getButtonSize = function(width) {
+            getButtonSize = function(width)
+            {
                 // Firefox needs to set size to button in order for it to work
                 return width - opt.BUTTON_BROWSER_SIZE;
             },
-            getFileName = function() {
+            getFileName = function()
+            {
                 return $el.val().split('\\').pop();
             },
-            attachEvents = function() {
-                $el.focusin(function() {
+            attachEvents = function()
+            {
+                $el.focusin(function()
+                {
                     $customContainer.addClass("focus");
                 })
-                    .focusout(function() {
+                    .focusout(function()
+                {
                     $customContainer.removeClass("focus");
                 })
-                    .change(function() {
+                    .change(function()
+                {
                     instance.validate();
                 });
             };
 
         opt.validators = opt.validators || [];
 
-        opt.init = function() {
+        opt.init = function()
+        {
             // hide element
             $el.css(settings.hideCss);
 
@@ -356,7 +408,8 @@
             $customContainer = $("<" + opt.containerEle + "/>");
 
             // setup attr and styles to container
-            $customContainer.attr({
+            $customContainer.attr(
+            {
                 id: _id + '-container',
                 'class': _containerClass
             }).css(opt.customContainerCss);
@@ -365,7 +418,8 @@
             $customEl = $("<" + opt.customEle + "/>");
 
             // setup attr and styles to custom element
-            $customEl.attr({
+            $customEl.attr(
+            {
                 id: _id,
                 'class': _class
             }).css(opt.customElCss);
@@ -386,14 +440,16 @@
             _size.size = getButtonSize(parseInt(_size.width, 10));
 
             // we than extend elCss with the dimensions and apply them to element.
-            $el.css($.extend({}, opt.elCss, _size));
+            $el.css($.extend(
+            {}, opt.elCss, _size));
 
             _callback();
         };
 
         instance = new APP.BaseField(opt);
 
-        instance.bind('validate', function() {
+        instance.bind('validate', function()
+        {
             var _selectedText = getFileName();
 
             $customEl.html(_selectedText ? _selectedText : opt.holderTxt);
@@ -418,7 +474,8 @@
 
 }(this));
 
-(function(global) {
+(function(global)
+{
 
     "use strict";
 
@@ -437,7 +494,8 @@
         };
 
 
-    module.Radio = function(obj) {
+    module.Radio = function(obj)
+    {
 
         var instance = false;
 
@@ -446,20 +504,27 @@
             _class = settings.classPrefix + 'radio',
             _group = $el.attr("name"),
             _groupClass = _class + '-' + _group,
-            _callback = obj.init || function() {},
-            opt = obj ? $.extend(true, {}, settings, obj) : settings,
-            attachEvents = function() {
-                $el.focusin(function() {
+            _callback = obj.init || function()
+            {},
+            opt = obj ? $.extend(true,
+            {}, settings, obj) : settings,
+            attachEvents = function()
+            {
+                $el.focusin(function()
+                {
                     $customEl.addClass("focus");
                 })
-                    .focusout(function() {
+                    .focusout(function()
+                {
                     $customEl.removeClass("focus");
                 })
-                    .change(function() {
+                    .change(function()
+                {
                     instance.validate();
                 });
 
-                $customEl.click(function(e) {
+                $customEl.click(function(e)
+                {
                     e.preventDefault();
 
                     $el.prop('checked', true);
@@ -469,18 +534,21 @@
 
         opt.validators = opt.validators || [];
 
-        opt.validators.push(function() {
+        opt.validators.push(function()
+        {
             return $el.prop('checked');
         });
 
-        opt.init = function() {
+        opt.init = function()
+        {
             // hide element
             $el.css(settings.hideCss);
 
             // create custom element
             $customEl = $("<" + settings.customEle + "/>");
 
-            $customEl.attr({
+            $customEl.attr(
+            {
                 id: settings.classPrefix + $el.attr("name") + "-" + $el.val(),
                 'class': _class + ' customForm-hidden ' + _groupClass
             });
@@ -493,7 +561,8 @@
 
         instance = new APP.BaseField(opt);
 
-        instance.bind('validate', function(event) {
+        instance.bind('validate', function(event)
+        {
             var state = event.data.success;
 
             // uncheck them
@@ -521,7 +590,8 @@
 
 }(this));
 
-(function(global) {
+(function(global)
+{
 
     "use strict";
 
@@ -559,37 +629,45 @@
         };
 
 
-    module.Select = function(obj) {
+    module.Select = function(obj)
+    {
 
         var instance = false;
 
         var $el = $(obj.element),
             $customEl,
             $customContainer,
-            opt = obj ? $.extend(true, {}, settings, obj) : settings,
+            opt = obj ? $.extend(true,
+            {}, settings, obj) : settings,
             _id = settings.classPrefix + ($el.attr('id') || $el.attr('name')),
             _class = settings.classPrefix + 'select',
             _containerClass = _class + '-container',
-            _callback = obj.init || function() {},
+            _callback = obj.init || function()
+            {},
             _size = {
                 width: 0,
                 height: 0
             },
-            attachEvents = function() {
-                $el.focusin(function() {
+            attachEvents = function()
+            {
+                $el.focusin(function()
+                {
                     $customContainer.addClass("focus");
                 })
-                    .focusout(function() {
+                    .focusout(function()
+                {
                     $customContainer.removeClass("focus");
                 })
-                    .change(function() {
+                    .change(function()
+                {
                     instance.validate();
                 });
             };
 
         opt.validators = opt.validators || [];
 
-        opt.init = function() {
+        opt.init = function()
+        {
             // hide element
             $el.css(settings.hideCss);
 
@@ -597,7 +675,8 @@
             $customContainer = $("<" + opt.containerEle + "/>");
 
             // setup attr and styles to container
-            $customContainer.attr({
+            $customContainer.attr(
+            {
                 id: _id + '-container',
                 'class': _containerClass
             }).css(opt.customContainerCss);
@@ -606,7 +685,8 @@
             $customEl = $("<" + opt.customEle + "/>");
 
             // setup attr and styles to custom element
-            $customEl.attr({
+            $customEl.attr(
+            {
                 id: _id,
                 'class': _class
             }).css(opt.customElCss);
@@ -626,14 +706,16 @@
             _size.width = $customContainer.css("width");
 
             // we than extend elCss with the dimensions and apply them to element.
-            $el.css($.extend({}, opt.elCss, _size));
+            $el.css($.extend(
+            {}, opt.elCss, _size));
 
             _callback();
         };
 
         instance = new APP.BaseField(opt);
 
-        instance.bind('validate', function() {
+        instance.bind('validate', function()
+        {
             var _selectedText = $el.find('option:selected').text();
 
             _selectedText = _selectedText || $el.find('option').first().text();
@@ -655,7 +737,8 @@
 
 }(this));
 
-(function(global) {
+(function(global)
+{
 
     'use strict';
 
@@ -666,61 +749,79 @@
             active: true,
             blur_color: '#777',
             classPrefix: 'custom-',
-            placeholder_support: (function() {
+            placeholder_support: (function()
+            {
                 return ('placeholder' in global.document.createElement('input'));
             })()
         };
 
 
-    module.Text = function(obj) {
+    module.Text = function(obj)
+    {
 
         var instance = false;
 
-        if (!settings.placeholder_support || obj.force) {
+        if (!settings.placeholder_support || obj.force)
+        {
 
             var $el = $(obj.element),
                 color = $el.css('color'),
                 placeholder = $el.attr('placeholder'),
-                opt = obj ? $.extend(true, {}, settings, obj) : settings,
+                opt = obj ? $.extend(true,
+                {}, settings, obj) : settings,
                 _class = opt.classPrefix + 'textfield',
-                _callback = obj.init || function() {},
+                _callback = obj.init || function()
+                {},
 
-                clearText = function() {
+                clearText = function()
+                {
                     instance.update('', true).save();
                 },
-                toggleColor = function(state) {
+                toggleColor = function(state)
+                {
                     $el.css('color', (state ? color : opt.blur_color));
                 },
-                setDefaultText = function() {
+                setDefaultText = function()
+                {
                     instance.update(placeholder, true).save();
                 },
-                validationFailProxy = function(func) {
-                    if (!instance.sync().validate().success) {
+                validationFailProxy = function(func)
+                {
+                    if (!instance.sync().validate().success)
+                    {
                         func();
                     }
                 },
-                addPlaceholder = function() {
-                    validationFailProxy(function() {
+                addPlaceholder = function()
+                {
+                    validationFailProxy(function()
+                    {
                         setDefaultText();
                     });
                 },
-                attachEvents = function() {
-                    $el.focusin(function() {
+                attachEvents = function()
+                {
+                    $el.focusin(function()
+                    {
                         $(this).addClass('focus');
-                        validationFailProxy(function() {
+                        validationFailProxy(function()
+                        {
                             clearText();
 
                             // overwrite default invalid color
                             toggleColor(true);
                         });
                     })
-                        .focusout(function() {
+                        .focusout(function()
+                    {
                         $(this).removeClass('focus');
                         addPlaceholder();
                     })
                         .closest('form')
-                        .on('submit', function() {
-                        validationFailProxy(function() {
+                        .on('submit', function()
+                    {
+                        validationFailProxy(function()
+                        {
                             clearText();
                         });
                     });
@@ -728,11 +829,13 @@
 
             opt.validators = opt.validators || [];
 
-            opt.validators.push(function(val) {
+            opt.validators.push(function(val)
+            {
                 return val !== placeholder;
             });
 
-            opt.init = function() {
+            opt.init = function()
+            {
                 $el.addClass(_class);
 
                 _callback();
@@ -740,7 +843,8 @@
 
             instance = new APP.BaseField(opt);
 
-            instance.bind('validate', function(event) {
+            instance.bind('validate', function(event)
+            {
                 var state = event.data.success;
                 toggleColor(state);
             });
@@ -764,141 +868,163 @@
 
 }(this));
 
-(function(global) {
-    var APP = global.app = global.app || {};
+(function(global)
+{
+    var APP = global.app = global.app || {},
+
+        fieldFactory = (function()
+        {
+
+            /*
+             *SUPPORTED_ELMENTS = {
+             *    tagName: [
+             *        {
+             *            filter: { 'attrname': ['arrval'] },
+             *            module: "moduleName"
+             *        },
+             *        {
+             *            filter: { 'attrname2': 'strval' }
+             *            module: "moduleName"
+             *        },
+             *        "strmodulename"
+             *    ]
+             *};
+             */
+            var SUPPORTED_ELMENTS = {},
+                callModule = function(moduleName, element, options)
+                {
+                    var opt = options || {};
+                    opt.element = element;
+
+                    APP.module[moduleName](opt);
+                },
+                getTag = function(element)
+                {
+                    return SUPPORTED_ELMENTS[element.nodeName.toLowerCase()];
+                },
+                assertFilter = function(matchvalue, match)
+                {
+                    var lookupTable = {
+                        array: function()
+                        {
+                            return match.indexOf(matchvalue) !== -1;
+                        },
+                        string: function()
+                        {
+                            return matchvalue === match;
+                        }
+                    };
+
+                    return lookupTable[typeof match === 'string' ? 'string' :
+                        'array']();
+                },
+                checkFilter = function(filter, $element)
+                {
+
+                    var ret = false;
+
+                    $.each(filter, function(key, filter)
+                    {
+
+                        ret = assertFilter($element.attr(key), filter);
+
+                        if (ret)
+                        {
+                            return false;
+                        }
+                    });
+
+                    return ret;
+                },
+                getModule = function($element, options)
+                {
+
+                    var element = $element[0],
+                        tag = getTag(element);
+
+                    for (var i = 0, len = tag.length; i < len; i++)
+                    {
+                        var _tag = tag[i],
+                            _modulename = _tag.module || _tag,
+                            _options = options[_modulename.toLowerCase()];
 
 
-    /*
-     *SUPPORTED_ELMENTS = {
-     *    tagName: [
-     *        {
-     *            filter: { 'attrname': ['arrval'] },
-     *            module: "moduleName"
-     *        },
-     *        {
-     *            filter: { 'attrname2': 'strval' }
-     *            module: "moduleName"
-     *        },
-     *        "strmodulename"
-     *    ]
-     *};
-     */
-    var fieldFactory = (function() {
-
-        var SUPPORTED_ELMENTS = {},
-            getTag = function(element) {
-                return SUPPORTED_ELMENTS[element.nodeName.toLowerCase()];
-            },
-            callModule = function(moduleName, element, options) {
-                var opt = options || {};
-                opt.element = element;
-
-                APP.module[moduleName](opt);
-            },
-            assertFilter = function(matchvalue, match) {
-                var _lookUp = {
-                    array: function() {
-                        return match.indexOf(matchvalue) !== -1;
-                    },
-                    string: function() {
-                        return matchvalue === match;
-                    }
-                };
-
-                return _lookUp[typeof match === 'string' ? 'string' : 'array']();
-            },
-            checkFilter = function(filter, $element) {
-
-                var ret = false;
-
-                $.each(filter, function(key, filter) {
-
-                    ret = assertFilter($element.attr(key), filter);
-
-                    if (ret) {
-                        return false;
-                    }
-                });
-
-                return ret;
-            },
-            getModule = function($element, options) {
-
-                var tag = getTag($element[0]);
-
-                for (var i = 0, len = tag.length; i < len; i++) {
-
-                    if (typeof tag[i] === 'string') {
-
-                        callModule(tag[i], $element[0], options[tag[i].toLowerCase()]);
-
-                    } else {
-
-                        if (checkFilter(tag[i].filter, $element)) {
-
-                            callModule(tag[i].module, $element[0], options[tag[
-                                i].module.toLowerCase()]);
+                        if (typeof _tag === 'string' || checkFilter(_tag.filter,
+                            $element))
+                        {
+                            callModule(_modulename, element, _options);
                         }
                     }
-                }
-            },
-            getSupportedChildren = function($parent, options) {
-                $.each($parent.children(), function() {
-                    if (getTag($(this)[0])) {
-                        getModule($(this), options);
-                    } else {
-                        getSupportedChildren($(this), options);
-                    }
-                });
-            },
-            addSupportedElement = function(module, tag) {
+                },
+                getSupportedChildren = function($parent, options)
+                {
+                    $.each($parent.children(), function()
+                    {
+                        var lookupTable = {
+                            getModule: getModule,
+                            getSupportedChildren: getSupportedChildren
+                        };
 
-                var filter = APP.module[module].target.filter || {},
-                    item;
-
-                // if we dont have element on the hash add it
-                SUPPORTED_ELMENTS[tag] = SUPPORTED_ELMENTS[tag] || [];
-
-                // if module has a filter add it, else just add input with module reference.
-                item = filter[tag] ? {
-                    filter: filter[tag],
-                    module: module
-                } : module;
-
-                // push item to supported hash
-                SUPPORTED_ELMENTS[tag].push(item);
-            },
-            lookUp = {
-                'arr': function(module, tag) {
-                    $.each(tag, function(key, value) {
-                        addSupportedElement(module, value);
+                        lookupTable[getTag($(this)[0]) ? 'getModule' :
+                            'getSupportedChildren']($(this), options);
                     });
                 },
-                'default': addSupportedElement
-            };
+                addSupportedElement = function(module, tag)
+                {
 
-        // Build the supported list
-        $.each(APP.module, function(key) {
-            var _tag = APP.module[key].target.tagName;
+                    var filter = APP.module[module].target.filter || {},
+                        item;
 
-            lookUp[$.isArray(_tag) ? 'arr' : 'default'](key, _tag);
-        });
+                    // if we dont have element on the hash add it
+                    SUPPORTED_ELMENTS[tag] = SUPPORTED_ELMENTS[tag] || [];
 
-        //return function()
-        return function(options) {
+                    // if module has a filter add it, else just add input
+                    // with module reference.
+                    item = filter[tag] ? {
+                        filter: filter[tag],
+                        module: module
+                    } : module;
 
-            $(this).each(function() {
-                var _lookUp = {
-                    validTag: getModule,
-                    checkChildrenForValidTag: getSupportedChildren
+                    // push item to supported hash
+                    SUPPORTED_ELMENTS[tag].push(item);
                 };
 
-                _lookUp[getTag($(this)[0]) ? "validTag" :
-                    "checkChildrenForValidTag"]($(this), options);
-            });
-        };
 
-    })();
+            // Build the supported list
+            $.each(APP.module, function(key)
+            {
+                var _tag = APP.module[key].target.tagName,
+                    lookupTable = {
+                        array: function(module, tag)
+                        {
+                            $.each(tag, function(key, value)
+                            {
+                                addSupportedElement(module, value);
+                            });
+                        },
+                        string: addSupportedElement
+                    };
+
+                lookupTable[$.isArray(_tag) ? 'array' : 'string'](key, _tag);
+            });
+
+            //return function()
+            return function(options)
+            {
+
+                $(this).each(function()
+                {
+                    var lookupTable = {
+                        validTag: getModule,
+                        checkChildrenForValidTag: getSupportedChildren
+                    };
+
+                    lookupTable[getTag($(this)[0]) ? "validTag" :
+                        "checkChildrenForValidTag"]($(this), options);
+                });
+            };
+
+        })();
 
     $.fn.cstmForm = fieldFactory;
 

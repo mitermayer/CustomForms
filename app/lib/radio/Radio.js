@@ -1,4 +1,5 @@
-(function(global) {
+(function(global)
+{
 
     "use strict";
 
@@ -17,7 +18,8 @@
         };
 
 
-    module.Radio = function(obj) {
+    module.Radio = function(obj)
+    {
 
         var instance = false;
 
@@ -26,20 +28,27 @@
             _class = settings.classPrefix + 'radio',
             _group = $el.attr("name"),
             _groupClass = _class + '-' + _group,
-            _callback = obj.init || function() {},
-            opt = obj ? $.extend(true, {}, settings, obj) : settings,
-            attachEvents = function() {
-                $el.focusin(function() {
+            _callback = obj.init || function()
+            {},
+            opt = obj ? $.extend(true,
+            {}, settings, obj) : settings,
+            attachEvents = function()
+            {
+                $el.focusin(function()
+                {
                     $customEl.addClass("focus");
                 })
-                    .focusout(function() {
+                    .focusout(function()
+                {
                     $customEl.removeClass("focus");
                 })
-                    .change(function() {
+                    .change(function()
+                {
                     instance.validate();
                 });
 
-                $customEl.click(function(e) {
+                $customEl.click(function(e)
+                {
                     e.preventDefault();
 
                     $el.prop('checked', true);
@@ -49,18 +58,21 @@
 
         opt.validators = opt.validators || [];
 
-        opt.validators.push(function() {
+        opt.validators.push(function()
+        {
             return $el.prop('checked');
         });
 
-        opt.init = function() {
+        opt.init = function()
+        {
             // hide element
             $el.css(settings.hideCss);
 
             // create custom element
             $customEl = $("<" + settings.customEle + "/>");
 
-            $customEl.attr({
+            $customEl.attr(
+            {
                 id: settings.classPrefix + $el.attr("name") + "-" + $el.val(),
                 'class': _class + ' customForm-hidden ' + _groupClass
             });
@@ -73,7 +85,8 @@
 
         instance = new APP.BaseField(opt);
 
-        instance.bind('validate', function(event) {
+        instance.bind('validate', function(event)
+        {
             var state = event.data.success;
 
             // uncheck them

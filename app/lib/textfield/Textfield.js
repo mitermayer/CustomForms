@@ -1,4 +1,5 @@
-(function(global) {
+(function(global)
+{
 
     'use strict';
 
@@ -9,61 +10,79 @@
             active: true,
             blur_color: '#777',
             classPrefix: 'custom-',
-            placeholder_support: (function() {
+            placeholder_support: (function()
+            {
                 return ('placeholder' in global.document.createElement('input'));
             })()
         };
 
 
-    module.Text = function(obj) {
+    module.Text = function(obj)
+    {
 
         var instance = false;
 
-        if (!settings.placeholder_support || obj.force) {
+        if (!settings.placeholder_support || obj.force)
+        {
 
             var $el = $(obj.element),
                 color = $el.css('color'),
                 placeholder = $el.attr('placeholder'),
-                opt = obj ? $.extend(true, {}, settings, obj) : settings,
+                opt = obj ? $.extend(true,
+                {}, settings, obj) : settings,
                 _class = opt.classPrefix + 'textfield',
-                _callback = obj.init || function() {},
+                _callback = obj.init || function()
+                {},
 
-                clearText = function() {
+                clearText = function()
+                {
                     instance.update('', true).save();
                 },
-                toggleColor = function(state) {
+                toggleColor = function(state)
+                {
                     $el.css('color', (state ? color : opt.blur_color));
                 },
-                setDefaultText = function() {
+                setDefaultText = function()
+                {
                     instance.update(placeholder, true).save();
                 },
-                validationFailProxy = function(func) {
-                    if (!instance.sync().validate().success) {
+                validationFailProxy = function(func)
+                {
+                    if (!instance.sync().validate().success)
+                    {
                         func();
                     }
                 },
-                addPlaceholder = function() {
-                    validationFailProxy(function() {
+                addPlaceholder = function()
+                {
+                    validationFailProxy(function()
+                    {
                         setDefaultText();
                     });
                 },
-                attachEvents = function() {
-                    $el.focusin(function() {
+                attachEvents = function()
+                {
+                    $el.focusin(function()
+                    {
                         $(this).addClass('focus');
-                        validationFailProxy(function() {
+                        validationFailProxy(function()
+                        {
                             clearText();
 
                             // overwrite default invalid color
                             toggleColor(true);
                         });
                     })
-                        .focusout(function() {
+                        .focusout(function()
+                    {
                         $(this).removeClass('focus');
                         addPlaceholder();
                     })
                         .closest('form')
-                        .on('submit', function() {
-                        validationFailProxy(function() {
+                        .on('submit', function()
+                    {
+                        validationFailProxy(function()
+                        {
                             clearText();
                         });
                     });
@@ -71,11 +90,13 @@
 
             opt.validators = opt.validators || [];
 
-            opt.validators.push(function(val) {
+            opt.validators.push(function(val)
+            {
                 return val !== placeholder;
             });
 
-            opt.init = function() {
+            opt.init = function()
+            {
                 $el.addClass(_class);
 
                 _callback();
@@ -83,7 +104,8 @@
 
             instance = new APP.BaseField(opt);
 
-            instance.bind('validate', function(event) {
+            instance.bind('validate', function(event)
+            {
                 var state = event.data.success;
                 toggleColor(state);
             });

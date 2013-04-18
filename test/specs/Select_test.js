@@ -1,4 +1,5 @@
-(function(global) {
+(function(global)
+{
 
     var form,
         select,
@@ -21,8 +22,10 @@
     /*
      * Setup configuration
      */
-    module('Select', {
-        setup: function() {
+    module('Select',
+    {
+        setup: function()
+        {
 
             var options;
 
@@ -32,10 +35,14 @@
             input.attr(attr);
 
 
-            for (var i = 0, len = optVal.length; i < len; i++) {
-                if (i === 0) {
+            for (var i = 0, len = optVal.length; i < len; i++)
+            {
+                if (i === 0)
+                {
                     options += "<option>" + optVal[i] + "</option>";
-                } else {
+                }
+                else
+                {
                     options += "<option value='" + i + "'>" + optVal[i] +
                         "</option>";
                 }
@@ -48,7 +55,8 @@
 
             $('#qunit-fixture').append(form);
 
-            select = app.module.Select({
+            select = app.module.Select(
+            {
                 element: input.get(0),
                 classPrefix: settings.classPrefix
             });
@@ -61,7 +69,8 @@
             customElContainer = $('#' + _customElContainerId);
 
         },
-        teardown: function() {
+        teardown: function()
+        {
             form = null;
             select = null;
             input = null;
@@ -75,7 +84,8 @@
     /*
      * Initialization tests
      */
-    test('Test initiliazation.', function() {
+    test('Test initiliazation.', function()
+    {
 
         // check if we have a radio object
         ok(select, 'The select object  must be defined.');
@@ -106,13 +116,15 @@
     /*
      * Interaction tests
      */
-    test('Test interactions.', function() {
+    test('Test interactions.', function()
+    {
 
         // The change event definition
         // For select boxes, checkboxes, and radio buttons, the event is fired immediately when the user makes a selection with the mouse, but for the other element types the event is deferred until the element loses focus.
         // So in orther to unit test this, we need to call trigger manually since it can only activate change event with a mouse selection.
         //
-        for (var i = 0, len = optVal.length; i < len; i++) {
+        for (var i = 0, len = optVal.length; i < len; i++)
+        {
             input.val(i).trigger('change');
             strictEqual(customEl.html(), optVal[i],
                 'When changing the select value, custom element text must reflect to the option selected text.');
