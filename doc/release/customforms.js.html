@@ -18,12 +18,35 @@ code {
   .tags {}
     .tags .types {color:#666}
 .ctx-type { float:right; margin-top:8px }</style></head><body><div class="row"><div class="twelve columns"><h1 class="pagetitle">Documentation</h1></div></div><div class="row"><div id="nav" class="three columns"><ul class="side-nav"><li><a href="../../doc/release/customforms.js.html">customforms.js</a><ul><li><a href="../../doc/release/customforms.js.html#SUPPORTED_ELMENTS">SUPPORTED_ELMENTS</a></li></ul></li></ul></div><div class="nine columns"><div class="comment"><div class="label radius ctx-type">declaration</div><h1 id="SUPPORTED_ELMENTS">SUPPORTED_ELMENTS</h1><h5 class="subheader">SUPPORTED_ELMENTS</h5><div class="tags"><ul class="no-bullet"></ul></div><div class="description"><p>SUPPORTED_ELMENTS = {<br />   tagName: [<br />       {<br />           filter: { 'attrname': ['arrval'] },<br />           module: "moduleName"<br />       },<br />       {<br />           filter: { 'attrname2': 'strval' }<br />           module: "moduleName"<br />       },<br />       "strmodulename"<br />   ]<br />};</p></div><pre><code class="language-javascript">var SUPPORTED_ELMENTS = {},
+                GLOBAL_OPTIONS = {},
+                capitaliseFirstLetter = function(string)
+                {
+                    return string.charAt(0).toUpperCase() + string.slice(1);
+                },
                 callModule = function(moduleName, element, options)
                 {
-                    var opt = options || {};
-                    opt.element = element;
+                    var opt = options || {},
+                        settings = $.extend(true,
+                        {}, GLOBAL_OPTIONS, opt);
 
-                    APP.module[moduleName](opt);
+                    settings.element = element;
+
+                    APP.module[moduleName](settings);
+                },
+                setGlobalOptions = function(options)
+                {
+                    // Global options are options that are not namespaced by a module name
+
+                    // Reset on each call
+                    GLOBAL_OPTIONS = {};
+
+                    for (var option in options)
+                    {
+                        if (!APP.module[capitaliseFirstLetter(option)])
+                        {
+                            GLOBAL_OPTIONS[option] = options[option];
+                        }
+                    }
                 },
                 getTag = function(element)
                 {
@@ -138,6 +161,7 @@ code {
             //return function()
             return function(options)
             {
+                setGlobalOptions(options);
 
                 $(this).each(function()
                 {

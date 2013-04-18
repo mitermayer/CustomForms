@@ -21,12 +21,35 @@
              *};
              */
             var SUPPORTED_ELMENTS = {},
+                GLOBAL_OPTIONS = {},
+                capitaliseFirstLetter = function(string)
+                {
+                    return string.charAt(0).toUpperCase() + string.slice(1);
+                },
                 callModule = function(moduleName, element, options)
                 {
-                    var opt = options || {};
-                    opt.element = element;
+                    var opt = options || {},
+                        settings = $.extend(true,
+                        {}, GLOBAL_OPTIONS, opt);
 
-                    APP.module[moduleName](opt);
+                    settings.element = element;
+
+                    APP.module[moduleName](settings);
+                },
+                setGlobalOptions = function(options)
+                {
+                    // Global options are options that are not namespaced by a module name
+
+                    // Reset on each call
+                    GLOBAL_OPTIONS = {};
+
+                    for (var option in options)
+                    {
+                        if (!APP.module[capitaliseFirstLetter(option)])
+                        {
+                            GLOBAL_OPTIONS[option] = options[option];
+                        }
+                    }
                 },
                 getTag = function(element)
                 {
@@ -141,6 +164,7 @@
             //return function()
             return function(options)
             {
+                setGlobalOptions(options);
 
                 $(this).each(function()
                 {
