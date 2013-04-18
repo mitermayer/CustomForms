@@ -60,7 +60,7 @@
                     var lookupTable = {
                         array: function()
                         {
-                            return match.indexOf(matchvalue) !== -1;
+                            return $.inArray(matchvalue, match) !== -1;
                         },
                         string: function()
                         {
