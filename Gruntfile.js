@@ -98,6 +98,7 @@ module.exports = function(grunt) {
             indent_with_tabs: false,
             preserve_newlines: true,
             max_preserve_newlines: 10,
+            wrap_line_length: 0,
             jslint_happy: false,
             brace_style: "expand",
             keep_array_indentation: false,
@@ -105,7 +106,6 @@ module.exports = function(grunt) {
             space_before_conditional: true,
             eval_code: false,
             indent_case: false,
-            wrap_line_length: 80,
             unescape_strings: false
         }
     },
