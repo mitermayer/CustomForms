@@ -425,7 +425,9 @@
     var APP = global.app = global.app || {},
         module = APP.module = APP.module || {},
 
-        settings = {
+        DEFAULTS = {
+            active: true,
+            ready: function() {},
             customEle: 'a',
             containerEle: 'div',
             autoHide: true,
@@ -441,13 +443,13 @@
 
         var instance = false;
 
-        var $el = $(obj.element),
-            $customEl,
-            _class = settings.classPrefix + 'radio',
+        var SETTINGS = obj ? $.extend(true, {}, DEFAULTS, obj) : DEFAULTS,
+            $el = $(SETTINGS.element),
+            $customEl = null,
+            _class = SETTINGS.classPrefix + 'radio',
             _group = $el.attr("name"),
             _groupClass = _class + '-' + _group,
-            _callback = obj.init || function() {},
-            opt = obj ? $.extend(true, {}, settings, obj) : settings,
+
             attachEvents = function() {
                 $el.focusin(function() {
                     $customEl.addClass("focus");
@@ -467,31 +469,31 @@
                 });
             };
 
-        opt.validators = opt.validators || [];
+        SETTINGS.validators = SETTINGS.validators || [];
 
-        opt.validators.push(function() {
+        SETTINGS.validators.push(function() {
             return $el.prop('checked');
         });
 
-        opt.init = function() {
+        SETTINGS.init = function() {
             // hide element
-            $el.css(settings.hideCss);
+            $el.css(DEFAULTS.hideCss);
 
             // create custom element
-            $customEl = $("<" + settings.customEle + "/>");
+            $customEl = $("<" + DEFAULTS.customEle + "/>");
 
             $customEl.attr({
-                id: settings.classPrefix + $el.attr("name") + "-" + $el.val(),
+                id: DEFAULTS.classPrefix + $el.attr("name") + "-" + $el.val(),
                 'class': _class + ' customForm-hidden ' + _groupClass
             });
 
             // append it to the markup before the element
             $el.before($customEl);
 
-            _callback();
+            SETTINGS.ready();
         };
 
-        instance = new APP.BaseField(opt);
+        instance = new APP.BaseField(SETTINGS);
 
         instance.bind('validate', function(event) {
             var state = event.data.success;
@@ -503,7 +505,6 @@
         });
 
         instance.validate();
-
         attachEvents();
 
         return instance;
@@ -680,19 +681,19 @@
         if (!DEFAULTS.placeholder_support || obj.force) {
 
             var SETTINGS = obj ? $.extend(true, {}, DEFAULTS, obj) : DEFAULTS,
-                _class = SETTINGS.classPrefix + 'textfield',
                 $el = $(SETTINGS.element),
-                color = $el.css('color'),
-                placeholder = $el.attr('placeholder'),
+                _class = SETTINGS.classPrefix + 'textfield',
+                _color = $el.css('color'),
+                _placeholder = $el.attr('placeholder'),
 
                 clearText = function() {
                     instance.update('', true).save();
                 },
                 toggleColor = function(state) {
-                    $el.css('color', (state ? color : SETTINGS.blur_color));
+                    $el.css('color', (state ? _color : SETTINGS.blur_color));
                 },
                 setDefaultText = function() {
-                    instance.update(placeholder, true).save();
+                    instance.update(_placeholder, true).save();
                 },
                 validationFailProxy = function(func) {
                     if (!instance.sync().validate().success) {
@@ -729,7 +730,7 @@
             SETTINGS.validators = SETTINGS.validators || [];
 
             SETTINGS.validators.push(function(val) {
-                return val !== placeholder;
+                return val !== _placeholder;
             });
 
             SETTINGS.init = function() {
@@ -745,8 +746,8 @@
                 toggleColor(state);
             });
 
-            attachEvents();
             addPlaceholder();
+            attachEvents();
         }
 
         return instance;

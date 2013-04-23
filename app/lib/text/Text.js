@@ -23,19 +23,19 @@
         if (!DEFAULTS.placeholder_support || obj.force) {
 
             var SETTINGS = obj ? $.extend(true, {}, DEFAULTS, obj) : DEFAULTS,
-                _class = SETTINGS.classPrefix + 'textfield',
                 $el = $(SETTINGS.element),
-                color = $el.css('color'),
-                placeholder = $el.attr('placeholder'),
+                _class = SETTINGS.classPrefix + 'textfield',
+                _color = $el.css('color'),
+                _placeholder = $el.attr('placeholder'),
 
                 clearText = function() {
                     instance.update('', true).save();
                 },
                 toggleColor = function(state) {
-                    $el.css('color', (state ? color : SETTINGS.blur_color));
+                    $el.css('color', (state ? _color : SETTINGS.blur_color));
                 },
                 setDefaultText = function() {
-                    instance.update(placeholder, true).save();
+                    instance.update(_placeholder, true).save();
                 },
                 validationFailProxy = function(func) {
                     if (!instance.sync().validate().success) {
@@ -72,7 +72,7 @@
             SETTINGS.validators = SETTINGS.validators || [];
 
             SETTINGS.validators.push(function(val) {
-                return val !== placeholder;
+                return val !== _placeholder;
             });
 
             SETTINGS.init = function() {
@@ -88,8 +88,8 @@
                 toggleColor(state);
             });
 
-            attachEvents();
             addPlaceholder();
+            attachEvents();
         }
 
         return instance;
