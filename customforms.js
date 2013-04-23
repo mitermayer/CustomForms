@@ -531,7 +531,9 @@
     var APP = global.app = global.app || {},
         module = APP.module = APP.module || {},
 
-        settings = {
+        DEFAULTS = {
+            active: true,
+            ready: function() {},
             customEle: 'a',
             containerEle: 'div',
             autoHide: true,
@@ -566,18 +568,18 @@
 
         var instance = false;
 
-        var $el = $(obj.element),
-            $customEl,
-            $customContainer,
-            opt = obj ? $.extend(true, {}, settings, obj) : settings,
-            _id = settings.classPrefix + ($el.attr('id') || $el.attr('name')),
-            _class = settings.classPrefix + 'select',
+        var SETTINGS = obj ? $.extend(true, {}, DEFAULTS, obj) : DEFAULTS,
+            $el = $(SETTINGS.element),
+            $customEl = null,
+            $customContainer = null,
+            _id = DEFAULTS.classPrefix + ($el.attr('id') || $el.attr('name')),
+            _class = DEFAULTS.classPrefix + 'select',
             _containerClass = _class + '-container',
-            _callback = obj.init || function() {},
             _size = {
                 width: 0,
                 height: 0
             },
+
             attachEvents = function() {
                 $el.focusin(function() {
                     $customContainer.addClass("focus");
@@ -590,29 +592,29 @@
                 });
             };
 
-        opt.validators = opt.validators || [];
+        SETTINGS.validators = SETTINGS.validators || [];
 
-        opt.init = function() {
+        SETTINGS.init = function() {
             // hide element
-            $el.css(settings.hideCss);
+            $el.css(DEFAULTS.hideCss);
 
             //// create custom element
-            $customContainer = $("<" + opt.containerEle + "/>");
+            $customContainer = $("<" + SETTINGS.containerEle + "/>");
 
             // setup attr and styles to container
             $customContainer.attr({
                 id: _id + '-container',
                 'class': _containerClass
-            }).css(opt.customContainerCss);
+            }).css(SETTINGS.customContainerCss);
 
             // create custom element
-            $customEl = $("<" + opt.customEle + "/>");
+            $customEl = $("<" + SETTINGS.customEle + "/>");
 
             // setup attr and styles to custom element
             $customEl.attr({
                 id: _id,
                 'class': _class
-            }).css(opt.customElCss);
+            }).css(SETTINGS.customElCss);
 
 
             // add container before element
@@ -629,12 +631,12 @@
             _size.width = $customContainer.css("width");
 
             // we than extend elCss with the dimensions and apply them to element.
-            $el.css($.extend({}, opt.elCss, _size));
+            $el.css($.extend({}, SETTINGS.elCss, _size));
 
-            _callback();
+            SETTINGS.ready();
         };
 
-        instance = new APP.BaseField(opt);
+        instance = new APP.BaseField(SETTINGS);
 
         instance.bind('validate', function() {
             var _selectedText = $el.find('option:selected').text();
@@ -645,7 +647,6 @@
         });
 
         instance.validate();
-
         attachEvents();
 
         return instance;
