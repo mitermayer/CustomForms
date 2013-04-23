@@ -1,9 +1,7 @@
-(function(global)
-{
+(function(global) {
     var APP = global.app = global.app || {},
 
-        fieldFactory = (function()
-        {
+        fieldFactory = (function() {
 
             /*
              *SUPPORTED_ELMENTS = {
@@ -22,48 +20,38 @@
              */
             var SUPPORTED_ELMENTS = {},
                 GLOBAL_OPTIONS = {},
-                capitaliseFirstLetter = function(string)
-                {
+                capitaliseFirstLetter = function(string) {
                     return string.charAt(0).toUpperCase() + string.slice(1);
                 },
-                callModule = function(moduleName, element, options)
-                {
+                callModule = function(moduleName, element, options) {
                     var opt = options || {},
-                        settings = $.extend(true,
-                        {}, GLOBAL_OPTIONS, opt);
+                        settings = $.extend(true, {}, GLOBAL_OPTIONS, opt);
 
                     settings.element = element;
 
                     APP.module[moduleName](settings);
                 },
-                setGlobalOptions = function(options)
-                {
+                setGlobalOptions = function(options) {
                     // Global options are options that are not namespaced by a module name
 
                     // Reset on each call
                     GLOBAL_OPTIONS = {};
 
-                    for (var option in options)
-                    {
-                        if (!APP.module[capitaliseFirstLetter(option)])
-                        {
+                    for (var option in options) {
+                        if (!APP.module[capitaliseFirstLetter(option)]) {
                             GLOBAL_OPTIONS[option] = options[option];
                         }
                     }
                 },
-                getTag = function(element)
-                {
+                getTag = function(element) {
                     return SUPPORTED_ELMENTS[element.nodeName.toLowerCase()];
                 },
-                assertFilter = function(matchvalue, match)
-                {
+                assertFilter = function(matchvalue, match) {
                     var lookupTable = {
-                        array: function()
-                        {
+                        array: function() {
                             return $.inArray(matchvalue, match) !== -1;
                         },
-                        string: function()
-                        {
+                        string: function() {
                             return matchvalue === match;
                         }
                     };
@@ -71,48 +59,40 @@
                     return lookupTable[typeof match === 'string' ? 'string' :
                         'array']();
                 },
-                checkFilter = function(filter, $element)
-                {
+                checkFilter = function(filter, $element) {
 
                     var ret = false;
 
-                    $.each(filter, function(key, filter)
-                    {
+                    $.each(filter, function(key, filter) {
 
                         ret = assertFilter($element.attr(key), filter);
 
-                        if (ret)
-                        {
+                        if (ret) {
                             return false;
                         }
                     });
 
                     return ret;
                 },
-                getModule = function($element, options)
-                {
+                getModule = function($element, options) {
 
                     var element = $element[0],
                         tag = getTag(element);
 
-                    for (var i = 0, len = tag.length; i < len; i++)
-                    {
+                    for (var i = 0, len = tag.length; i < len; i++) {
                         var _tag = tag[i],
                             _modulename = _tag.module || _tag,
                             _options = options[_modulename.toLowerCase()];
 
 
                         if (typeof _tag === 'string' || checkFilter(_tag.filter,
-                            $element))
-                        {
+                            $element)) {
                             callModule(_modulename, element, _options);
                         }
                     }
                 },
-                getSupportedChildren = function($parent, options)
-                {
-                    $.each($parent.children(), function()
-                    {
+                getSupportedChildren = function($parent, options) {
+                    $.each($parent.children(), function() {
                         var lookupTable = {
                             getModule: getModule,
                             getSupportedChildren: getSupportedChildren
@@ -122,10 +102,9 @@
                             'getSupportedChildren']($(this), options);
                     });
                 },
-                addSupportedElement = function(module, tag)
-                {
+                addSupportedElement = function(module, tag) {
 
-                    var filter = APP.module[module].target.filter || {},
+                    var filter = APP.module[module].blueprint.filter || {},
                         item;
 
                     // if we dont have element on the hash add it
@@ -144,14 +123,11 @@
 
 
             // Build the supported list
-            $.each(APP.module, function(key)
-            {
-                var _tag = APP.module[key].target.tagName,
+            $.each(APP.module, function(key) {
+                var _tag = APP.module[key].blueprint.tagName,
                     lookupTable = {
-                        array: function(module, tag)
-                        {
-                            $.each(tag, function(key, value)
-                            {
+                        array: function(module, tag) {
+                            $.each(tag, function(key, value) {
                                 addSupportedElement(module, value);
                             });
                         },
@@ -162,12 +138,10 @@
             });
 
             //return function()
-            return function(options)
-            {
+            return function(options) {
                 setGlobalOptions(options);
 
-                $(this).each(function()
-                {
+                $(this).each(function() {
                     var lookupTable = {
                         validTag: getModule,
                         checkChildrenForValidTag: getSupportedChildren

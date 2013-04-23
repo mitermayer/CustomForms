@@ -1,5 +1,4 @@
-(function(global)
-{
+(function(global) {
 
     "use strict";
 
@@ -37,45 +36,37 @@
         };
 
 
-    module.Select = function(obj)
-    {
+    module.Select = function(obj) {
 
         var instance = false;
 
         var $el = $(obj.element),
             $customEl,
             $customContainer,
-            opt = obj ? $.extend(true,
-            {}, settings, obj) : settings,
+            opt = obj ? $.extend(true, {}, settings, obj) : settings,
             _id = settings.classPrefix + ($el.attr('id') || $el.attr('name')),
             _class = settings.classPrefix + 'select',
             _containerClass = _class + '-container',
-            _callback = obj.init || function()
-            {},
+            _callback = obj.init || function() {},
             _size = {
                 width: 0,
                 height: 0
             },
-            attachEvents = function()
-            {
-                $el.focusin(function()
-                {
+            attachEvents = function() {
+                $el.focusin(function() {
                     $customContainer.addClass("focus");
                 })
-                    .focusout(function()
-                {
+                    .focusout(function() {
                     $customContainer.removeClass("focus");
                 })
-                    .change(function()
-                {
+                    .change(function() {
                     instance.validate();
                 });
             };
 
         opt.validators = opt.validators || [];
 
-        opt.init = function()
-        {
+        opt.init = function() {
             // hide element
             $el.css(settings.hideCss);
 
@@ -83,8 +74,7 @@
             $customContainer = $("<" + opt.containerEle + "/>");
 
             // setup attr and styles to container
-            $customContainer.attr(
-            {
+            $customContainer.attr({
                 id: _id + '-container',
                 'class': _containerClass
             }).css(opt.customContainerCss);
@@ -93,8 +83,7 @@
             $customEl = $("<" + opt.customEle + "/>");
 
             // setup attr and styles to custom element
-            $customEl.attr(
-            {
+            $customEl.attr({
                 id: _id,
                 'class': _class
             }).css(opt.customElCss);
@@ -114,16 +103,14 @@
             _size.width = $customContainer.css("width");
 
             // we than extend elCss with the dimensions and apply them to element.
-            $el.css($.extend(
-            {}, opt.elCss, _size));
+            $el.css($.extend({}, opt.elCss, _size));
 
             _callback();
         };
 
         instance = new APP.BaseField(opt);
 
-        instance.bind('validate', function()
-        {
+        instance.bind('validate', function() {
             var _selectedText = $el.find('option:selected').text();
 
             _selectedText = _selectedText || $el.find('option').first().text();
@@ -139,7 +126,7 @@
     };
 
     // Define what elements should use this module
-    module.Select.target = {
+    module.Select.blueprint = {
         tagName: 'select'
     };
 

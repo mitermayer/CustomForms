@@ -1,111 +1,89 @@
-(function(global)
-{
+(function(global) {
 
     'use strict';
 
     var APP = global.app = global.app || {},
         module = APP.module = APP.module || {},
 
-        settings = {
+        DEFAULTS = {
             active: true,
             blur_color: '#777',
             classPrefix: 'custom-',
-            placeholder_support: (function()
-            {
+            placeholder_support: (function() {
                 return ('placeholder' in global.document.createElement('input'));
             })()
         };
 
 
-    module.Text = function(obj)
-    {
+    module.Text = function(obj) {
 
         var instance = false;
 
-        if (!settings.placeholder_support || obj.force)
-        {
+        if (!DEFAULTS.placeholder_support || obj.force) {
 
             var $el = $(obj.element),
                 color = $el.css('color'),
                 placeholder = $el.attr('placeholder'),
-                opt = obj ? $.extend(true,
-                {}, settings, obj) : settings,
-                _class = opt.classPrefix + 'textfield',
-                _callback = obj.init || function()
-                {},
+                SETTINGS = obj ? $.extend(true, {}, DEFAULTS, obj) : DEFAULTS,
+                _class = SETTINGS.classPrefix + 'textfield',
+                _callback = obj.init || function() {},
 
-                clearText = function()
-                {
+                clearText = function() {
                     instance.update('', true).save();
                 },
-                toggleColor = function(state)
-                {
-                    $el.css('color', (state ? color : opt.blur_color));
+                toggleColor = function(state) {
+                    $el.css('color', (state ? color : SETTINGS.blur_color));
                 },
-                setDefaultText = function()
-                {
+                setDefaultText = function() {
                     instance.update(placeholder, true).save();
                 },
-                validationFailProxy = function(func)
-                {
-                    if (!instance.sync().validate().success)
-                    {
+                validationFailProxy = function(func) {
+                    if (!instance.sync().validate().success) {
                         func();
                     }
                 },
-                addPlaceholder = function()
-                {
-                    validationFailProxy(function()
-                    {
+                addPlaceholder = function() {
+                    validationFailProxy(function() {
                         setDefaultText();
                     });
                 },
-                attachEvents = function()
-                {
-                    $el.focusin(function()
-                    {
+                attachEvents = function() {
+                    $el.focusin(function() {
                         $(this).addClass('focus');
-                        validationFailProxy(function()
-                        {
+                        validationFailProxy(function() {
                             clearText();
 
                             // overwrite default invalid color
                             toggleColor(true);
                         });
                     })
-                        .focusout(function()
-                    {
+                        .focusout(function() {
                         $(this).removeClass('focus');
                         addPlaceholder();
                     })
                         .closest('form')
-                        .on('submit', function()
-                    {
-                        validationFailProxy(function()
-                        {
+                        .on('submit', function() {
+                        validationFailProxy(function() {
                             clearText();
                         });
                     });
                 };
 
-            opt.validators = opt.validators || [];
+            SETTINGS.validators = SETTINGS.validators || [];
 
-            opt.validators.push(function(val)
-            {
+            SETTINGS.validators.push(function(val) {
                 return val !== placeholder;
             });
 
-            opt.init = function()
-            {
+            SETTINGS.init = function() {
                 $el.addClass(_class);
 
                 _callback();
             };
 
-            instance = new APP.BaseField(opt);
+            instance = new APP.BaseField(SETTINGS);
 
-            instance.bind('validate', function(event)
-            {
+            instance.bind('validate', function(event) {
                 var state = event.data.success;
                 toggleColor(state);
             });
@@ -118,7 +96,7 @@
     };
 
     // Define what elements should use this module
-    module.Text.target = {
+    module.Text.blueprint = {
         tagName: ['input', 'textarea'],
         filter: {
             input: {

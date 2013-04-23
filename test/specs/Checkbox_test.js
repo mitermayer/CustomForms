@@ -1,5 +1,4 @@
-(function(global)
-{
+(function(global) {
 
     var checkbox,
         input,
@@ -19,10 +18,8 @@
     /*
      * Setup configuration
      */
-    module('Checkbox',
-    {
-        setup: function()
-        {
+    module('Checkbox', {
+        setup: function() {
 
             form = $('<form />');
 
@@ -32,8 +29,7 @@
 
             $('#qunit-fixture').append(form.append(input));
 
-            checkbox = app.module.Checkbox(
-            {
+            checkbox = app.module.Checkbox({
                 element: input.get(0),
                 classPrefix: settings.classPrefix
             });
@@ -41,8 +37,7 @@
             customEl = $('#' + settings.classPrefix + attr.id);
 
         },
-        teardown: function()
-        {
+        teardown: function() {
             checkbox = null;
             customEl = null;
             form = null;
@@ -54,8 +49,7 @@
     /*
      * Initialization tests
      */
-    test('Test initiliazation.', function()
-    {
+    test('Test initiliazation.', function() {
 
         ok(checkbox, 'The checkbox object must be defined.');
 
@@ -69,8 +63,7 @@
     /*
      * Interaction tests
      */
-    test('Test interactions.', function()
-    {
+    test('Test interactions.', function() {
 
         // setting checked state true, than clicking on it.
         input.prop('checked', true);

@@ -1,5 +1,4 @@
-(function(global)
-{
+(function(global) {
 
     var checkbox,
         input,
@@ -19,10 +18,8 @@
     /*
      * Setup configuration
      */
-    module('Checkbox',
-    {
-        setup: function()
-        {
+    module('Checkbox', {
+        setup: function() {
 
             form = $('<form />');
 
@@ -32,8 +29,7 @@
 
             $('#qunit-fixture').append(form.append(input));
 
-            checkbox = app.module.Checkbox(
-            {
+            checkbox = app.module.Checkbox({
                 element: input.get(0),
                 classPrefix: settings.classPrefix
             });
@@ -41,8 +37,7 @@
             customEl = $('#' + settings.classPrefix + attr.id);
 
         },
-        teardown: function()
-        {
+        teardown: function() {
             checkbox = null;
             customEl = null;
             form = null;
@@ -54,8 +49,7 @@
     /*
      * Initialization tests
      */
-    test('Test initiliazation.', function()
-    {
+    test('Test initiliazation.', function() {
 
         ok(checkbox, 'The checkbox object must be defined.');
 
@@ -69,8 +63,7 @@
     /*
      * Interaction tests
      */
-    test('Test interactions.', function()
-    {
+    test('Test interactions.', function() {
 
         // setting checked state true, than clicking on it.
         input.prop('checked', true);
@@ -108,8 +101,7 @@
 
 }(this));
 
-(function(global)
-{
+(function(global) {
 
     var form,
         file,
@@ -129,10 +121,8 @@
     /*
      * Setup configuration
      */
-    module('file',
-    {
-        setup: function()
-        {
+    module('file', {
+        setup: function() {
 
             var options;
 
@@ -145,8 +135,7 @@
 
             $('#qunit-fixture').append(form);
 
-            file = app.module.File(
-            {
+            file = app.module.File({
                 element: input.get(0),
                 classPrefix: settings.classPrefix,
                 holderTxt: settings.holderTxt
@@ -160,8 +149,7 @@
             customElContainer = $('#' + _customElContainerId);
 
         },
-        teardown: function()
-        {
+        teardown: function() {
             form = null;
             file = null;
             input = null;
@@ -175,8 +163,7 @@
     /*
      * Initialization tests
      */
-    test('Test initiliazation.', function()
-    {
+    test('Test initiliazation.', function() {
 
         // check if we have a radio object
         ok(file, 'The file object  must be defined.');
@@ -209,8 +196,7 @@
     /*
      * Interaction tests
      */
-    test('Test interactions.', function()
-    {
+    test('Test interactions.', function() {
 
         expect(0);
         // Browsers dont allow much functionality to be triggered programaticly on file in puts for security reasons.
@@ -220,8 +206,7 @@
 
 }(this));
 
-(function(global)
-{
+(function(global) {
 
     var form,
         radio = [],
@@ -240,18 +225,15 @@
     /*
      * Setup configuration
      */
-    module('Radio',
-    {
-        setup: function()
-        {
+    module('Radio', {
+        setup: function() {
 
             form = $('<form />');
 
             $('#qunit-fixture').append(form);
 
             // generate 3 radio buttons for testing
-            for (var i = 0; i < totalItems; i++)
-            {
+            for (var i = 0; i < totalItems; i++) {
 
                 var _input = $('<input />');
 
@@ -260,9 +242,7 @@
                 // manually set type attribute before the other attributes on the test suit setup
                 _input.attr('type', 'radio');
 
-                var optAttr = $.extend(
-                {}, attr,
-                {
+                var optAttr = $.extend({}, attr, {
                     value: attr.value + i
                 });
 
@@ -270,8 +250,7 @@
 
                 _input.attr(optAttr);
 
-                radio[i] = app.module.Radio(
-                {
+                radio[i] = app.module.Radio({
                     element: _input.get(0),
                     classPrefix: settings.classPrefix
                 });
@@ -283,8 +262,7 @@
 
             }
         },
-        teardown: function()
-        {
+        teardown: function() {
             form = null;
             radio = [];
             input = [];
@@ -296,11 +274,9 @@
     /*
      * Initialization tests
      */
-    test('Test initiliazation.', function()
-    {
+    test('Test initiliazation.', function() {
 
-        for (var i = 0; i < totalItems; i++)
-        {
+        for (var i = 0; i < totalItems; i++) {
 
             // check if we have a radio object
             ok(radio[i], 'The radio object ' + i + '  must be defined.');
@@ -319,21 +295,16 @@
     /*
      * Interaction tests
      */
-    test('Test interactions.', function()
-    {
+    test('Test interactions.', function() {
 
-        for (var i = 0; i < totalItems; i++)
-        {
+        for (var i = 0; i < totalItems; i++) {
 
-            if (i === 0)
-            {
+            if (i === 0) {
                 input[i].prop("checked", false);
                 customEl[i].click();
                 strictEqual(customEl[i].hasClass('checked'), true,
                     'When clicking on item one, it should add a class of Checked to customEl item one.');
-            }
-            else
-            {
+            } else {
                 strictEqual(customEl[i].hasClass('checked'), false,
                     'Item one is currently checked and only one item can be checked at a time.');
             }
@@ -351,8 +322,7 @@
 
 }(this));
 
-(function(global)
-{
+(function(global) {
 
     var form,
         select,
@@ -375,10 +345,8 @@
     /*
      * Setup configuration
      */
-    module('Select',
-    {
-        setup: function()
-        {
+    module('Select', {
+        setup: function() {
 
             var options;
 
@@ -388,14 +356,10 @@
             input.attr(attr);
 
 
-            for (var i = 0, len = optVal.length; i < len; i++)
-            {
-                if (i === 0)
-                {
+            for (var i = 0, len = optVal.length; i < len; i++) {
+                if (i === 0) {
                     options += "<option>" + optVal[i] + "</option>";
-                }
-                else
-                {
+                } else {
                     options += "<option value='" + i + "'>" + optVal[i] +
                         "</option>";
                 }
@@ -408,8 +372,7 @@
 
             $('#qunit-fixture').append(form);
 
-            select = app.module.Select(
-            {
+            select = app.module.Select({
                 element: input.get(0),
                 classPrefix: settings.classPrefix
             });
@@ -422,8 +385,7 @@
             customElContainer = $('#' + _customElContainerId);
 
         },
-        teardown: function()
-        {
+        teardown: function() {
             form = null;
             select = null;
             input = null;
@@ -437,8 +399,7 @@
     /*
      * Initialization tests
      */
-    test('Test initiliazation.', function()
-    {
+    test('Test initiliazation.', function() {
 
         // check if we have a radio object
         ok(select, 'The select object  must be defined.');
@@ -469,15 +430,13 @@
     /*
      * Interaction tests
      */
-    test('Test interactions.', function()
-    {
+    test('Test interactions.', function() {
 
         // The change event definition
         // For select boxes, checkboxes, and radio buttons, the event is fired immediately when the user makes a selection with the mouse, but for the other element types the event is deferred until the element loses focus.
         // So in orther to unit test this, we need to call trigger manually since it can only activate change event with a mouse selection.
         //
-        for (var i = 0, len = optVal.length; i < len; i++)
-        {
+        for (var i = 0, len = optVal.length; i < len; i++) {
             input.val(i).trigger('change');
             strictEqual(customEl.html(), optVal[i],
                 'When changing the select value, custom element text must reflect to the option selected text.');
@@ -495,18 +454,15 @@
 
 }(this));
 
-(function(global)
-{
+(function(global) {
 
     var textfield,
         input,
         form,
-        trimrgb = function(rgbcolor)
-        {
+        trimrgb = function(rgbcolor) {
             return rgbcolor.replace(/[ ]/g, '');
         },
-        hexToRgb = function(hex, opacity)
-        {
+        hexToRgb = function(hex, opacity) {
 
             var h = hex.replace('#', ''),
                 alpha = typeof opacity !== 'undefined',
@@ -514,20 +470,17 @@
 
             h = h.match(new RegExp('(.{' + h.length / 3 + '})', 'g'));
 
-            for (var i = 0; i < h.length; i++)
-            {
+            for (var i = 0; i < h.length; i++) {
                 h[i] = parseInt(h[i].length == 1 ? h[i] + h[i] : h[i], 16);
             }
 
-            if (alpha)
-            {
+            if (alpha) {
                 h.push(opacity);
             }
 
             return prefix + '(' + h.join(',') + ')';
         },
-        colorProxy = function(color)
-        {
+        colorProxy = function(color) {
             return (/rgb/).test(color) ? trimrgb(color) : hexToRgb(color);
         },
         attr = {
@@ -544,10 +497,8 @@
     /*
      * Setup configuration
      */
-    module('Text',
-    {
-        setup: function()
-        {
+    module('Text', {
+        setup: function() {
 
             form = $('<form />');
 
@@ -557,14 +508,12 @@
 
             $('#qunit-fixture').append(form.append(input));
 
-            textfield = app.module.Text(
-            {
+            textfield = app.module.Text({
                 element: input.get(0),
                 force: true
             });
         },
-        teardown: function()
-        {
+        teardown: function() {
             textfield = null;
             form = null;
             input = null;
@@ -575,8 +524,7 @@
     /*
      * Initialization tests
      */
-    test('Test initiliazation.', function()
-    {
+    test('Test initiliazation.', function() {
 
         var _color;
 
@@ -590,8 +538,7 @@
 
         input.val("somthing");
         textfield.sync().validate();
-        textfield = app.module.Text(
-        {
+        textfield = app.module.Text({
             element: input.get(0),
             force: true
         });
@@ -610,8 +557,7 @@
     /*
      * Test model updates
      */
-    test('Test updating values', function()
-    {
+    test('Test updating values', function() {
 
         var _color;
 
@@ -644,8 +590,7 @@
     /*
      * Test model saving
      */
-    test('Test saving values', function()
-    {
+    test('Test saving values', function() {
 
         textfield.update("DUMMY").save();
         strictEqual(input.val(), 'DUMMY',
@@ -664,11 +609,9 @@
     /*
      * Test model synchronization
      */
-    test('Test synchronizing values', function()
-    {
+    test('Test synchronizing values', function() {
 
-        textfield.bind("sync", function(event)
-        {
+        textfield.bind("sync", function(event) {
 
             var value = event.data;
 
@@ -701,8 +644,7 @@
     /*
      * Test model validator integration
      */
-    test('Test validators', function()
-    {
+    test('Test validators', function() {
 
         strictEqual(textfield.validate("").success, false,
             '"" string should fail on validation.');
@@ -715,15 +657,12 @@
             '"Something else" should pass on validation.');
 
 
-        textfield = app.module.Text(
-        {
+        textfield = app.module.Text({
             element: input.get(0),
             force: true,
-            validators: [function(val)
-                {
+            validators: [function(val) {
                     return val !== "dummy";
-                }, function(val)
-                {
+                }, function(val) {
                     return typeof val !== "number";
                 }
             ]
@@ -741,51 +680,43 @@
     /*
      * Test model events handling
      */
-    test('Test events', function()
-    {
+    test('Test events', function() {
 
         expect(6);
 
-        textfield.bind("save", function()
-        {
+        textfield.bind("save", function() {
             ok(true,
                 'Event save should be called when model is saved.');
         }).save();
 
-        textfield.bind("sync", function()
-        {
+        textfield.bind("sync", function() {
             ok(true,
                 'Event save should be called when model is synchronized.');
         }).sync();
 
         textfield
-            .bind("update", function()
-        {
+            .bind("update", function() {
             ok(true,
                 'Event save should be called when model is updated.');
         })
-            .bind("validate", function()
-        {
+            .bind("validate", function() {
             ok(true,
                 'Event validation should be called when model is query for validation.');
         }).update("bones");
 
 
-        textfield = app.module.Text(
-        {
+        textfield = app.module.Text({
             element: input.get(0),
             force: true,
             events: ["someevent", "customevent"]
         });
 
-        textfield.bind("someevent", function()
-        {
+        textfield.bind("someevent", function() {
             ok(true,
                 'Custom Event someevnt should be called when model triggers it.');
         }).trigger("someevent");
 
-        textfield.bind("customevent", function()
-        {
+        textfield.bind("customevent", function() {
             strictEqual(textfield.validate('Somthing else').success, true,
                 '"customevent" should pass "Hello world!" as a parameter when triggered.');
         }).trigger("customevent", "Hello world!");
@@ -795,8 +726,7 @@
     /*
      * Markup related tests
      */
-    test('Test markup', function()
-    {
+    test('Test markup', function() {
 
         input.focus();
         strictEqual(input.val(), "",
