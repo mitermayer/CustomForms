@@ -664,6 +664,7 @@
 
         DEFAULTS = {
             active: true,
+            ready: function() {},
             blur_color: '#777',
             classPrefix: 'custom-',
             placeholder_support: (function() {
@@ -678,12 +679,11 @@
 
         if (!DEFAULTS.placeholder_support || obj.force) {
 
-            var $el = $(obj.element),
+            var SETTINGS = obj ? $.extend(true, {}, DEFAULTS, obj) : DEFAULTS,
+                _class = SETTINGS.classPrefix + 'textfield',
+                $el = $(SETTINGS.element),
                 color = $el.css('color'),
                 placeholder = $el.attr('placeholder'),
-                SETTINGS = obj ? $.extend(true, {}, DEFAULTS, obj) : DEFAULTS,
-                _class = SETTINGS.classPrefix + 'textfield',
-                _callback = obj.init || function() {},
 
                 clearText = function() {
                     instance.update('', true).save();
@@ -735,7 +735,7 @@
             SETTINGS.init = function() {
                 $el.addClass(_class);
 
-                _callback();
+                SETTINGS.ready();
             };
 
             instance = new APP.BaseField(SETTINGS);
