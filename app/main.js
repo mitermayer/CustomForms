@@ -4,7 +4,7 @@
         fieldFactory = (function() {
 
             /*
-             *SUPPORTED_ELMENTS = {
+             *SUPPORTED_ELEMENTS = {
              *    tagName: [
              *        {
              *            filter: { 'attrname': ['arrval'] },
@@ -18,7 +18,7 @@
              *    ]
              *};
              */
-            var SUPPORTED_ELMENTS = {},
+            var SUPPORTED_ELEMENTS = {},
                 GLOBAL_OPTIONS = {},
                 capitaliseFirstLetter = function(string) {
                     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -32,7 +32,8 @@
                     APP.module[moduleName](settings);
                 },
                 setGlobalOptions = function(options) {
-                    // Global options are options that are not namespaced by a module name
+                    // Global options are options that are 
+                    // not namespaced by a module name
 
                     // Reset on each call
                     GLOBAL_OPTIONS = {};
@@ -44,7 +45,7 @@
                     }
                 },
                 getTag = function(element) {
-                    return SUPPORTED_ELMENTS[element.nodeName.toLowerCase()];
+                    return SUPPORTED_ELEMENTS[element.nodeName.toLowerCase()];
                 },
                 assertFilter = function(matchvalue, match) {
                     var lookupTable = {
@@ -108,7 +109,7 @@
                         item;
 
                     // if we dont have element on the hash add it
-                    SUPPORTED_ELMENTS[tag] = SUPPORTED_ELMENTS[tag] || [];
+                    SUPPORTED_ELEMENTS[tag] = SUPPORTED_ELEMENTS[tag] || [];
 
                     // if module has a filter add it, else just add input
                     // with module reference.
@@ -118,24 +119,27 @@
                     } : module;
 
                     // push item to supported hash
-                    SUPPORTED_ELMENTS[tag].push(item);
+                    SUPPORTED_ELEMENTS[tag].push(item);
+                },
+                buildSupportedElementsList = function() {
+                    $.each(APP.module, function(key) {
+                        var _tag = APP.module[key].blueprint.tagName,
+                            lookupTable = {
+                                array: function(module, tag) {
+                                    $.each(tag, function(key, value) {
+                                        addSupportedElement(module, value);
+                                    });
+                                },
+                                string: addSupportedElement
+                            };
+
+                        lookupTable[$.isArray(_tag) ? 'array' : 'string'](key,
+                            _tag);
+                    });
                 };
 
-
-            // Build the supported list
-            $.each(APP.module, function(key) {
-                var _tag = APP.module[key].blueprint.tagName,
-                    lookupTable = {
-                        array: function(module, tag) {
-                            $.each(tag, function(key, value) {
-                                addSupportedElement(module, value);
-                            });
-                        },
-                        string: addSupportedElement
-                    };
-
-                lookupTable[$.isArray(_tag) ? 'array' : 'string'](key, _tag);
-            });
+            // build list of supported modules
+            buildSupportedElementsList();
 
             //return function()
             return function(options) {
