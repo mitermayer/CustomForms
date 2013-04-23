@@ -10,10 +10,10 @@
         //  value     - field value
         //  events    - event listeners
         //  validator - validators 
-        var element = null,
-            value = "",
-            events = [],
-            validator = [];
+        var _element = null,
+            _value = "",
+            _events = [],
+            _validators = [];
 
         // Constructor
         this.init = function(obj) {
@@ -21,21 +21,21 @@
             var defaultEvents = ["update", "save", "sync", "validate"];
 
             // html element
-            element = obj.element;
+            _element = obj.element;
 
             // starting value
-            value = element.value;
+            _value = _element.value;
 
             // setup default events listeners
             for (var i = 0, e = defaultEvents.length; i < e; i++) {
-                events[defaultEvents[i]] = [];
+                _events[defaultEvents[i]] = [];
             }
 
             // setup custom events
             if (obj.events) {
                 for (var j = 0, l = obj.events.length; j < l; j++) {
                     var _e = obj.events[j],
-                        _evnt = events[_e.name || _e] = events[_e.name || _e] || [];
+                        _evnt = _events[_e.name || _e] = _events[_e.name || _e] || [];
 
                     if (_e.callback && typeof _e.callback === 'function') {
                         _evnt.push(_e.callback);
@@ -44,7 +44,7 @@
             }
 
             // setup default validator
-            validator.push({
+            _validators.push({
                 validator: function(val) {
                     // checks if value is not undefined
                     return val !== "";
@@ -57,8 +57,8 @@
                 for (var v = 0, k = obj.validators.length; v < k; v++) {
                     var _validator = obj.validators[v];
 
-                    validator.push({
-                        validator: _validator.validator || _validator,
+                    _validators.push({
+                        validator: _validators.validator || _validator,
                         message: _validator.message
                     });
                 }
@@ -72,8 +72,8 @@
 
         // attach event callback
         this.bind = function(evnt, func) {
-            if (events[evnt]) {
-                events[evnt].push(func);
+            if (_events[evnt]) {
+                _events[evnt].push(func);
             }
 
             return this;
@@ -81,9 +81,9 @@
 
         // remove events
         this.unbind = function(evnt, func) {
-            for (var e = 0, v = events[evnt].length; e < v; e++) {
-                if (events[evnt][e] === func) {
-                    events[evnt].splice(e, 1);
+            for (var e = 0, v = _events[evnt].length; e < v; e++) {
+                if (_events[evnt][e] === func) {
+                    _events[evnt].splice(e, 1);
                     break;
                 }
             }
@@ -93,10 +93,10 @@
 
         // 
         this.update = function(val, force) {
-            if (value !== val && (this.validate(val) || force)) {
-                value = val;
+            if (_value !== val && (this.validate(val) || force)) {
+                _value = val;
 
-                this.trigger("update", value);
+                this.trigger("update", _value);
             }
 
             return this;
@@ -104,18 +104,18 @@
 
         // update element value with custom element value
         this.save = function() {
-            element.value = value;
+            _element.value = _value;
 
-            this.trigger("save", value);
+            this.trigger("save", _value);
 
             return this;
         };
 
         // update custom element value with element value
         this.sync = function() {
-            value = element.value;
+            _value = _element.value;
 
-            this.trigger("sync", value);
+            this.trigger("sync", _value);
 
             return this;
         };
@@ -128,9 +128,9 @@
             },
                 message = '"' + val + '" is not a valid value.';
 
-            for (var v = 0, l = validator.length; v < l; v++) {
-                var _validator = validator[v],
-                    _ret = _validator.validator(val || value);
+            for (var v = 0, l = _validators.length; v < l; v++) {
+                var _validator = _validators[v],
+                    _ret = _validator.validator(val || _value);
 
                 if (!_ret) {
 
@@ -146,18 +146,18 @@
 
         // trigger custom event
         this.trigger = function(evnt, data) {
-            if (events[evnt]) {
-                for (var e = 0, v = events[evnt].length; e < v; e++) {
+            if (_events[evnt]) {
+                for (var e = 0, v = _events[evnt].length; e < v; e++) {
                     var that = this,
                         _event = {
-                            element: element,
+                            element: _element,
                             model: that,
                             event: evnt,
                             data: data,
                             time: new Date().getTime()
                         };
 
-                    events[evnt][e](_event);
+                    _events[evnt][e](_event);
                 }
             }
 
