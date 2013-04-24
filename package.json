@@ -24,6 +24,6 @@
     "grunt-contrib-qunit": "~0.2.0",
     "grunt-bowerful": "~0.2.3",
     "grunt-jsbeautifier": "git://github.com/mitermayer/grunt-jsbeautifier.git",
-    "grunt-dox": "~0.4.1"
+    "grunt-jsdoc": "~0.3.2"
   }
 }

@@ -57,19 +57,13 @@ module.exports = function(grunt) {
     qunit: {
         all: ['test/**/*.html']
     },
-    dox: {
-      libdocs : {
-          src: ['<%= concat.prod.src %>'],
-          dest: 'doc/lib/'
-      },
-      usagedocs: {
-          src: ['app/main.js'],
-          dest: 'doc/usage'
-      },
-      finaldocs : {
-          src: ['<%= concat.prod.dest %>'],
-          dest: 'doc/release'
-      }
+    jsdoc : {
+        dist : {
+            src: ['<%= concat.prod.src %>'],
+            options: {
+                destination: 'doc'
+            }
+        }
     },
     watch: {
       js: {
@@ -147,7 +141,7 @@ module.exports = function(grunt) {
   grunt.registerTask('dev', 'Watch javascript files and rebuild', 'watch:js');
 
   // documentation generation
-  grunt.loadNpmTasks('grunt-dox');
+  grunt.loadNpmTasks('grunt-jsdoc');
 
   // js-beautifier
   grunt.loadNpmTasks('grunt-jsbeautifier');
@@ -159,6 +153,6 @@ module.exports = function(grunt) {
   grunt.registerTask('test', 'build and integration test', ['install', 'lint', 'utest']);
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'utest', 'jsbeautifier', 'concat', 'uglify', 'dox']);
+  grunt.registerTask('default', ['jshint', 'utest', 'jsbeautifier', 'concat', 'uglify', 'jsdoc']);
 
 };
