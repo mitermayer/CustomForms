@@ -2,21 +2,58 @@
 
     "use strict";
 
+    /**
+     * @namespace
+     * @name app
+     */
     var APP = global.app = global.app || {};
 
+    /**
+     * Base class for all fields, it provides a link between the html element and
+     * the model. It also implements custom events and validators.
+     *
+     * @constructor  
+     * @name app.BaseField 
+     * @param {Object} obj Options to initialize BaseField.
+     * @param {HTMLelement} obj.element HTML element, that has an attribute 'value'. 
+     * @param {Array} obj.validators Field Validators. 
+     * @param {Array} obj.events Custom events. 
+     * @param {Function} obj.init Callback function to initialize subclass when BaseField is ready. 
+     * @example
+     * new APP.BaseField({ 
+     *     element: htmlelmenent, 
+     *     validators: [], 
+     *     events: ["customEventNameSpace", { 
+     *         name: "otherCustomEventNamespace", 
+     *         callback: function(event){
+     *           // custom "otherCustomEventNamespace" event callback.
+     *         }
+     *     }], 
+     *     validators: [{
+     *         validator: function(value) {
+     *              return value === 'Dummy'; 
+     *         },
+     *         message: "Value should be 'Dummy'"
+     *     }], 
+     *     init: function(){
+     *         // this only gets fired after initialization has been completed.
+     *         console.log("ready");
+     *     } 
+     * }); 
+     */
     APP.BaseField = function(obj) {
 
-        //  element   - html element
-        //  value     - field value
-        //  events    - event listeners
-        //  validator - validators 
         var _element = null,
             _value = "",
             _events = [],
             _validators = [];
 
-        // Constructor
-        this.init = function(obj) {
+        /**
+         * Basefield initializer.
+         * @function init
+         * @memberof app.BaseField
+         */
+        this.init = function() {
 
             var defaultEvents = ["update", "save", "sync", "validate"];
 
@@ -70,7 +107,6 @@
             }
         };
 
-        // attach event callback
         this.bind = function(evnt, func) {
             if (_events[evnt]) {
                 _events[evnt].push(func);
@@ -144,7 +180,6 @@
             return ret;
         };
 
-        // trigger custom event
         this.trigger = function(evnt, data) {
             if (_events[evnt]) {
                 for (var e = 0, v = _events[evnt].length; e < v; e++) {
@@ -165,7 +200,7 @@
         };
 
         // call constructor
-        this.init(obj);
+        this.init();
     };
 
 }(this));
