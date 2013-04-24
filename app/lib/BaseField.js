@@ -2,14 +2,10 @@
 
     "use strict";
 
-    /**
-     * @namespace
-     * @name app
-     */
     var APP = global.app = global.app || {};
 
     /**
-     * Base class for all fields, it provides a link between the html element and
+     * Base class for all modules, it provides a link between the html element and
      * the model. It also implements custom events and validators.
      *
      * @constructor  

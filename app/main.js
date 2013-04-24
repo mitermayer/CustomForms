@@ -1,4 +1,9 @@
 (function(global) {
+
+    /**
+     * @namespace
+     * @name app
+     */
     var APP = global.app = global.app || {},
 
         fieldFactory = (function() {

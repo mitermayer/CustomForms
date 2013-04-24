@@ -19,6 +19,11 @@
         };
 
 
+    /**
+     * Add support for styling radio fields.
+     *
+     * @module Radio
+     */
     module.Radio = function(obj) {
 
         var instance = false;

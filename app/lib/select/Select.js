@@ -38,6 +38,11 @@
         };
 
 
+    /**
+     * Add support for styling select fields.
+     *
+     * @module Select
+     */
     module.Select = function(obj) {
 
         var instance = false;

@@ -16,6 +16,11 @@
         };
 
 
+    /**
+     * Add support for input placeholder attributes.
+     *
+     * @module Text
+     */
     module.Text = function(obj) {
 
         var instance = false;

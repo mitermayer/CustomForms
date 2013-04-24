@@ -18,7 +18,11 @@
             }
         };
 
-
+    /**
+     * Add support for styling checkbox fields.
+     *
+     * @module Checkbox
+     */
     module.Checkbox = function(obj) {
 
         var instance = false;

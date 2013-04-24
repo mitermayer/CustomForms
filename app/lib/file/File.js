@@ -43,6 +43,11 @@
         };
 
 
+    /**
+     * Add support for styling file fields.
+     *
+     * @module File
+     */
     module.File = function(obj) {
 
         var instance = false;
