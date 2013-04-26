@@ -1,4 +1,4 @@
-# CustomForms - 0.5 
+# CustomForms - 1.0 
 
 ## This branch is under development and it is using travis to do automated continuous integration testing ##
 

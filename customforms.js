@@ -2,14 +2,10 @@
 
     "use strict";
 
-    /**
-     * @namespace
-     * @name app
-     */
     var APP = global.app = global.app || {};
 
     /**
-     * Base class for all fields, it provides a link between the html element and
+     * Base class for all modules, it provides a link between the html element and
      * the model. It also implements custom events and validators.
      *
      * @constructor  
@@ -49,9 +45,12 @@
             _validators = [];
 
         /**
-         * Basefield initializer.
-         * @function init
+         * Attach HTMLelement reference, and setup events and validators. 
+         * Will call a callback function when it's done.
+         *
+         * @function 
          * @memberof app.BaseField
+         * @returns {Bool}
          */
         this.init = function() {
 
@@ -105,8 +104,20 @@
             if (typeof obj.init === "function") {
                 obj.init();
             }
+
+            return true;
         };
 
+        /**
+         * Bind a callback to a custom event namespace, if the namespace doesn't
+         * exists it will create one and add to it.
+         *
+         * @function 
+         * @param {String} evnt Custom event name. 
+         * @param {Function} func Callback function to be called when event is triggered.
+         * @memberof app.BaseField
+         * @returns {object} Returns context for chaining.
+         */
         this.bind = function(evnt, func) {
             if (_events[evnt]) {
                 _events[evnt].push(func);
@@ -115,7 +126,15 @@
             return this;
         };
 
-        // remove events
+        /**
+         * Unbind the referenced function event from a custom event namespace. 
+         *
+         * @function 
+         * @param {String} evnt Custom event name. 
+         * @param {Function} func Callback function reference.
+         * @memberof app.BaseField
+         * @returns {object} Returns context for chaining.
+         */
         this.unbind = function(evnt, func) {
             for (var e = 0, v = _events[evnt].length; e < v; e++) {
                 if (_events[evnt][e] === func) {
@@ -127,7 +146,16 @@
             return this;
         };
 
-        // 
+        /**
+         * Update value with a valid specified string. Triggers 'update' event, and send
+         * the updated value as an event data attribute.
+         *
+         * @function 
+         * @param {String} val Value to update field.
+         * @param {Bool} force If true, value will be updated regardless of validation.
+         * @memberof app.BaseField
+         * @returns {object} Returns context for chaining.
+         */
         this.update = function(val, force) {
             if (_value !== val && (this.validate(val) || force)) {
                 _value = val;
@@ -180,6 +208,13 @@
             return ret;
         };
 
+        /**
+         * Update value with a valid specified string. Triggers 'update' event.  
+         *
+         * @function 
+         * @memberof app.BaseField
+         * @returns {object} Returns context for chaining.
+         */
         this.trigger = function(evnt, data) {
             if (_events[evnt]) {
                 for (var e = 0, v = _events[evnt].length; e < v; e++) {
@@ -225,7 +260,11 @@
             }
         };
 
-
+    /**
+     * Add support for styling checkbox fields.
+     *
+     * @module Checkbox
+     */
     module.Checkbox = function(obj) {
 
         var instance = false;
@@ -349,6 +388,11 @@
         };
 
 
+    /**
+     * Add support for styling file fields.
+     *
+     * @module File
+     */
     module.File = function(obj) {
 
         var instance = false;
@@ -477,6 +521,11 @@
         };
 
 
+    /**
+     * Add support for styling radio fields.
+     *
+     * @module Radio
+     */
     module.Radio = function(obj) {
 
         var instance = false;
@@ -600,6 +649,11 @@
         };
 
 
+    /**
+     * Add support for styling select fields.
+     *
+     * @module Select
+     */
     module.Select = function(obj) {
 
         var instance = false;
@@ -713,6 +767,11 @@
         };
 
 
+    /**
+     * Add support for input placeholder attributes.
+     *
+     * @module Text
+     */
     module.Text = function(obj) {
 
         var instance = false;
@@ -805,6 +864,11 @@
 }(this));
 
 (function(global) {
+
+    /**
+     * @namespace
+     * @name app
+     */
     var APP = global.app = global.app || {},
 
         fieldFactory = (function() {

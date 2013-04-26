@@ -50,6 +50,7 @@
          *
          * @function 
          * @memberof app.BaseField
+         * @access public
          * @returns {Bool}
          */
         this.init = function() {
