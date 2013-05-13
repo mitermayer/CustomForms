@@ -26,12 +26,12 @@ Agile board
 ***
 
 ##view demo with **jQuery 2.0**
-[![View demo jquery lastest version](http://customformsjs.com/demo/img/demo-button.png)](https://travis-ci.org/mitermayer/demo/)  
+[![View demo jquery lastest version](http://customformsjs.com/demo/img/demo-button.png)](http://customformsjs.com/demo/)  
 
 ***
 
 ##view demo with **jQuery 1.6**
-[![View demo jquery oldest supported version](http://customformsjs.com/demo/img/demo-button.png)](https://travis-ci.org/mitermayer/demo/older.html)
+[![View demo jquery oldest supported version](http://customformsjs.com/demo/img/demo-button.png)](http://customformsjs.com/demo/older.html)
 
 ***
 
