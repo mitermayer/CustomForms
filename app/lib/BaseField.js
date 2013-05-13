@@ -36,6 +36,7 @@
      *         console.log("ready");
      *     } 
      * }); 
+     * @returns {object} Returns an object with some base methods.
      */
     APP.BaseField = function(obj) {
 
@@ -167,7 +168,14 @@
             return this;
         };
 
-        // update element value with custom element value
+        /**
+         * Update the related element with the value stored in this custom element. 
+         * Triggers 'save' event, and send the saved value as an event data attribute. 
+         *
+         * @function 
+         * @memberof app.BaseField
+         * @returns {object} Returns context for chaining.
+         */
         this.save = function() {
             _element.value = _value;
 
@@ -176,7 +184,14 @@
             return this;
         };
 
-        // update custom element value with element value
+        /**
+         * Update the custom element with the value stored in element. 
+         * Triggers 'sync' event, and send the syncd value as an event data attribute. 
+         *
+         * @function 
+         * @memberof app.BaseField
+         * @returns {object} returns context for chaining.
+         */
         this.sync = function() {
             _value = _element.value;
 
@@ -185,7 +200,16 @@
             return this;
         };
 
-        // run custom element value over validators
+        /**
+         * Run all custom element validators over the string val.
+         * Will return an object with a property success and a property
+         * message with an array of error messages.
+         *
+         * @function 
+         * @param {string} val  Value to be validated
+         * @memberof app.BaseField
+         * @returns {object} Returns success status, and array of error messages.
+         */
         this.validate = function(val) {
             var ret = {
                 success: true,
@@ -210,11 +234,16 @@
         };
 
         /**
-         * Update value with a valid specified string. Triggers 'update' event.  
+         * Triggers an event from a particular event namespace. Will call 
+         * all functions that are linked with that namespace with an Event object.
+         * It will have a reference to the element, custom element, event 
+         * namespace, timestamp and data that can be passed on as part of the trigger. 
          *
          * @function 
+         * @param {string} evnt event namespace 
+         * @param {object} data data to be passed on as part of the event
          * @memberof app.BaseField
-         * @returns {object} Returns context for chaining.
+         * @returns {object} returns context for chaining.
          */
         this.trigger = function(evnt, data) {
             if (_events[evnt]) {
@@ -224,8 +253,8 @@
                             element: _element,
                             model: that,
                             event: evnt,
-                            data: data,
-                            time: new Date().getTime()
+                            time: new Date().getTime(),
+                            data: data
                         };
 
                     _events[evnt][e](_event);
