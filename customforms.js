@@ -1151,7 +1151,7 @@
                         addPlaceholder();
                     })
                         .closest('form')
-                        .on('submit', function() {
+                        .bind('submit', function() {
                         validationFailProxy(function() {
                             clearText();
                         });

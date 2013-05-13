@@ -127,13 +127,16 @@ module.exports = function(grunt) {
             },
             */
             packages: {
-                jquery: '1.6.2'
+                jquery: '1.6.0'
             }   
         }
     }, 
     clean: {
-        install: {
-            src: ['<%= bowerful.latest.store.src %>', '<%= bowerful.older.store.src %>']
+        installLatest: {
+            src: '<%= bowerful.latest.store.src %>'
+        },
+        installOlder: {
+            src: '<%= bowerful.older.store.src %>'
         }
     }
   });
@@ -160,7 +163,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-jsbeautifier');
 
   // install 
-  grunt.registerTask('install', 'Install javascript components defined on Gruntfile',  ['bowerful', 'clean:install']);
+  grunt.registerTask('install', 'Install javascript components defined on Gruntfile',  ['bowerful:latest', 'clean:installLatest', 'bowerful:older', 'clean:installOlder']);
 
   // test
   grunt.registerTask('test', 'build and integration test', ['install', 'lint', 'utest']);
