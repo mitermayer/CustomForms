@@ -42,7 +42,25 @@ build it on top of <strong>software engineering best practices and principles</s
 
 <p>Future <strong>releases</strong>, <strong>bugs</strong> and <strong>ehancement</strong> can all be found on the trello board. All issues created on github will have a trello card associated with it.</p>
 
-<h2>Modules</h2>
+<h3><a href="http://customformsjs.com/doc/" title="Documentation page">Documentation Page</a></h3>
+
+<p><a href="https://travis-ci.org/mitermayer/CustomForms"><img src="http://customformsjs.com/demo/img/small_travis.jpg" alt="Travis"></a>
+Continuous integration testing</p>
+
+<p><a href="https://trello.com/board/customformsjs/513e7cce79afc2ab3f000c7f"><img src="http://customformsjs.com/demo/img/small_trello.jpg" alt="Trello"></a>
+Agile board</p>
+
+<hr><h2>view demo with <strong>jQuery 2.0</strong>
+</h2>
+
+<p><a href="http://customformsjs.com/demo/"><img src="http://customformsjs.com/demo/img/demo-button.png" alt="View demo jquery lastest version"></a>  </p>
+
+<hr><h2>view demo with <strong>jQuery 1.6</strong>
+</h2>
+
+<p><a href="http://customformsjs.com/demo/older.html"><img src="http://customformsjs.com/demo/img/demo-button.png" alt="View demo jquery oldest supported version"></a></p>
+
+<hr><h2>Modules</h2>
 
 <ul>
 <li>
@@ -60,16 +78,22 @@ build it on top of <strong>software engineering best practices and principles</s
 </li>
 </ul><h2>Browser support</h2>
 
+<p><img src="http://customformsjs.com/demo/img/small_browsers.jpg" alt="Browser support"></p>
+
 <ul>
-<li>
-<strong>Internet</strong>: Explorer 7+</li>
-<li>
-<strong>Firefox</strong>: 3.5+</li>
 <li>
 <strong>Google</strong>: Chrome 5+</li>
 <li>
+<strong>Firefox</strong>: 3.5+</li>
+<li>
+<strong>Opera</strong>: 7+</li>
+<li>
 <strong>Safari</strong>: 4+</li>
+<li>
+<strong>Internet</strong>: Explorer 7+</li>
 </ul><h2>Smart phones support</h2>
+
+<p><img src="http://customformsjs.com/demo/img/small_mobile.jpg" alt="Smart phones support"></p>
 
 <ul>
 <li>
@@ -85,20 +109,28 @@ build it on top of <strong>software engineering best practices and principles</s
 <strong>jQuery</strong>: 2.0+</li>
 </ul><h2>Defaults</h2>
 
-<p>Each module default and allowed options can be found on the corresponding module <code>doc/</code> page.</p>
+<p>Options and defaults can be found on the documentation page for each individual module.</p>
 
-<h2>Usage</h2>
+<ul>
+<li><a href="http://customformsjs.com/doc/Text.html" title="Documentation Text module"><strong>Module Text</strong></a></li>
+<li><a href="http://customformsjs.com/doc/Checkbox.html" title="Documentation Text module"><strong>Module Checkbox</strong></a></li>
+<li><a href="http://customformsjs.com/doc/Radio.html" title="Documentation Text module"><strong>Module Radio</strong></a></li>
+<li><a href="http://customformsjs.com/doc/File.html" title="Documentation Text module"><strong>Module File</strong></a></li>
+<li><a href="http://customformsjs.com/doc/Select.html" title="Documentation Text module"><strong>Module Select</strong></a></li>
+</ul><h2>Usage</h2>
 
 <div class="highlight"><pre>
-  <span class="c1">// All Form fields inside that container</span>
-  <span class="nx">$</span><span class="p">(</span><span class="s1">'#container'</span><span class="p">).</span><span class="nx">cstmForm</span><span class="p">(</span> <span class="nx">options</span> <span class="p">)</span> 
+  <span class="c1">// You can overwrite defaults by passing an object with some options</span>
+  <span class="kd">var</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">customEle</span><span class="o">:</span> <span class="s1">'span'</span> <span class="p">};</span>
+
+  <span class="c1">// All Form elements</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">'form'</span><span class="p">).</span><span class="nx">cstmForm</span><span class="p">(</span> <span class="nx">options</span> <span class="p">)</span> 
 
   <span class="c1">// target a certain group of element </span>
   <span class="nx">$</span><span class="p">(</span><span class="s1">'input[type=file]'</span><span class="p">).</span><span class="nx">cstmForm</span><span class="p">(</span> <span class="nx">options</span> <span class="p">)</span>
 
   <span class="c1">// You can target specific groups of elements</span>
   <span class="nx">$</span><span class="p">(</span><span class="s1">'input[type=radio], input[type=checkbox], select'</span><span class="p">).</span><span class="nx">cstmForm</span><span class="p">(</span> <span class="nx">options</span> <span class="p">)</span>
-
 </pre></div>
 
 <h2>Submiting new custom modules</h2>
