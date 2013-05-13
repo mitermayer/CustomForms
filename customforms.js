@@ -377,6 +377,14 @@
     var APP = global.app = global.app || {},
         module = APP.module = APP.module || {},
 
+        /**
+         * Module default settings.
+         *
+         * @constant
+         * @default 
+         * @access private
+         * @memberof app.module.File
+         */
         DEFAULTS = {
             active: true,
             ready: function() {},
@@ -416,9 +424,55 @@
 
 
     /**
-     * Add support for styling file fields.
+     * Add support for styling input file fields. 
+     * A custom element is added behind the browser default input file field,
+     * and the file field is made transparent to create the illusion of a
+     * custom element. Options can be passed to extend the defaults.
      *
      * @module File
+     * @param {Object} obj Options to initialize select module.
+     * @name app.module.File
+     * @example
+     * var DEFAULTS = {
+     *      active: true, // active by default
+     *      ready: function() {}, // callback when module is ready.
+     *      customEle: 'a', // default element for handle.
+     *      containerEle: 'div', // default element for container.
+     *      autoHide: true, // will auto hide html element by default
+     *      classPrefix: 'custom-', // prefix used for class.
+     *      holderTxt: "Upload..", // default text for input file placeholder
+     *      hideCss: { // styles can be overwritten or added.
+     *          opacity: '0',
+     *          filter: 'alpha(opacity=0)',
+     *          position: 'absolute',
+     *          top: '0px',
+     *          left: '0px',
+     *          '-moz-opacity': '0',
+     *          '-khtml-opacity': '0'
+     *      },
+     *      elCss: { // styles can be overwritten or added.
+     *          display: "block",
+     *          "text-align": "left",
+     *          "-moz-appearance": "none",
+     *          "-webkit-appearance": "none"
+     *      },
+     *      customContainerCss: { // styles can be overwritten or added.
+     *          position: 'relative'
+     *      },
+     *      customElCss: { // styles can be overwritten or added.
+     *          display: "block",
+     *          overflow: "hidden",
+     *          'white-space': "nowrap",
+     *          'text-overflow': "ellipsis"
+     *      },
+     *      element: obj, // input file field.
+     *      events: [], // custom events can be added.
+     *      validators: [] // custom validators can be added.
+     * };
+     * 
+     * app.module.File(DEFAULTS); 
+     *
+     * @returns {Object} Returns an Instance of module File.
      */
     module.File = function(obj) {
 
@@ -458,6 +512,17 @@
 
         SETTINGS.validators = SETTINGS.validators || [];
 
+        /**
+         * Initializer for module. Will create custom elements and apply 
+         * default styles to it. Here will also be browser specific features.
+         * File module works by adding a custom element behind the browser 
+         * input file form field and making it transparent. There is also some browser
+         * specifics to calculate the final size in order to be fully on top of the 
+         * input file field.
+         *
+         * @function
+         * @memberof app.module.File
+         */
         SETTINGS.init = function() {
             // hide element
             $el.css(DEFAULTS.hideCss);
@@ -503,6 +568,13 @@
 
         instance = new APP.BaseField(SETTINGS);
 
+        /**
+         * Custom validator is added to find if there is a selected file for input field.
+         * Applying the filename value to the custom element as a text node, or the holding text.
+         *
+         * @function
+         * @memberof app.module.File
+         */
         instance.bind('validate', function() {
             var _selectedText = getFileName();
 
@@ -515,7 +587,14 @@
         return instance;
     };
 
-    // Define what elements should use this module
+    /**
+     * Blueprint used to allow custom field creation. 
+     * Element must be an object with a tagname 'input' with an attribute 'type' that 
+     * has a value 'file'.
+     *
+     * @property {Object} app.module.File.blueprint used to see if element meet module requirements.
+     * @memberof app.module.File
+     */
     module.File.blueprint = {
         tagName: 'input',
         filter: {
