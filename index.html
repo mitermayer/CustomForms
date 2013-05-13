@@ -1,128 +1,140 @@
 <!DOCTYPE html>
 <html>
-
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Customforms : CustomForms - Javascript Library to aid on creation of beautiful form elements :)" />
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-    <title>Customforms</title>
+    <title>Customforms by mitermayer</title>
   </head>
 
   <body>
+    <header>
+      <div class="inner">
+        <h1>Customforms</h1>
+        <h2>CustomForms - Javascript Library to aid on creation of beautiful form elements :)</h2>
+        <a href="https://github.com/mitermayer/CustomForms" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/mitermayer/CustomForms">View on GitHub</a>
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <p><a href="https://travis-ci.org/mitermayer/CustomForms"><img src="https://travis-ci.org/mitermayer/CustomForms.png?branch=refactor" alt="Build Status"></a></p>
 
-          <h1 id="project_title">Customforms</h1>
-          <h2 id="project_tagline"><em>Web forms done right</em></h2>
-          <a id="demo" target="_blank" href="demo/index.html" title="View demo">View Demo</a>
+<h1>Customformsjs</h1>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/mitermayer/CustomForms/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/mitermayer/CustomForms/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
+<p>After 2 long years <strong>version 1.0</strong> is now released, the goal of customforms was to provide an
+easy and customizeble way to implement form fields. </p>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h1>CustomForms - 0.44</h1>
+<p>The goal was not only make it work but also
+build it on top of <strong>software engineering best practices and principles</strong>.</p>
+
+<p>All code is <strong>Unit Tested</strong> and <strong>Cross Browser Tested</strong> with the <strong>lastest jquery</strong> version and the <strong>oldest supported version</strong> at <strong>every commit</strong>.</p>
+
+<p>Future <strong>releases</strong>, <strong>bugs</strong> and <strong>ehancement</strong> can all be found on the trello board. All issues created on github will have a trello card associated with it.</p>
+
+<h2>Modules</h2>
 
 <ul>
-<li>Jquery pluggin to aid on styling forms in all major browsers.</li>
-</ul><h2>Support features</h2>
-
-<ul>
-<li>Placeholders</li>
-<li>Select element</li>
-<li>File uploader</li>
-<li>Checkbox</li>
-<li>Radio</li>
+<li>
+<strong>Text</strong> - <em>Cross browser support to placeholders</em>.</li>
+<li>
+<strong>Select</strong> - <em>Custom select box</em> </li>
+<li>
+<strong>File</strong> - <em>Custom input file</em>
+</li>
+<li>
+<strong>Checkbox</strong> - <em>Custom checkboxes</em>
+</li>
+<li>
+<strong>Radio</strong> - <em>Custom radio</em>
+</li>
 </ul><h2>Browser support</h2>
 
 <ul>
-<li>Internet Explorer 6+</li>
-<li>Firefox 3.5+</li>
-<li>Google Chrome 5+</li>
-<li>Safari 4+</li>
+<li>
+<strong>Internet</strong>: Explorer 7+</li>
+<li>
+<strong>Firefox</strong>: 3.5+</li>
+<li>
+<strong>Google</strong>: Chrome 5+</li>
+<li>
+<strong>Safari</strong>: 4+</li>
+</ul><h2>Smart phones support</h2>
+
+<ul>
+<li>
+<strong>Android</strong>: 1.5+</li>
+<li>
+<strong>Iphone</strong>: 3+</li>
 </ul><h2>Requirements</h2>
 
-<p>jQuery 1.6+</p>
+<ul>
+<li>
+<strong>jQuery</strong>: 1.6+</li>
+<li>
+<strong>jQuery</strong>: 2.0+</li>
+</ul><h2>Defaults</h2>
 
-<h2>Defaults</h2>
-
-<div class="highlight"><pre><span class="p">{</span>
-    <span class="nx">customEle</span>      <span class="o">:</span> <span class="s1">'a'</span><span class="p">,</span>
-    <span class="nx">containerEle</span>   <span class="o">:</span> <span class="s1">'div'</span><span class="p">,</span>
-    <span class="nx">classPrefix</span>    <span class="o">:</span> <span class="s1">'custom-'</span><span class="p">,</span>
-    <span class="nx">autoHide</span>       <span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="c1">// Auto hide the stylized elements</span>
-    <span class="nx">active</span>         <span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="c1">// Load all custom form modules</span>
-    <span class="nx">select</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">active</span><span class="o">:</span> <span class="mi">1</span>
-    <span class="p">},</span>
-    <span class="nx">radio</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">active</span><span class="o">:</span> <span class="mi">1</span>
-    <span class="p">},</span>
-    <span class="nx">checkbox</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">active</span><span class="o">:</span> <span class="mi">1</span>
-    <span class="p">},</span>
-    <span class="nx">file</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">active</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="nx">holderTxt</span><span class="o">:</span> <span class="s2">"Upload.."</span>
-    <span class="p">},</span>
-    <span class="nx">text</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">active</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="nx">blur_color</span><span class="o">:</span> <span class="s2">"#777"</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
+<p>Each module default and allowed options can be found on the corresponding module <code>doc/</code> page.</p>
 
 <h2>Usage</h2>
 
 <div class="highlight"><pre>
-  <span class="c1">// You can overwrite defaults by passing an object with some options</span>
-  <span class="kd">var</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">customEle</span><span class="o">:</span> <span class="s1">'span'</span> <span class="p">};</span>
-
-  <span class="c1">// All Form elements</span>
-  <span class="nx">$</span><span class="p">(</span><span class="s1">'form'</span><span class="p">).</span><span class="nx">cstmForm</span><span class="p">(</span> <span class="nx">options</span> <span class="p">)</span> 
+  <span class="c1">// All Form fields inside that container</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">'#container'</span><span class="p">).</span><span class="nx">cstmForm</span><span class="p">(</span> <span class="nx">options</span> <span class="p">)</span> 
 
   <span class="c1">// target a certain group of element </span>
   <span class="nx">$</span><span class="p">(</span><span class="s1">'input[type=file]'</span><span class="p">).</span><span class="nx">cstmForm</span><span class="p">(</span> <span class="nx">options</span> <span class="p">)</span>
 
   <span class="c1">// You can target specific groups of elements</span>
   <span class="nx">$</span><span class="p">(</span><span class="s1">'input[type=radio], input[type=checkbox], select'</span><span class="p">).</span><span class="nx">cstmForm</span><span class="p">(</span> <span class="nx">options</span> <span class="p">)</span>
+
 </pre></div>
-      </section>
+
+<h2>Submiting new custom modules</h2>
+
+<p>Feel free to submit new modules as pull requests. All module must have proper jsdoc syntax comments and related unit testing in order to be merged. After having made any pull request you will be able to join the trello board.</p>
+
+<p>A module will need to extend class <code>app/lib/BaseField.js</code> and implement <code>moduleName.blueprint</code></p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/mitermayer/CustomForms/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/mitermayer/CustomForms/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/mitermayer/CustomForms"></a> is maintained by <a href="https://github.com/mitermayer">mitermayer</a>.</p>
+
+          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
     </div>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Customforms maintained by <a href="https://github.com/mitermayer">mitermayer</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-34918380-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
 
-    
-
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-34918380-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
   </body>
 </html>
