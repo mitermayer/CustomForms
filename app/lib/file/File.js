@@ -64,6 +64,9 @@
      * var DEFAULTS = {
      *      active: true, // active by default
      *      ready: function() {}, // callback when module is ready.
+     *      // Thats the default 'size' for a button
+     *      // it is used to address some issues on firefox to apply the correct size.
+     *      'BUTTON_BROWSER_SIZE': 36,
      *      customEle: 'a', // default element for handle.
      *      containerEle: 'div', // default element for container.
      *      autoHide: true, // will auto hide html element by default
