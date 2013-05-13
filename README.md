@@ -13,8 +13,15 @@ All code is **Unit Tested** and **Cross Browser Tested** with the **lastest jque
 
 Future **releases**, **bugs** and **ehancement** can all be found on the trello board. All issues created on github will have a trello card associated with it.
 
+###[Documentation Page](http://customformsjs.com/doc/ "Documentation page")### 
+
+
 [![Travis](http://customformsjs.com/demo/img/small_travis.jpg)](https://travis-ci.org/mitermayer/CustomForms)
+Continuous integration testing
+
 [![Trello](http://customformsjs.com/demo/img/small_trello.jpg)](https://trello.com/board/customformsjs/513e7cce79afc2ab3f000c7f)
+Agile board
+
 
 ## Modules
 * **Text** - _Cross browser support to placeholders_.
@@ -23,16 +30,19 @@ Future **releases**, **bugs** and **ehancement** can all be found on the trello 
 * **Checkbox** - _Custom checkboxes_
 * **Radio** - _Custom radio_
 
-[![Browser support](http://customformsjs.com/demo/img/small_browsers.jpg)]
 ## Browser support
+![Browser support](http://customformsjs.com/demo/img/small_browsers.jpg)
+
 * **Google**: Chrome 5+
 * **Firefox**: 3.5+
 * **Opera**: 7+
 * **Safari**: 4+
 * **Internet**: Explorer 7+
 
-[![Smart phones support](http://customformsjs.com/demo/img/small_mobile.jpg)]
+
 ## Smart phones support
+![Smart phones support](http://customformsjs.com/demo/img/small_mobile.jpg)
+
 * **Android**: 1.5+
 * **Iphone**: 3+
 
@@ -41,32 +51,16 @@ Future **releases**, **bugs** and **ehancement** can all be found on the trello 
 * **jQuery**: 2.0+
 
 ## Defaults
-```javascript
-{
-    customEle      : 'a',
-    containerEle   : 'div',
-    classPrefix    : 'custom-',
-    autoHide       : 1, // Auto hide the stylized elements
-    active         : 0, // Load all custom form modules
-    select: {
-        active: 1
-    },
-    radio: {
-        active: 1
-    },
-    checkbox: {
-        active: 1
-    },
-    file: {
-        active: 1,
-        holderTxt: "Upload.."
-    },
-    text: {
-        active: 1,
-        blur_color: "#777"
-    }
-}
-```
+Options and defaults can be found on the documentation page for each individual module.
+
+
+* [**Module Text**](http://customformsjs.com/doc/Text.html "Documentation Text module")
+* [**Module Checkbox**](http://customformsjs.com/doc/Checkbox.html "Documentation Text module")
+* [**Module Radio**](http://customformsjs.com/doc/Radio.html "Documentation Text module")
+* [**Module File**](http://customformsjs.com/doc/File.html "Documentation Text module")
+* [**Module Select**](http://customformsjs.com/doc/Select.html "Documentation Text module")
+
+
 
 ## Usage
 ```javascript
@@ -90,9 +84,3 @@ Future **releases**, **bugs** and **ehancement** can all be found on the trello 
 Feel free to submit new modules as pull requests. All module must have proper jsdoc syntax comments and related unit testing in order to be merged. After having made any pull request you will be able to join the trello board.
 
 A module will need to extend class ```app/lib/BaseField.js``` and implement ```moduleName.blueprint```
-
-
-
-
-
-
