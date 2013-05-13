@@ -104,7 +104,7 @@ module.exports = function(grunt) {
         }
     },
    bowerful: {
-        dist: {
+        latest: {
             store: 'components',
             dest: 'demo',
             destfile: 'vendor',
@@ -116,11 +116,24 @@ module.exports = function(grunt) {
             packages: {
                 jquery: ''
             }   
+        },
+        older: {
+            store: 'components',
+            dest: 'demo',
+            destfile: 'vendor-old',
+            /*
+            customtarget: {
+                jquery: 'demo/jquery'
+            },
+            */
+            packages: {
+                jquery: '1.6.2'
+            }   
         }
     }, 
     clean: {
         install: {
-            src: '<%= bowerful.dist.store.src %>'
+            src: ['<%= bowerful.latest.store.src %>', '<%= bowerful.older.store.src %>']
         }
     }
   });

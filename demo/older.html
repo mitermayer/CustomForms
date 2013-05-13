@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+  <title>Custom forms - demo with older supported vendors</title>
+  <link rel=StyleSheet href="style.css" type="text/css">
+</head>
+<body>
+  <h1>CustomForms</h1>
+  <h2>“Web forms done right”</h2>
+
+	<form action="" method="post">
+
+		<label for="pholder">X Browser Placeholders:</label>
+		<input type="text" name="pholder"  placeholder="Placeholder.." value="" />
+
+		<label for="upfile">Custom File upload: </label>
+		<input type="file" id="upfile" name="upfile" value="" />
+
+		<label for="selectbox">Custom Select: </label>
+		<select name="selectbox" id="selectbox">
+			<option>select..</option>
+			<option name="o1" value="1">option 1</option>
+			<option name="o2" value="2">option 2</option>
+			<option name="o3" value="3">option 3</option>
+			<option name="o4" value="4">option 4</option>
+		</select>
+
+    <div class="container clearBox">
+      <div class="optbox left">
+          <label for="opt1">Option 2:</label>
+          <input type="radio" id="opt1" name="radioG" value="1" />
+      </div>
+
+      <div class="optbox left">
+        <label for="opt2">Option 2:</label>
+        <input type="radio" id="opt2" name="radioG" value="2" />
+      </div>
+
+      <div class="optbox left">
+        <label for="opt3">Option 3:</label>
+        <input type="radio" id="opt3" name="radioG" value="3" />
+      </div>
+    </div>
+
+    <div class="container clearBox">
+
+      <div class="optbox left">
+        <label for="checkbox1">Checkbox 1:</label>
+        <input type="checkbox" id="checkbox1" name="checkbox1" value="1" />
+      </div>
+
+      <div class="optbox left">
+        <label for="checkbox2">Checkbox 2:</label>
+        <input type="checkbox" id="checkbox2" name="checkbox2" value="1" />
+      </div>
+
+      <div class="optbox left">
+        <label for="checkbox3">Checkbox 3:</label>
+        <input type="checkbox" id="checkbox3" name="checkbox3" value="1" />
+      </div>
+
+    </div>
+
+		
+	</form>
+
+  <script src="vendor-old.js"></script>
+  <!-- <script src="customForms-min.js"></script> -->
+  <script src="../customforms.js"></script>
+  <script> $(document).ready(function() { $('form').cstmForm({ 
+    active: 1,
+    text: {
+      force: true,
+      'blur_color': 'red'
+    },
+    file: {
+      holderTxt: "something.."
+    }
+  }); }); </script>
+</body>
+</html>
