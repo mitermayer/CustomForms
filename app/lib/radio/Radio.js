@@ -152,7 +152,7 @@
     /**
      * Blueprint used to allow custom field creation. 
      * Element must be an object with a tagname 'input' with an attribute 'type' that 
-     * has a value 'radio'.
+     * has a value of 'radio'.
      *
      * @property {Object} app.module.Radio.blueprint used to see if element meet module requirements.
      * @memberof app.module.Radio

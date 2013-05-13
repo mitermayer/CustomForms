@@ -274,6 +274,14 @@
     var APP = global.app = global.app || {},
         module = APP.module = APP.module || {},
 
+        /**
+         * Module default settings.
+         *
+         * @constant
+         * @default 
+         * @access private
+         * @memberof app.module.Checkbox
+         */
         DEFAULTS = {
             active: true,
             ready: function() {},
@@ -288,9 +296,36 @@
         };
 
     /**
-     * Add support for styling checkbox fields.
+     * Add support for styling input checkbox fields. 
+     * A custom element is added before the browser default input checkbox field,
+     * The valued is binded to the default browser checkbox field. When clicking on 
+     * the custom element they will updated the default input checkbox and vise versa. 
+     * Updates on the browser default field will also trigger updates on the custom input field.
+     * Options can be passed to extend the defaults.
      *
      * @module Checkbox
+     * @param {Object} obj Options to initialize Checkbox module.
+     * @name app.module.Checkbox
+     * @example
+     * var DEFAULTS = {
+     *      active: true, // active by default
+     *      ready: function() {}, // callback when module is ready.
+     *      customEle: 'a', // default element for handle.
+     *      containerEle: 'div', // default element for container.
+     *      autoHide: true, // will auto hide html element by default
+     *      classPrefix: 'custom-', // prefix used for class.
+     *      hideCss: { // styles can be overwritten or added.
+     *          position: 'absolute',
+     *          left: '-9999px'
+     *      },
+     *      element: obj, // input checkbox field.
+     *      events: [], // custom events can be added.
+     *      validators: [] // custom validators can be added.
+     * };
+     * 
+     * app.module.Checkbox(DEFAULTS); 
+     *
+     * @returns {Object} Returns an Instance of module Checkbox.
      */
     module.Checkbox = function(obj) {
 
@@ -326,6 +361,16 @@
             return $el.prop('checked');
         });
 
+        /**
+         * Initializer for module. Will create custom elements and apply 
+         * default styles to it. Here will also be browser specific features.
+         * Checkbox module works by adding a custom element before the browser 
+         * input checkbox form field and binding their values together. When updating
+         * one the other will be updated.
+         * 
+         * @function
+         * @memberof app.module.Checkbox
+         */
         SETTINGS.init = function() {
             // hide element
             $el.css(DEFAULTS.hideCss);
@@ -346,6 +391,13 @@
 
         instance = new APP.BaseField(SETTINGS);
 
+        /**
+         * Updating custom element checked state will trigger an update on the browser
+         * default input checkbox checked state property and vice versa.
+         *
+         * @function
+         * @memberof app.module.Checkbox
+         */
         instance.bind('validate', function(event) {
             var state = event.data.success;
 
@@ -358,7 +410,14 @@
         return instance;
     };
 
-    // Define what elements should use this module
+    /**
+     * Blueprint used to allow custom field creation. 
+     * Element must be an object with a tagname 'input' with an attribute 'type' that 
+     * has a value of 'checkbox'.
+     *
+     * @property {Object} app.module.Checkbox.blueprint used to see if element meet module requirements.
+     * @memberof app.module.Checkbox
+     */
     module.Checkbox.blueprint = {
         tagName: 'input',
         filter: {
@@ -590,7 +649,7 @@
     /**
      * Blueprint used to allow custom field creation. 
      * Element must be an object with a tagname 'input' with an attribute 'type' that 
-     * has a value 'file'.
+     * has a value of 'file'.
      *
      * @property {Object} app.module.File.blueprint used to see if element meet module requirements.
      * @memberof app.module.File
@@ -760,7 +819,7 @@
     /**
      * Blueprint used to allow custom field creation. 
      * Element must be an object with a tagname 'input' with an attribute 'type' that 
-     * has a value 'radio'.
+     * has a value of 'radio'.
      *
      * @property {Object} app.module.Radio.blueprint used to see if element meet module requirements.
      * @memberof app.module.Radio
@@ -978,6 +1037,7 @@
 
     /**
      * Blueprint used to allow custom field creation. 
+     * Element must be an object with a tagname 'select'
      *
      * @property {Object} blueprint used to see if element meet module requirements.
      * @memberof app.module.Select
@@ -995,8 +1055,17 @@
     var APP = global.app = global.app || {},
         module = APP.module = APP.module || {},
 
+        /**
+         * Module default settings.
+         *
+         * @constant
+         * @default 
+         * @access private
+         * @memberof app.module.Text
+         */
         DEFAULTS = {
             active: true,
+            force: false,
             ready: function() {},
             blur_color: '#777',
             classPrefix: 'custom-',
@@ -1007,9 +1076,31 @@
 
 
     /**
-     * Add support for input placeholder attributes.
+     * Add support for placeholder in browsers that don't natively support it.
+     * Options can be passed to extend the defaults. When adding custom validators they
+     * will force the placeholder to appear when failing validation.
      *
      * @module Text
+     * @param {Object} obj Options to initialize Text module.
+     * @name app.module.Text
+     * @example
+     * var DEFAULTS = {
+     *      active: true, // active by default
+     *      force: false, // force to use custom placeholders even when browser natively support it.
+     *      ready: function() {}, // callback when module is ready.
+     *      blur_color: '#777', // blur color used to mimic placeholder color.
+     *      classPrefix: 'custom-', // prefix used for class.
+     *      placeholder_support: (function() { // this is used to check if placeholder support is enabled.
+     *          return ('placeholder' in global.document.createElement('input'));
+     *      })()
+     *      element: obj, // input ('text', 'search', 'tel', 'url', 'email', 'password') field.
+     *      events: [], // custom events can be added.
+     *      validators: [] // custom validators can be added.
+     * };
+     * 
+     * app.module.Text(DEFAULTS); 
+     *
+     * @returns {Object} Returns an Instance of module Text.
      */
     module.Text = function(obj) {
 
@@ -1070,6 +1161,14 @@
                 return val !== _placeholder;
             });
 
+            /**
+             * Initializer for module. Will mimic default browser placeholder by
+             * applying a placeholder when input have an invalid field. This can be used
+             * in conjuction of custom validators.
+             * 
+             * @function
+             * @memberof app.module.Text
+             */
             SETTINGS.init = function() {
                 $el.addClass(_class);
 
@@ -1078,6 +1177,12 @@
 
             instance = new APP.BaseField(SETTINGS);
 
+            /**
+             * When validation fails, custom placeholder will be added.
+             *
+             * @function
+             * @memberof app.module.Text
+             */
             instance.bind('validate', function(event) {
                 var state = event.data.success;
                 toggleColor(state);
@@ -1090,7 +1195,14 @@
         return instance;
     };
 
-    // Define what elements should use this module
+    /**
+     * Blueprint used to allow custom field creation. 
+     * Element must be an object with a tagname 'input' with an attribute 'type' that 
+     * has a value of ('text', 'search', 'tel', 'url', 'email', 'password') field.
+     *
+     * @property {Object} app.module.Text.blueprint used to see if element meet module requirements.
+     * @memberof app.module.Text
+     */
     module.Text.blueprint = {
         tagName: ['input', 'textarea'],
         filter: {

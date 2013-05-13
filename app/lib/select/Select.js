@@ -200,6 +200,7 @@
 
     /**
      * Blueprint used to allow custom field creation. 
+     * Element must be an object with a tagname 'select'
      *
      * @property {Object} blueprint used to see if element meet module requirements.
      * @memberof app.module.Select

@@ -144,7 +144,7 @@
     /**
      * Blueprint used to allow custom field creation. 
      * Element must be an object with a tagname 'input' with an attribute 'type' that 
-     * has a value 'checkbox'.
+     * has a value of 'checkbox'.
      *
      * @property {Object} app.module.Checkbox.blueprint used to see if element meet module requirements.
      * @memberof app.module.Checkbox

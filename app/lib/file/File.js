@@ -218,7 +218,7 @@
     /**
      * Blueprint used to allow custom field creation. 
      * Element must be an object with a tagname 'input' with an attribute 'type' that 
-     * has a value 'file'.
+     * has a value of 'file'.
      *
      * @property {Object} app.module.File.blueprint used to see if element meet module requirements.
      * @memberof app.module.File
