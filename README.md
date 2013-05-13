@@ -13,6 +13,8 @@ All code is **Unit Tested** and **Cross Browser Tested** with the **lastest jque
 
 Future **releases**, **bugs** and **ehancement** can all be found on the trello board. All issues created on github will have a trello card associated with it.
 
+[![Travis](http://customformsjs.com/demo/img/small_travis.jpg)](https://travis-ci.org/mitermayer/CustomForms)
+[![Trello](http://customformsjs.com/demo/img/small_trello.jpg)](https://trello.com/board/customformsjs/513e7cce79afc2ab3f000c7f)
 
 ## Modules
 * **Text** - _Cross browser support to placeholders_.
@@ -21,12 +23,15 @@ Future **releases**, **bugs** and **ehancement** can all be found on the trello 
 * **Checkbox** - _Custom checkboxes_
 * **Radio** - _Custom radio_
 
+[![Browser support](http://customformsjs.com/demo/img/small_browsers.jpg)]
 ## Browser support
-* **Internet**: Explorer 7+
-* **Firefox**: 3.5+
 * **Google**: Chrome 5+
+* **Firefox**: 3.5+
+* **Opera**: 7+
 * **Safari**: 4+
+* **Internet**: Explorer 7+
 
+[![Smart phones support](http://customformsjs.com/demo/img/small_mobile.jpg)]
 ## Smart phones support
 * **Android**: 1.5+
 * **Iphone**: 3+
