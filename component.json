@@ -1,0 +1,8 @@
+{
+    "name": "customForms",
+    "version": "1.0.0",
+    "main": "./customForms.js",
+    "dependencies": {
+        "jquery": "latest"
+    }
+}

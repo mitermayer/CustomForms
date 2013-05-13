@@ -1,0 +1,27 @@
+# Numerous always-ignore extensions
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.zip
+*.vi
+*~
+*.sass-cache
+
+# twitter bower default folder and files
+components
+
+# Folders to ignore
+node_modules
+
+# this is downloaded from bowerful
+assets.js
+vendor.js
+
+# vim ctags
+tags
+
+doc
