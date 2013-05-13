@@ -13,7 +13,8 @@ All code is **Unit Tested** and **Cross Browser Tested** with the **lastest jque
 
 Future **releases**, **bugs** and **ehancement** can all be found on the trello board. All issues created on github will have a trello card associated with it.
 
-###[Documentation Page](http://customformsjs.com/doc/ "Documentation page")### 
+
+###[Documentation Page](http://customformsjs.com/doc/ "Documentation page")
 
 
 [![Travis](http://customformsjs.com/demo/img/small_travis.jpg)](https://travis-ci.org/mitermayer/CustomForms)
@@ -21,6 +22,18 @@ Continuous integration testing
 
 [![Trello](http://customformsjs.com/demo/img/small_trello.jpg)](https://trello.com/board/customformsjs/513e7cce79afc2ab3f000c7f)
 Agile board
+
+***
+
+##view demo with **jQuery 2.0**
+[![View demo jquery lastest version](http://customformsjs.com/demo/img/demo-button.png)](https://travis-ci.org/mitermayer/demo/)  
+
+***
+
+##view demo with **jQuery 1.6**
+[![View demo jquery oldest supported version](http://customformsjs.com/demo/img/demo-button.png)](https://travis-ci.org/mitermayer/demo/older.html)
+
+***
 
 
 ## Modules
