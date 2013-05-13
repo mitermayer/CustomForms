@@ -69,8 +69,7 @@
      *          position: 'absolute',
      *          top: '0px',
      *          left: '0px',
-     *          '-moz-opacity': '0',
-     *          '-khtml-opacity': '0'
+     *          '-moz-opacity': '0', *          '-khtml-opacity': '0'
      *      },
      *      elCss: { // styles can be overwritten or added.
      *          display: "block",
