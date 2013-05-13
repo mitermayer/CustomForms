@@ -32,7 +32,7 @@
 
             $('#qunit-fixture').append(form);
 
-            file = app.module.File({
+            file = customformsjs.module.File({
                 element: input.get(0),
                 classPrefix: settings.classPrefix,
                 holderTxt: settings.holderTxt

@@ -2,14 +2,14 @@
 
     "use strict";
 
-    var APP = global.app = global.app || {};
+    var APP = global.customformsjs = global.customformsjs || {};
 
     /**
      * Base class for all modules, it provides a link between the html element and
      * the model. It also implements custom events and validators.
      *
      * @constructor  
-     * @name app.BaseField 
+     * @name customformsjs.BaseField 
      * @param {Object} obj Options to initialize BaseField.
      * @param {Object} obj.element Object that has an attribute 'value'. 
      * @param {Array} obj.validators Field Validators. 
@@ -48,7 +48,7 @@
          * Will call a callback function when it's done.
          *
          * @function 
-         * @memberof app.BaseField
+         * @memberof customformsjs.BaseField
          * @returns {Bool} Returns true with no error occur.
          */
         this.init = function() {
@@ -114,7 +114,7 @@
          * @function 
          * @param {String} evnt Custom event name. 
          * @param {Function} func Callback function to be called when event is triggered.
-         * @memberof app.BaseField
+         * @memberof customformsjs.BaseField
          * @returns {Object} Returns context for chaining.
          */
         this.bind = function(evnt, func) {
@@ -131,7 +131,7 @@
          * @function 
          * @param {String} evnt Custom event name. 
          * @param {Function} func Callback function reference.
-         * @memberof app.BaseField
+         * @memberof customformsjs.BaseField
          * @returns {Object} Returns context for chaining.
          */
         this.unbind = function(evnt, func) {
@@ -152,7 +152,7 @@
          * @function 
          * @param {String} val Value to update field.
          * @param {Bool} force If true, value will be updated regardless of validation.
-         * @memberof app.BaseField
+         * @memberof customformsjs.BaseField
          * @returns {Object} Returns context for chaining.
          */
         this.update = function(val, force) {
@@ -170,7 +170,7 @@
          * Triggers 'save' event, and send the saved value as an event data attribute. 
          *
          * @function 
-         * @memberof app.BaseField
+         * @memberof customformsjs.BaseField
          * @returns {Object} Returns context for chaining.
          */
         this.save = function() {
@@ -186,7 +186,7 @@
          * Triggers 'sync' event, and send the syncd value as an event data attribute. 
          *
          * @function 
-         * @memberof app.BaseField
+         * @memberof customformsjs.BaseField
          * @returns {Object} returns context for chaining.
          */
         this.sync = function() {
@@ -204,7 +204,7 @@
          *
          * @function 
          * @param {String} val  Value to be validated
-         * @memberof app.BaseField
+         * @memberof customformsjs.BaseField
          * @returns {Object} Returns success status, and array of error messages.
          */
         this.validate = function(val) {
@@ -239,7 +239,7 @@
          * @function 
          * @param {String} evnt event namespace 
          * @param {Object} data data to be passed on as part of the event
-         * @memberof app.BaseField
+         * @memberof customformsjs.BaseField
          * @returns {Object} returns context for chaining.
          */
         this.trigger = function(evnt, data) {
@@ -271,7 +271,7 @@
 
     "use strict";
 
-    var APP = global.app = global.app || {},
+    var APP = global.customformsjs = global.customformsjs || {},
         module = APP.module = APP.module || {},
 
         /**
@@ -280,7 +280,7 @@
          * @constant
          * @default 
          * @access private
-         * @memberof app.module.Checkbox
+         * @memberof customformsjs.module.Checkbox
          */
         DEFAULTS = {
             active: true,
@@ -305,7 +305,7 @@
      *
      * @module Checkbox
      * @param {Object} obj Options to initialize Checkbox module.
-     * @name app.module.Checkbox
+     * @name customformsjs.module.Checkbox
      * @example
      * var DEFAULTS = {
      *      active: true, // active by default
@@ -323,7 +323,7 @@
      *      validators: [] // custom validators can be added.
      * };
      * 
-     * app.module.Checkbox(DEFAULTS); 
+     * customformsjs.module.Checkbox(DEFAULTS); 
      *
      * @returns {Object} Returns an Instance of module Checkbox.
      */
@@ -369,7 +369,7 @@
          * one the other will be updated.
          * 
          * @function
-         * @memberof app.module.Checkbox
+         * @memberof customformsjs.module.Checkbox
          */
         SETTINGS.init = function() {
             // hide element
@@ -396,7 +396,7 @@
          * default input checkbox checked state property and vice versa.
          *
          * @function
-         * @memberof app.module.Checkbox
+         * @memberof customformsjs.module.Checkbox
          */
         instance.bind('validate', function(event) {
             var state = event.data.success;
@@ -415,8 +415,8 @@
      * Element must be an object with a tagname 'input' with an attribute 'type' that 
      * has a value of 'checkbox'.
      *
-     * @property {Object} app.module.Checkbox.blueprint used to see if element meet module requirements.
-     * @memberof app.module.Checkbox
+     * @property {Object} customformsjs.module.Checkbox.blueprint used to see if element meet module requirements.
+     * @memberof customformsjs.module.Checkbox
      */
     module.Checkbox.blueprint = {
         tagName: 'input',
@@ -433,7 +433,7 @@
 
     "use strict";
 
-    var APP = global.app = global.app || {},
+    var APP = global.customformsjs = global.customformsjs || {},
         module = APP.module = APP.module || {},
 
         /**
@@ -442,7 +442,7 @@
          * @constant
          * @default 
          * @access private
-         * @memberof app.module.File
+         * @memberof customformsjs.module.File
          */
         DEFAULTS = {
             active: true,
@@ -490,11 +490,14 @@
      *
      * @module File
      * @param {Object} obj Options to initialize Radio module.
-     * @name app.module.File
+     * @name customformsjs.module.File
      * @example
      * var DEFAULTS = {
      *      active: true, // active by default
      *      ready: function() {}, // callback when module is ready.
+     *      // Thats the default 'size' for a button
+     *      // it is used to address some issues on firefox to apply the correct size.
+     *      'BUTTON_BROWSER_SIZE': 36,
      *      customEle: 'a', // default element for handle.
      *      containerEle: 'div', // default element for container.
      *      autoHide: true, // will auto hide html element by default
@@ -529,7 +532,7 @@
      *      validators: [] // custom validators can be added.
      * };
      * 
-     * app.module.File(DEFAULTS); 
+     * customformsjs.module.File(DEFAULTS); 
      *
      * @returns {Object} Returns an Instance of module File.
      */
@@ -580,7 +583,7 @@
          * input file field.
          *
          * @function
-         * @memberof app.module.File
+         * @memberof customformsjs.module.File
          */
         SETTINGS.init = function() {
             // hide element
@@ -632,7 +635,7 @@
          * Applying the filename value to the custom element as a text node, or the holding text.
          *
          * @function
-         * @memberof app.module.File
+         * @memberof customformsjs.module.File
          */
         instance.bind('validate', function() {
             var _selectedText = getFileName();
@@ -651,8 +654,8 @@
      * Element must be an object with a tagname 'input' with an attribute 'type' that 
      * has a value of 'file'.
      *
-     * @property {Object} app.module.File.blueprint used to see if element meet module requirements.
-     * @memberof app.module.File
+     * @property {Object} customformsjs.module.File.blueprint used to see if element meet module requirements.
+     * @memberof customformsjs.module.File
      */
     module.File.blueprint = {
         tagName: 'input',
@@ -669,7 +672,7 @@
 
     "use strict";
 
-    var APP = global.app = global.app || {},
+    var APP = global.customformsjs = global.customformsjs || {},
         module = APP.module = APP.module || {},
 
         /**
@@ -678,7 +681,7 @@
          * @constant
          * @default 
          * @access private
-         * @memberof app.module.Radio
+         * @memberof customformsjs.module.Radio
          */
         DEFAULTS = {
             active: true,
@@ -704,7 +707,7 @@
      *
      * @module Radio
      * @param {Object} obj Options to initialize Radio module.
-     * @name app.module.Radio
+     * @name customformsjs.module.Radio
      * @example
      * var DEFAULTS = {
      *      active: true, // active by default
@@ -722,7 +725,7 @@
      *      validators: [] // custom validators can be added.
      * };
      * 
-     * app.module.Radio(DEFAULTS); 
+     * customformsjs.module.Radio(DEFAULTS); 
      *
      * @returns {Object} Returns an Instance of module Radio.
      */
@@ -770,7 +773,7 @@
          * one the other will be updated.
          * 
          * @function
-         * @memberof app.module.Radio
+         * @memberof customformsjs.module.Radio
          */
         SETTINGS.init = function() {
             // hide element
@@ -799,7 +802,7 @@
          * element of a group can be checked at a time.
          *
          * @function
-         * @memberof app.module.Radio
+         * @memberof customformsjs.module.Radio
          */
         instance.bind('validate', function(event) {
             var state = event.data.success;
@@ -821,8 +824,8 @@
      * Element must be an object with a tagname 'input' with an attribute 'type' that 
      * has a value of 'radio'.
      *
-     * @property {Object} app.module.Radio.blueprint used to see if element meet module requirements.
-     * @memberof app.module.Radio
+     * @property {Object} customformsjs.module.Radio.blueprint used to see if element meet module requirements.
+     * @memberof customformsjs.module.Radio
      */
     module.Radio.blueprint = {
         tagName: 'input',
@@ -839,7 +842,7 @@
 
     "use strict";
 
-    var APP = global.app = global.app || {},
+    var APP = global.customformsjs = global.customformsjs || {},
         module = APP.module = APP.module || {},
 
         /**
@@ -848,7 +851,7 @@
          * @constant
          * @default 
          * @access private
-         * @memberof app.module.Select
+         * @memberof customformsjs.module.Select
          */
         DEFAULTS = {
             active: true,
@@ -891,7 +894,7 @@
      *
      * @module Select
      * @param {Object} obj Options to initialize Select module.
-     * @name app.module.Select
+     * @name customformsjs.module.Select
      * @example
      * var DEFAULTS = {
      *      active: true, // active by default
@@ -927,7 +930,7 @@
      *      validators: [] // custom validators can be added.
      * };
      * 
-     * app.module.Select(DEFAULTS); 
+     * customformsjs.module.Select(DEFAULTS); 
      *
      * @returns {Object} Returns an Instance of module Select.
      */
@@ -968,7 +971,7 @@
          * select form field and making it transparent.
          *
          * @function
-         * @memberof app.module.Select
+         * @memberof customformsjs.module.Select
          */
         SETTINGS.init = function() {
             // hide element
@@ -1019,7 +1022,7 @@
          * Applying the option value the custom element as a text node.
          *
          * @function
-         * @memberof app.module.Select
+         * @memberof customformsjs.module.Select
          */
         instance.bind('validate', function() {
             var _selectedText = $el.find('option:selected').text();
@@ -1040,7 +1043,7 @@
      * Element must be an object with a tagname 'select'
      *
      * @property {Object} blueprint used to see if element meet module requirements.
-     * @memberof app.module.Select
+     * @memberof customformsjs.module.Select
      */
     module.Select.blueprint = {
         tagName: 'select'
@@ -1052,7 +1055,7 @@
 
     'use strict';
 
-    var APP = global.app = global.app || {},
+    var APP = global.customformsjs = global.customformsjs || {},
         module = APP.module = APP.module || {},
 
         /**
@@ -1061,7 +1064,7 @@
          * @constant
          * @default 
          * @access private
-         * @memberof app.module.Text
+         * @memberof customformsjs.module.Text
          */
         DEFAULTS = {
             active: true,
@@ -1082,7 +1085,7 @@
      *
      * @module Text
      * @param {Object} obj Options to initialize Text module.
-     * @name app.module.Text
+     * @name customformsjs.module.Text
      * @example
      * var DEFAULTS = {
      *      active: true, // active by default
@@ -1098,7 +1101,7 @@
      *      validators: [] // custom validators can be added.
      * };
      * 
-     * app.module.Text(DEFAULTS); 
+     * customformsjs.module.Text(DEFAULTS); 
      *
      * @returns {Object} Returns an Instance of module Text.
      */
@@ -1167,7 +1170,7 @@
              * in conjuction of custom validators.
              * 
              * @function
-             * @memberof app.module.Text
+             * @memberof customformsjs.module.Text
              */
             SETTINGS.init = function() {
                 $el.addClass(_class);
@@ -1181,7 +1184,7 @@
              * When validation fails, custom placeholder will be added.
              *
              * @function
-             * @memberof app.module.Text
+             * @memberof customformsjs.module.Text
              */
             instance.bind('validate', function(event) {
                 var state = event.data.success;
@@ -1200,8 +1203,8 @@
      * Element must be an object with a tagname 'input' with an attribute 'type' that 
      * has a value of ('text', 'search', 'tel', 'url', 'email', 'password') field.
      *
-     * @property {Object} app.module.Text.blueprint used to see if element meet module requirements.
-     * @memberof app.module.Text
+     * @property {Object} customformsjs.module.Text.blueprint used to see if element meet module requirements.
+     * @memberof customformsjs.module.Text
      */
     module.Text.blueprint = {
         tagName: ['input', 'textarea'],
@@ -1218,9 +1221,9 @@
 
     /**
      * @namespace
-     * @name app
+     * @name customformsjs
      */
-    var APP = global.app = global.app || {},
+    var APP = global.customformsjs = global.customformsjs || {},
 
         fieldFactory = (function() {
 

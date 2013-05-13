@@ -2,7 +2,7 @@
 
     'use strict';
 
-    var APP = global.app = global.app || {},
+    var APP = global.customformsjs = global.customformsjs || {},
         module = APP.module = APP.module || {},
 
         /**
@@ -11,7 +11,7 @@
          * @constant
          * @default 
          * @access private
-         * @memberof app.module.Text
+         * @memberof customformsjs.module.Text
          */
         DEFAULTS = {
             active: true,
@@ -32,7 +32,7 @@
      *
      * @module Text
      * @param {Object} obj Options to initialize Text module.
-     * @name app.module.Text
+     * @name customformsjs.module.Text
      * @example
      * var DEFAULTS = {
      *      active: true, // active by default
@@ -48,7 +48,7 @@
      *      validators: [] // custom validators can be added.
      * };
      * 
-     * app.module.Text(DEFAULTS); 
+     * customformsjs.module.Text(DEFAULTS); 
      *
      * @returns {Object} Returns an Instance of module Text.
      */
@@ -117,7 +117,7 @@
              * in conjuction of custom validators.
              * 
              * @function
-             * @memberof app.module.Text
+             * @memberof customformsjs.module.Text
              */
             SETTINGS.init = function() {
                 $el.addClass(_class);
@@ -131,7 +131,7 @@
              * When validation fails, custom placeholder will be added.
              *
              * @function
-             * @memberof app.module.Text
+             * @memberof customformsjs.module.Text
              */
             instance.bind('validate', function(event) {
                 var state = event.data.success;
@@ -150,8 +150,8 @@
      * Element must be an object with a tagname 'input' with an attribute 'type' that 
      * has a value of ('text', 'search', 'tel', 'url', 'email', 'password') field.
      *
-     * @property {Object} app.module.Text.blueprint used to see if element meet module requirements.
-     * @memberof app.module.Text
+     * @property {Object} customformsjs.module.Text.blueprint used to see if element meet module requirements.
+     * @memberof customformsjs.module.Text
      */
     module.Text.blueprint = {
         tagName: ['input', 'textarea'],

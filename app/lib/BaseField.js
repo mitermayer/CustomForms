@@ -2,14 +2,14 @@
 
     "use strict";
 
-    var APP = global.app = global.app || {};
+    var APP = global.customformsjs = global.customformsjs || {};
 
     /**
      * Base class for all modules, it provides a link between the html element and
      * the model. It also implements custom events and validators.
      *
      * @constructor  
-     * @name app.BaseField 
+     * @name customformsjs.BaseField 
      * @param {Object} obj Options to initialize BaseField.
      * @param {Object} obj.element Object that has an attribute 'value'. 
      * @param {Array} obj.validators Field Validators. 
@@ -48,7 +48,7 @@
          * Will call a callback function when it's done.
          *
          * @function 
-         * @memberof app.BaseField
+         * @memberof customformsjs.BaseField
          * @returns {Bool} Returns true with no error occur.
          */
         this.init = function() {
@@ -114,7 +114,7 @@
          * @function 
          * @param {String} evnt Custom event name. 
          * @param {Function} func Callback function to be called when event is triggered.
-         * @memberof app.BaseField
+         * @memberof customformsjs.BaseField
          * @returns {Object} Returns context for chaining.
          */
         this.bind = function(evnt, func) {
@@ -131,7 +131,7 @@
          * @function 
          * @param {String} evnt Custom event name. 
          * @param {Function} func Callback function reference.
-         * @memberof app.BaseField
+         * @memberof customformsjs.BaseField
          * @returns {Object} Returns context for chaining.
          */
         this.unbind = function(evnt, func) {
@@ -152,7 +152,7 @@
          * @function 
          * @param {String} val Value to update field.
          * @param {Bool} force If true, value will be updated regardless of validation.
-         * @memberof app.BaseField
+         * @memberof customformsjs.BaseField
          * @returns {Object} Returns context for chaining.
          */
         this.update = function(val, force) {
@@ -170,7 +170,7 @@
          * Triggers 'save' event, and send the saved value as an event data attribute. 
          *
          * @function 
-         * @memberof app.BaseField
+         * @memberof customformsjs.BaseField
          * @returns {Object} Returns context for chaining.
          */
         this.save = function() {
@@ -186,7 +186,7 @@
          * Triggers 'sync' event, and send the syncd value as an event data attribute. 
          *
          * @function 
-         * @memberof app.BaseField
+         * @memberof customformsjs.BaseField
          * @returns {Object} returns context for chaining.
          */
         this.sync = function() {
@@ -204,7 +204,7 @@
          *
          * @function 
          * @param {String} val  Value to be validated
-         * @memberof app.BaseField
+         * @memberof customformsjs.BaseField
          * @returns {Object} Returns success status, and array of error messages.
          */
         this.validate = function(val) {
@@ -239,7 +239,7 @@
          * @function 
          * @param {String} evnt event namespace 
          * @param {Object} data data to be passed on as part of the event
-         * @memberof app.BaseField
+         * @memberof customformsjs.BaseField
          * @returns {Object} returns context for chaining.
          */
         this.trigger = function(evnt, data) {

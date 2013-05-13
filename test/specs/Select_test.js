@@ -48,7 +48,7 @@
 
             $('#qunit-fixture').append(form);
 
-            select = app.module.Select({
+            select = customformsjs.module.Select({
                 element: input.get(0),
                 classPrefix: settings.classPrefix
             });

@@ -2,7 +2,7 @@
 
     "use strict";
 
-    var APP = global.app = global.app || {},
+    var APP = global.customformsjs = global.customformsjs || {},
         module = APP.module = APP.module || {},
 
         /**
@@ -11,7 +11,7 @@
          * @constant
          * @default 
          * @access private
-         * @memberof app.module.Radio
+         * @memberof customformsjs.module.Radio
          */
         DEFAULTS = {
             active: true,
@@ -37,7 +37,7 @@
      *
      * @module Radio
      * @param {Object} obj Options to initialize Radio module.
-     * @name app.module.Radio
+     * @name customformsjs.module.Radio
      * @example
      * var DEFAULTS = {
      *      active: true, // active by default
@@ -55,7 +55,7 @@
      *      validators: [] // custom validators can be added.
      * };
      * 
-     * app.module.Radio(DEFAULTS); 
+     * customformsjs.module.Radio(DEFAULTS); 
      *
      * @returns {Object} Returns an Instance of module Radio.
      */
@@ -103,7 +103,7 @@
          * one the other will be updated.
          * 
          * @function
-         * @memberof app.module.Radio
+         * @memberof customformsjs.module.Radio
          */
         SETTINGS.init = function() {
             // hide element
@@ -132,7 +132,7 @@
          * element of a group can be checked at a time.
          *
          * @function
-         * @memberof app.module.Radio
+         * @memberof customformsjs.module.Radio
          */
         instance.bind('validate', function(event) {
             var state = event.data.success;
@@ -154,8 +154,8 @@
      * Element must be an object with a tagname 'input' with an attribute 'type' that 
      * has a value of 'radio'.
      *
-     * @property {Object} app.module.Radio.blueprint used to see if element meet module requirements.
-     * @memberof app.module.Radio
+     * @property {Object} customformsjs.module.Radio.blueprint used to see if element meet module requirements.
+     * @memberof customformsjs.module.Radio
      */
     module.Radio.blueprint = {
         tagName: 'input',

@@ -29,7 +29,7 @@
 
             $('#qunit-fixture').append(form.append(input));
 
-            checkbox = app.module.Checkbox({
+            checkbox = customformsjs.module.Checkbox({
                 element: input.get(0),
                 classPrefix: settings.classPrefix
             });
@@ -135,7 +135,7 @@
 
             $('#qunit-fixture').append(form);
 
-            file = app.module.File({
+            file = customformsjs.module.File({
                 element: input.get(0),
                 classPrefix: settings.classPrefix,
                 holderTxt: settings.holderTxt
@@ -250,7 +250,7 @@
 
                 _input.attr(optAttr);
 
-                radio[i] = app.module.Radio({
+                radio[i] = customformsjs.module.Radio({
                     element: _input.get(0),
                     classPrefix: settings.classPrefix
                 });
@@ -372,7 +372,7 @@
 
             $('#qunit-fixture').append(form);
 
-            select = app.module.Select({
+            select = customformsjs.module.Select({
                 element: input.get(0),
                 classPrefix: settings.classPrefix
             });
@@ -508,7 +508,7 @@
 
             $('#qunit-fixture').append(form.append(input));
 
-            textfield = app.module.Text({
+            textfield = customformsjs.module.Text({
                 element: input.get(0),
                 force: true
             });
@@ -538,7 +538,7 @@
 
         input.val("somthing");
         textfield.sync().validate();
-        textfield = app.module.Text({
+        textfield = customformsjs.module.Text({
             element: input.get(0),
             force: true
         });
@@ -657,7 +657,7 @@
             '"Something else" should pass on validation.');
 
 
-        textfield = app.module.Text({
+        textfield = customformsjs.module.Text({
             element: input.get(0),
             force: true,
             validators: [
@@ -707,7 +707,7 @@
         }).update("bones");
 
 
-        textfield = app.module.Text({
+        textfield = customformsjs.module.Text({
             element: input.get(0),
             force: true,
             events: ["someevent", "customevent"]

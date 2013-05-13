@@ -2,7 +2,7 @@
 
     "use strict";
 
-    var APP = global.app = global.app || {},
+    var APP = global.customformsjs = global.customformsjs || {},
         module = APP.module = APP.module || {},
 
         /**
@@ -11,7 +11,7 @@
          * @constant
          * @default 
          * @access private
-         * @memberof app.module.Checkbox
+         * @memberof customformsjs.module.Checkbox
          */
         DEFAULTS = {
             active: true,
@@ -36,7 +36,7 @@
      *
      * @module Checkbox
      * @param {Object} obj Options to initialize Checkbox module.
-     * @name app.module.Checkbox
+     * @name customformsjs.module.Checkbox
      * @example
      * var DEFAULTS = {
      *      active: true, // active by default
@@ -54,7 +54,7 @@
      *      validators: [] // custom validators can be added.
      * };
      * 
-     * app.module.Checkbox(DEFAULTS); 
+     * customformsjs.module.Checkbox(DEFAULTS); 
      *
      * @returns {Object} Returns an Instance of module Checkbox.
      */
@@ -100,7 +100,7 @@
          * one the other will be updated.
          * 
          * @function
-         * @memberof app.module.Checkbox
+         * @memberof customformsjs.module.Checkbox
          */
         SETTINGS.init = function() {
             // hide element
@@ -127,7 +127,7 @@
          * default input checkbox checked state property and vice versa.
          *
          * @function
-         * @memberof app.module.Checkbox
+         * @memberof customformsjs.module.Checkbox
          */
         instance.bind('validate', function(event) {
             var state = event.data.success;
@@ -146,8 +146,8 @@
      * Element must be an object with a tagname 'input' with an attribute 'type' that 
      * has a value of 'checkbox'.
      *
-     * @property {Object} app.module.Checkbox.blueprint used to see if element meet module requirements.
-     * @memberof app.module.Checkbox
+     * @property {Object} customformsjs.module.Checkbox.blueprint used to see if element meet module requirements.
+     * @memberof customformsjs.module.Checkbox
      */
     module.Checkbox.blueprint = {
         tagName: 'input',

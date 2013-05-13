@@ -42,7 +42,7 @@
 
                 _input.attr(optAttr);
 
-                radio[i] = app.module.Radio({
+                radio[i] = customformsjs.module.Radio({
                     element: _input.get(0),
                     classPrefix: settings.classPrefix
                 });

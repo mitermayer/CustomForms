@@ -2,7 +2,7 @@
 
     "use strict";
 
-    var APP = global.app = global.app || {},
+    var APP = global.customformsjs = global.customformsjs || {},
         module = APP.module = APP.module || {},
 
         /**
@@ -11,7 +11,7 @@
          * @constant
          * @default 
          * @access private
-         * @memberof app.module.Select
+         * @memberof customformsjs.module.Select
          */
         DEFAULTS = {
             active: true,
@@ -54,7 +54,7 @@
      *
      * @module Select
      * @param {Object} obj Options to initialize Select module.
-     * @name app.module.Select
+     * @name customformsjs.module.Select
      * @example
      * var DEFAULTS = {
      *      active: true, // active by default
@@ -90,7 +90,7 @@
      *      validators: [] // custom validators can be added.
      * };
      * 
-     * app.module.Select(DEFAULTS); 
+     * customformsjs.module.Select(DEFAULTS); 
      *
      * @returns {Object} Returns an Instance of module Select.
      */
@@ -131,7 +131,7 @@
          * select form field and making it transparent.
          *
          * @function
-         * @memberof app.module.Select
+         * @memberof customformsjs.module.Select
          */
         SETTINGS.init = function() {
             // hide element
@@ -182,7 +182,7 @@
          * Applying the option value the custom element as a text node.
          *
          * @function
-         * @memberof app.module.Select
+         * @memberof customformsjs.module.Select
          */
         instance.bind('validate', function() {
             var _selectedText = $el.find('option:selected').text();
@@ -203,7 +203,7 @@
      * Element must be an object with a tagname 'select'
      *
      * @property {Object} blueprint used to see if element meet module requirements.
-     * @memberof app.module.Select
+     * @memberof customformsjs.module.Select
      */
     module.Select.blueprint = {
         tagName: 'select'

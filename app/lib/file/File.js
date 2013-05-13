@@ -2,7 +2,7 @@
 
     "use strict";
 
-    var APP = global.app = global.app || {},
+    var APP = global.customformsjs = global.customformsjs || {},
         module = APP.module = APP.module || {},
 
         /**
@@ -11,7 +11,7 @@
          * @constant
          * @default 
          * @access private
-         * @memberof app.module.File
+         * @memberof customformsjs.module.File
          */
         DEFAULTS = {
             active: true,
@@ -59,7 +59,7 @@
      *
      * @module File
      * @param {Object} obj Options to initialize Radio module.
-     * @name app.module.File
+     * @name customformsjs.module.File
      * @example
      * var DEFAULTS = {
      *      active: true, // active by default
@@ -101,7 +101,7 @@
      *      validators: [] // custom validators can be added.
      * };
      * 
-     * app.module.File(DEFAULTS); 
+     * customformsjs.module.File(DEFAULTS); 
      *
      * @returns {Object} Returns an Instance of module File.
      */
@@ -152,7 +152,7 @@
          * input file field.
          *
          * @function
-         * @memberof app.module.File
+         * @memberof customformsjs.module.File
          */
         SETTINGS.init = function() {
             // hide element
@@ -204,7 +204,7 @@
          * Applying the filename value to the custom element as a text node, or the holding text.
          *
          * @function
-         * @memberof app.module.File
+         * @memberof customformsjs.module.File
          */
         instance.bind('validate', function() {
             var _selectedText = getFileName();
@@ -223,8 +223,8 @@
      * Element must be an object with a tagname 'input' with an attribute 'type' that 
      * has a value of 'file'.
      *
-     * @property {Object} app.module.File.blueprint used to see if element meet module requirements.
-     * @memberof app.module.File
+     * @property {Object} customformsjs.module.File.blueprint used to see if element meet module requirements.
+     * @memberof customformsjs.module.File
      */
     module.File.blueprint = {
         tagName: 'input',

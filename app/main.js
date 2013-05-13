@@ -2,9 +2,9 @@
 
     /**
      * @namespace
-     * @name app
+     * @name customformsjs
      */
-    var APP = global.app = global.app || {},
+    var APP = global.customformsjs = global.customformsjs || {},
 
         fieldFactory = (function() {
 

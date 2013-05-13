@@ -29,7 +29,7 @@
 
             $('#qunit-fixture').append(form.append(input));
 
-            checkbox = app.module.Checkbox({
+            checkbox = customformsjs.module.Checkbox({
                 element: input.get(0),
                 classPrefix: settings.classPrefix
             });
