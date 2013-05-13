@@ -53,7 +53,7 @@
      * custom element. Options can be passed to extend the defaults.
      *
      * @module Select
-     * @param {Object} obj Options to initialize select module.
+     * @param {Object} obj Options to initialize Select module.
      * @name app.module.Select
      * @example
      * var DEFAULTS = {

@@ -58,7 +58,7 @@
      * custom element. Options can be passed to extend the defaults.
      *
      * @module File
-     * @param {Object} obj Options to initialize select module.
+     * @param {Object} obj Options to initialize Radio module.
      * @name app.module.File
      * @example
      * var DEFAULTS = {
