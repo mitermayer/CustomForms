@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: main.js</title>
+    
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Source: main.js</h1>
+    
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>(function(global) {
+
+    /**
+     * @namespace
+     * @name customformsjs
+     */
+    var APP = global.customformsjs = global.customformsjs || {},
+
+        fieldFactory = (function() {
+
+            /*
+             *SUPPORTED_ELEMENTS = {
+             *    tagName: [
+             *        {
+             *            filter: { 'attrname': ['arrval'] },
+             *            module: "moduleName"
+             *        },
+             *        {
+             *            filter: { 'attrname2': 'strval' }
+             *            module: "moduleName"
+             *        },
+             *        "strmodulename"
+             *    ]
+             *};
+             */
+            var SUPPORTED_ELEMENTS = {},
+                GLOBAL_OPTIONS = {},
+                capitaliseFirstLetter = function(string) {
+                    return string.charAt(0).toUpperCase() + string.slice(1);
+                },
+                callModule = function(moduleName, element, options) {
+                    var opt = options || {},
+                        settings = $.extend(true, {}, GLOBAL_OPTIONS, opt);
+
+                    settings.element = element;
+
+                    APP.module[moduleName](settings);
+                },
+                setGlobalOptions = function(options) {
+                    // Global options are options that are 
+                    // not namespaced by a module name
+
+                    // Reset on each call
+                    GLOBAL_OPTIONS = {};
+
+                    for (var option in options) {
+                        if (!APP.module[capitaliseFirstLetter(option)]) {
+                            GLOBAL_OPTIONS[option] = options[option];
+                        }
+                    }
+                },
+                getTag = function(element) {
+                    return SUPPORTED_ELEMENTS[element.nodeName.toLowerCase()];
+                },
+                assertFilter = function(matchvalue, match) {
+                    var lookupTable = {
+                        array: function() {
+                            return $.inArray(matchvalue, match) !== -1;
+                        },
+                        string: function() {
+                            return matchvalue === match;
+                        }
+                    };
+
+                    return lookupTable[typeof match === 'string' ? 'string' :
+                        'array']();
+                },
+                checkFilter = function(filter, $element) {
+
+                    var ret = false;
+
+                    $.each(filter, function(key, filter) {
+
+                        ret = assertFilter($element.attr(key), filter);
+
+                        if (ret) {
+                            return false;
+                        }
+                    });
+
+                    return ret;
+                },
+                getModule = function($element, options) {
+
+                    var element = $element[0],
+                        tag = getTag(element);
+
+                    for (var i = 0, len = tag.length; i &lt; len; i++) {
+                        var _tag = tag[i],
+                            _modulename = _tag.module || _tag,
+                            _options = options[_modulename.toLowerCase()];
+
+
+                        if (typeof _tag === 'string' || checkFilter(_tag.filter,
+                            $element)) {
+                            callModule(_modulename, element, _options);
+                        }
+                    }
+                },
+                getSupportedChildren = function($parent, options) {
+                    $.each($parent.children(), function() {
+                        var lookupTable = {
+                            getModule: getModule,
+                            getSupportedChildren: getSupportedChildren
+                        };
+
+                        lookupTable[getTag($(this)[0]) ? 'getModule' :
+                            'getSupportedChildren']($(this), options);
+                    });
+                },
+                addSupportedElement = function(module, tag) {
+
+                    var filter = APP.module[module].blueprint.filter || {},
+                        item;
+
+                    // if we dont have element on the hash add it
+                    SUPPORTED_ELEMENTS[tag] = SUPPORTED_ELEMENTS[tag] || [];
+
+                    // if module has a filter add it, else just add input
+                    // with module reference.
+                    item = filter[tag] ? {
+                        filter: filter[tag],
+                        module: module
+                    } : module;
+
+                    // push item to supported hash
+                    SUPPORTED_ELEMENTS[tag].push(item);
+                },
+                buildSupportedElementsList = function() {
+                    $.each(APP.module, function(key) {
+                        var _tag = APP.module[key].blueprint.tagName,
+                            lookupTable = {
+                                array: function(module, tag) {
+                                    $.each(tag, function(key, value) {
+                                        addSupportedElement(module, value);
+                                    });
+                                },
+                                string: addSupportedElement
+                            };
+
+                        lookupTable[$.isArray(_tag) ? 'array' : 'string'](key,
+                            _tag);
+                    });
+                };
+
+            // build list of supported modules
+            buildSupportedElementsList();
+
+            //return function()
+            return function(options) {
+                setGlobalOptions(options);
+
+                $(this).each(function() {
+                    var lookupTable = {
+                        validTag: getModule,
+                        checkChildrenForValidTag: getSupportedChildren
+                    };
+
+                    lookupTable[getTag($(this)[0]) ? "validTag" :
+                        "checkChildrenForValidTag"]($(this), options);
+                });
+            };
+
+        })();
+
+    $.fn.cstmForm = fieldFactory;
+
+}(this));
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="Checkbox.html">Checkbox</a></li><li><a href="File.html">File</a></li><li><a href="Radio.html">Radio</a></li><li><a href="Select.html">Select</a></li><li><a href="Text.html">Text</a></li></ul><h3>Classes</h3><ul><li><a href="customformsjs.BaseField.html">BaseField</a></li></ul><h3>Namespaces</h3><ul><li><a href="customformsjs.html">customformsjs</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.0-dev</a> on Mon May 13 2013 17:12:17 GMT+1000 (EST)
+</footer>
+
+<script> prettyPrint(); </script>
+</body>
+</html>
