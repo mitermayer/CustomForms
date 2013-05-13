@@ -204,9 +204,11 @@
         textfield = app.module.Text({
             element: input.get(0),
             force: true,
-            validators: [function(val) {
+            validators: [
+                function(val) {
                     return val !== "dummy";
-                }, function(val) {
+                },
+                function(val) {
                     return typeof val !== "number";
                 }
             ]

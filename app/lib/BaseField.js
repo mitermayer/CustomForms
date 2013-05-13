@@ -11,16 +11,14 @@
      * @constructor  
      * @name app.BaseField 
      * @param {Object} obj Options to initialize BaseField.
-     * @param {HTMLelement} obj.element HTML element, that has an attribute 'value'. 
+     * @param {Object} obj.element Object that has an attribute 'value'. 
      * @param {Array} obj.validators Field Validators. 
      * @param {Array} obj.events Custom events. 
      * @param {Function} obj.init Callback function to initialize subclass when BaseField is ready. 
      * @example
      * new APP.BaseField({ 
      *     element: htmlelmenent, 
-     *     validators: [], 
-     *     events: ["customEventNameSpace", { 
-     *         name: "otherCustomEventNamespace", 
+     *     events: ["customEventNameSpace", { *         name: "otherCustomEventNamespace", 
      *         callback: function(event){
      *           // custom "otherCustomEventNamespace" event callback.
      *         }
@@ -36,7 +34,7 @@
      *         console.log("ready");
      *     } 
      * }); 
-     * @returns {object} Returns an object with some base methods.
+     * @returns {Object} Returns an Object with some base methods.
      */
     APP.BaseField = function(obj) {
 
@@ -51,8 +49,7 @@
          *
          * @function 
          * @memberof app.BaseField
-         * @access public
-         * @returns {Bool}
+         * @returns {Bool} Returns true with no error occur.
          */
         this.init = function() {
 
@@ -118,7 +115,7 @@
          * @param {String} evnt Custom event name. 
          * @param {Function} func Callback function to be called when event is triggered.
          * @memberof app.BaseField
-         * @returns {object} Returns context for chaining.
+         * @returns {Object} Returns context for chaining.
          */
         this.bind = function(evnt, func) {
             if (_events[evnt]) {
@@ -135,7 +132,7 @@
          * @param {String} evnt Custom event name. 
          * @param {Function} func Callback function reference.
          * @memberof app.BaseField
-         * @returns {object} Returns context for chaining.
+         * @returns {Object} Returns context for chaining.
          */
         this.unbind = function(evnt, func) {
             for (var e = 0, v = _events[evnt].length; e < v; e++) {
@@ -149,14 +146,14 @@
         };
 
         /**
-         * Update value with a valid specified string. Triggers 'update' event, and send
+         * Update value with a valid specified String. Triggers 'update' event, and send
          * the updated value as an event data attribute.
          *
          * @function 
          * @param {String} val Value to update field.
          * @param {Bool} force If true, value will be updated regardless of validation.
          * @memberof app.BaseField
-         * @returns {object} Returns context for chaining.
+         * @returns {Object} Returns context for chaining.
          */
         this.update = function(val, force) {
             if (_value !== val && (this.validate(val) || force)) {
@@ -174,7 +171,7 @@
          *
          * @function 
          * @memberof app.BaseField
-         * @returns {object} Returns context for chaining.
+         * @returns {Object} Returns context for chaining.
          */
         this.save = function() {
             _element.value = _value;
@@ -190,7 +187,7 @@
          *
          * @function 
          * @memberof app.BaseField
-         * @returns {object} returns context for chaining.
+         * @returns {Object} returns context for chaining.
          */
         this.sync = function() {
             _value = _element.value;
@@ -201,14 +198,14 @@
         };
 
         /**
-         * Run all custom element validators over the string val.
-         * Will return an object with a property success and a property
+         * Run all custom element validators over the String val.
+         * Will return an Object with a property success and a property
          * message with an array of error messages.
          *
          * @function 
-         * @param {string} val  Value to be validated
+         * @param {String} val  Value to be validated
          * @memberof app.BaseField
-         * @returns {object} Returns success status, and array of error messages.
+         * @returns {Object} Returns success status, and array of error messages.
          */
         this.validate = function(val) {
             var ret = {
@@ -235,15 +232,15 @@
 
         /**
          * Triggers an event from a particular event namespace. Will call 
-         * all functions that are linked with that namespace with an Event object.
+         * all functions that are linked with that namespace with an Event Object.
          * It will have a reference to the element, custom element, event 
          * namespace, timestamp and data that can be passed on as part of the trigger. 
          *
          * @function 
-         * @param {string} evnt event namespace 
-         * @param {object} data data to be passed on as part of the event
+         * @param {String} evnt event namespace 
+         * @param {Object} data data to be passed on as part of the event
          * @memberof app.BaseField
-         * @returns {object} returns context for chaining.
+         * @returns {Object} returns context for chaining.
          */
         this.trigger = function(evnt, data) {
             if (_events[evnt]) {

@@ -11,16 +11,14 @@
      * @constructor  
      * @name app.BaseField 
      * @param {Object} obj Options to initialize BaseField.
-     * @param {HTMLelement} obj.element HTML element, that has an attribute 'value'. 
+     * @param {Object} obj.element Object that has an attribute 'value'. 
      * @param {Array} obj.validators Field Validators. 
      * @param {Array} obj.events Custom events. 
      * @param {Function} obj.init Callback function to initialize subclass when BaseField is ready. 
      * @example
      * new APP.BaseField({ 
      *     element: htmlelmenent, 
-     *     validators: [], 
-     *     events: ["customEventNameSpace", { 
-     *         name: "otherCustomEventNamespace", 
+     *     events: ["customEventNameSpace", { *         name: "otherCustomEventNamespace", 
      *         callback: function(event){
      *           // custom "otherCustomEventNamespace" event callback.
      *         }
@@ -36,6 +34,7 @@
      *         console.log("ready");
      *     } 
      * }); 
+     * @returns {Object} Returns an Object with some base methods.
      */
     APP.BaseField = function(obj) {
 
@@ -50,7 +49,7 @@
          *
          * @function 
          * @memberof app.BaseField
-         * @returns {Bool}
+         * @returns {Bool} Returns true with no error occur.
          */
         this.init = function() {
 
@@ -116,7 +115,7 @@
          * @param {String} evnt Custom event name. 
          * @param {Function} func Callback function to be called when event is triggered.
          * @memberof app.BaseField
-         * @returns {object} Returns context for chaining.
+         * @returns {Object} Returns context for chaining.
          */
         this.bind = function(evnt, func) {
             if (_events[evnt]) {
@@ -133,7 +132,7 @@
          * @param {String} evnt Custom event name. 
          * @param {Function} func Callback function reference.
          * @memberof app.BaseField
-         * @returns {object} Returns context for chaining.
+         * @returns {Object} Returns context for chaining.
          */
         this.unbind = function(evnt, func) {
             for (var e = 0, v = _events[evnt].length; e < v; e++) {
@@ -147,14 +146,14 @@
         };
 
         /**
-         * Update value with a valid specified string. Triggers 'update' event, and send
+         * Update value with a valid specified String. Triggers 'update' event, and send
          * the updated value as an event data attribute.
          *
          * @function 
          * @param {String} val Value to update field.
          * @param {Bool} force If true, value will be updated regardless of validation.
          * @memberof app.BaseField
-         * @returns {object} Returns context for chaining.
+         * @returns {Object} Returns context for chaining.
          */
         this.update = function(val, force) {
             if (_value !== val && (this.validate(val) || force)) {
@@ -166,7 +165,14 @@
             return this;
         };
 
-        // update element value with custom element value
+        /**
+         * Update the related element with the value stored in this custom element. 
+         * Triggers 'save' event, and send the saved value as an event data attribute. 
+         *
+         * @function 
+         * @memberof app.BaseField
+         * @returns {Object} Returns context for chaining.
+         */
         this.save = function() {
             _element.value = _value;
 
@@ -175,7 +181,14 @@
             return this;
         };
 
-        // update custom element value with element value
+        /**
+         * Update the custom element with the value stored in element. 
+         * Triggers 'sync' event, and send the syncd value as an event data attribute. 
+         *
+         * @function 
+         * @memberof app.BaseField
+         * @returns {Object} returns context for chaining.
+         */
         this.sync = function() {
             _value = _element.value;
 
@@ -184,7 +197,16 @@
             return this;
         };
 
-        // run custom element value over validators
+        /**
+         * Run all custom element validators over the String val.
+         * Will return an Object with a property success and a property
+         * message with an array of error messages.
+         *
+         * @function 
+         * @param {String} val  Value to be validated
+         * @memberof app.BaseField
+         * @returns {Object} Returns success status, and array of error messages.
+         */
         this.validate = function(val) {
             var ret = {
                 success: true,
@@ -209,11 +231,16 @@
         };
 
         /**
-         * Update value with a valid specified string. Triggers 'update' event.  
+         * Triggers an event from a particular event namespace. Will call 
+         * all functions that are linked with that namespace with an Event Object.
+         * It will have a reference to the element, custom element, event 
+         * namespace, timestamp and data that can be passed on as part of the trigger. 
          *
          * @function 
+         * @param {String} evnt event namespace 
+         * @param {Object} data data to be passed on as part of the event
          * @memberof app.BaseField
-         * @returns {object} Returns context for chaining.
+         * @returns {Object} returns context for chaining.
          */
         this.trigger = function(evnt, data) {
             if (_events[evnt]) {
@@ -223,8 +250,8 @@
                             element: _element,
                             model: that,
                             event: evnt,
-                            data: data,
-                            time: new Date().getTime()
+                            time: new Date().getTime(),
+                            data: data
                         };
 
                     _events[evnt][e](_event);
@@ -616,6 +643,14 @@
     var APP = global.app = global.app || {},
         module = APP.module = APP.module || {},
 
+        /**
+         * Module default settings.
+         *
+         * @constant
+         * @default 
+         * @access private
+         * @memberof app.module.Select
+         */
         DEFAULTS = {
             active: true,
             ready: function() {},
@@ -650,9 +685,53 @@
 
 
     /**
-     * Add support for styling select fields.
+     * Add support for styling select fields. 
+     * A custom element is added behind the browser default select field,
+     * and the select field is made transparent to create the illusion of a
+     * custom element. Options can be passed to extend the defaults.
      *
      * @module Select
+     * @param {Object} obj Options to initialize select module.
+     * @name app.module.Select
+     * @example
+     * var DEFAULTS = {
+     *      active: true, // active by default
+     *      ready: function() {}, // callback when module is ready.
+     *      customEle: 'a', // default element for handle.
+     *      containerEle: 'div', // default element for container.
+     *      autoHide: true, // will auto hide html element by default
+     *      classPrefix: 'custom-', // prefix used for class.
+     *      hideCss: { // styles can be overwritten or added.
+     *          opacity: '0',
+     *          filter: 'alpha(opacity=0)',
+     *          position: 'absolute',
+     *          top: '0px',
+     *          left: '0px',
+     *          '-moz-opacity': '0',
+     *          '-khtml-opacity': '0'
+     *      },
+     *      elCss: { // styles can be overwritten or added.
+     *          display: "block",
+     *          '-webkit-appearance': 'none',
+     *          '-moz-appearance': 'none'
+     *      },
+     *      customContainerCss: { // styles can be overwritten or added.
+     *          position: 'relative'
+     *      },
+     *      customElCss: { // styles can be overwritten or added.
+     *          display: "block",
+     *          overflow: "hidden",
+     *          'white-space': "nowrap",
+     *          'text-overflow': "ellipsis"
+     *      },
+     *      element: obj, // select input field.
+     *      events: [], // custom events can be added.
+     *      validators: [] // custom validators can be added.
+     * };
+     * 
+     * app.module.Select(DEFAULTS); 
+     *
+     * @returns {Object} Returns an Instance of module Select.
      */
     module.Select = function(obj) {
 
@@ -684,6 +763,15 @@
 
         SETTINGS.validators = SETTINGS.validators || [];
 
+        /**
+         * Initializer for module. Will create custom elements and apply 
+         * default styles to it. Here will also be browser specific features.
+         * Select module works by adding a custom element behind the browser 
+         * select form field and making it transparent.
+         *
+         * @function
+         * @memberof app.module.Select
+         */
         SETTINGS.init = function() {
             // hide element
             $el.css(DEFAULTS.hideCss);
@@ -728,6 +816,13 @@
 
         instance = new APP.BaseField(SETTINGS);
 
+        /**
+         * Custom validator is added to find wich option is selected and get its text value.
+         * Applying the option value the custom element as a text node.
+         *
+         * @function
+         * @memberof app.module.Select
+         */
         instance.bind('validate', function() {
             var _selectedText = $el.find('option:selected').text();
 
@@ -742,7 +837,12 @@
         return instance;
     };
 
-    // Define what elements should use this module
+    /**
+     * Blueprint used to allow custom field creation. 
+     *
+     * @property {Object} blueprint used to see if element meet module requirements.
+     * @memberof app.module.Select
+     */
     module.Select.blueprint = {
         tagName: 'select'
     };

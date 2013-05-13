@@ -5,6 +5,14 @@
     var APP = global.app = global.app || {},
         module = APP.module = APP.module || {},
 
+        /**
+         * Module default settings.
+         *
+         * @constant
+         * @default 
+         * @access private
+         * @memberof app.module.Select
+         */
         DEFAULTS = {
             active: true,
             ready: function() {},
@@ -39,9 +47,53 @@
 
 
     /**
-     * Add support for styling select fields.
+     * Add support for styling select fields. 
+     * A custom element is added behind the browser default select field,
+     * and the select field is made transparent to create the illusion of a
+     * custom element. Options can be passed to extend the defaults.
      *
      * @module Select
+     * @param {Object} obj Options to initialize select module.
+     * @name app.module.Select
+     * @example
+     * var DEFAULTS = {
+     *      active: true, // active by default
+     *      ready: function() {}, // callback when module is ready.
+     *      customEle: 'a', // default element for handle.
+     *      containerEle: 'div', // default element for container.
+     *      autoHide: true, // will auto hide html element by default
+     *      classPrefix: 'custom-', // prefix used for class.
+     *      hideCss: { // styles can be overwritten or added.
+     *          opacity: '0',
+     *          filter: 'alpha(opacity=0)',
+     *          position: 'absolute',
+     *          top: '0px',
+     *          left: '0px',
+     *          '-moz-opacity': '0',
+     *          '-khtml-opacity': '0'
+     *      },
+     *      elCss: { // styles can be overwritten or added.
+     *          display: "block",
+     *          '-webkit-appearance': 'none',
+     *          '-moz-appearance': 'none'
+     *      },
+     *      customContainerCss: { // styles can be overwritten or added.
+     *          position: 'relative'
+     *      },
+     *      customElCss: { // styles can be overwritten or added.
+     *          display: "block",
+     *          overflow: "hidden",
+     *          'white-space': "nowrap",
+     *          'text-overflow': "ellipsis"
+     *      },
+     *      element: obj, // select input field.
+     *      events: [], // custom events can be added.
+     *      validators: [] // custom validators can be added.
+     * };
+     * 
+     * app.module.Select(DEFAULTS); 
+     *
+     * @returns {Object} Returns an Instance of module Select.
      */
     module.Select = function(obj) {
 
@@ -73,6 +125,15 @@
 
         SETTINGS.validators = SETTINGS.validators || [];
 
+        /**
+         * Initializer for module. Will create custom elements and apply 
+         * default styles to it. Here will also be browser specific features.
+         * Select module works by adding a custom element behind the browser 
+         * select form field and making it transparent.
+         *
+         * @function
+         * @memberof app.module.Select
+         */
         SETTINGS.init = function() {
             // hide element
             $el.css(DEFAULTS.hideCss);
@@ -117,6 +178,13 @@
 
         instance = new APP.BaseField(SETTINGS);
 
+        /**
+         * Custom validator is added to find wich option is selected and get its text value.
+         * Applying the option value the custom element as a text node.
+         *
+         * @function
+         * @memberof app.module.Select
+         */
         instance.bind('validate', function() {
             var _selectedText = $el.find('option:selected').text();
 
@@ -131,7 +199,12 @@
         return instance;
     };
 
-    // Define what elements should use this module
+    /**
+     * Blueprint used to allow custom field creation. 
+     *
+     * @property {Object} blueprint used to see if element meet module requirements.
+     * @memberof app.module.Select
+     */
     module.Select.blueprint = {
         tagName: 'select'
     };
