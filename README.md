@@ -97,3 +97,8 @@ Options and defaults can be found on the documentation page for each individual 
 Feel free to submit new modules as pull requests. All module must have proper jsdoc syntax comments and related unit testing in order to be merged. After having made any pull request you will be able to join the trello board.
 
 A module will need to extend class ```app/lib/BaseField.js``` and implement ```moduleName.blueprint```
+
+## Change log
+
+ - 1.0.1 - BUGFIX - Updated placeholder module to check if there is a property placeholder while running on 'force' mode.
+ - 1.0.0 - release 

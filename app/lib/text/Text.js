@@ -138,8 +138,11 @@
                 toggleColor(state);
             });
 
-            addPlaceholder();
-            attachEvents();
+            // only attach events if there is a placeholder attribute
+            if (_placeholder) {
+                addPlaceholder();
+                attachEvents();
+            }
         }
 
         return instance;
