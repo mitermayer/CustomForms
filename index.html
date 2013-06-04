@@ -30,7 +30,8 @@
         <section id="main-content">
           <p><a href="https://travis-ci.org/mitermayer/CustomForms"><img src="https://travis-ci.org/mitermayer/CustomForms.png?branch=refactor" alt="Build Status"></a></p>
 
-<h1>Customformsjs</h1>
+<h1>
+<a name="customformsjs" class="anchor" href="#customformsjs"><span class="octicon octicon-link"></span></a>Customformsjs</h1>
 
 <p>After 2 long years <strong>version 1.0</strong> is now released, the goal of customforms was to provide an
 easy and customizeble way to implement form fields. </p>
@@ -42,7 +43,9 @@ build it on top of <strong>software engineering best practices and principles</s
 
 <p>Future <strong>releases</strong>, <strong>bugs</strong> and <strong>ehancement</strong> can all be found on the trello board. All issues created on github will have a trello card associated with it.</p>
 
-<h3><a href="http://customformsjs.com/doc/" title="Documentation page">Documentation Page</a></h3>
+<h3>
+<a name="documentation-page" class="anchor" href="#documentation-page"><span class="octicon octicon-link"></span></a><a href="http://customformsjs.com/doc/" title="Documentation page">Documentation Page</a>
+</h3>
 
 <p><a href="https://travis-ci.org/mitermayer/CustomForms"><img src="http://customformsjs.com/demo/img/small_travis.jpg" alt="Travis"></a>
 Continuous integration testing</p>
@@ -50,17 +53,20 @@ Continuous integration testing</p>
 <p><a href="https://trello.com/board/customformsjs/513e7cce79afc2ab3f000c7f"><img src="http://customformsjs.com/demo/img/small_trello.jpg" alt="Trello"></a>
 Agile board</p>
 
-<hr><h2>view demo with <strong>jQuery 2.0</strong>
+<hr><h2>
+<a name="view-demo-with-jquery-20" class="anchor" href="#view-demo-with-jquery-20"><span class="octicon octicon-link"></span></a>view demo with <strong>jQuery 2.0</strong>
 </h2>
 
 <p><a href="http://customformsjs.com/demo/"><img src="http://customformsjs.com/demo/img/demo-button.png" alt="View demo jquery lastest version"></a>  </p>
 
-<hr><h2>view demo with <strong>jQuery 1.6</strong>
+<hr><h2>
+<a name="view-demo-with-jquery-16" class="anchor" href="#view-demo-with-jquery-16"><span class="octicon octicon-link"></span></a>view demo with <strong>jQuery 1.6</strong>
 </h2>
 
 <p><a href="http://customformsjs.com/demo/older.html"><img src="http://customformsjs.com/demo/img/demo-button.png" alt="View demo jquery oldest supported version"></a></p>
 
-<hr><h2>Modules</h2>
+<hr><h2>
+<a name="modules" class="anchor" href="#modules"><span class="octicon octicon-link"></span></a>Modules</h2>
 
 <ul>
 <li>
@@ -76,7 +82,8 @@ Agile board</p>
 <li>
 <strong>Radio</strong> - <em>Custom radio</em>
 </li>
-</ul><h2>Browser support</h2>
+</ul><h2>
+<a name="browser-support" class="anchor" href="#browser-support"><span class="octicon octicon-link"></span></a>Browser support</h2>
 
 <p><img src="http://customformsjs.com/demo/img/small_browsers.jpg" alt="Browser support"></p>
 
@@ -91,7 +98,8 @@ Agile board</p>
 <strong>Safari</strong>: 4+</li>
 <li>
 <strong>Internet</strong>: Explorer 7+</li>
-</ul><h2>Smart phones support</h2>
+</ul><h2>
+<a name="smart-phones-support" class="anchor" href="#smart-phones-support"><span class="octicon octicon-link"></span></a>Smart phones support</h2>
 
 <p><img src="http://customformsjs.com/demo/img/small_mobile.jpg" alt="Smart phones support"></p>
 
@@ -100,14 +108,16 @@ Agile board</p>
 <strong>Android</strong>: 1.5+</li>
 <li>
 <strong>Iphone</strong>: 3+</li>
-</ul><h2>Requirements</h2>
+</ul><h2>
+<a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h2>
 
 <ul>
 <li>
 <strong>jQuery</strong>: 1.6+</li>
 <li>
 <strong>jQuery</strong>: 2.0+</li>
-</ul><h2>Defaults</h2>
+</ul><h2>
+<a name="defaults" class="anchor" href="#defaults"><span class="octicon octicon-link"></span></a>Defaults</h2>
 
 <p>Options and defaults can be found on the documentation page for each individual module.</p>
 
@@ -117,7 +127,8 @@ Agile board</p>
 <li><a href="http://customformsjs.com/doc/Radio.html" title="Documentation Text module"><strong>Module Radio</strong></a></li>
 <li><a href="http://customformsjs.com/doc/File.html" title="Documentation Text module"><strong>Module File</strong></a></li>
 <li><a href="http://customformsjs.com/doc/Select.html" title="Documentation Text module"><strong>Module Select</strong></a></li>
-</ul><h2>Usage</h2>
+</ul><h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
 
 <div class="highlight"><pre>
   <span class="c1">// You can overwrite defaults by passing an object with some options</span>
@@ -133,11 +144,20 @@ Agile board</p>
   <span class="nx">$</span><span class="p">(</span><span class="s1">'input[type=radio], input[type=checkbox], select'</span><span class="p">).</span><span class="nx">cstmForm</span><span class="p">(</span> <span class="nx">options</span> <span class="p">)</span>
 </pre></div>
 
-<h2>Submiting new custom modules</h2>
+<h2>
+<a name="submiting-new-custom-modules" class="anchor" href="#submiting-new-custom-modules"><span class="octicon octicon-link"></span></a>Submiting new custom modules</h2>
 
 <p>Feel free to submit new modules as pull requests. All module must have proper jsdoc syntax comments and related unit testing in order to be merged. After having made any pull request you will be able to join the trello board.</p>
 
 <p>A module will need to extend class <code>app/lib/BaseField.js</code> and implement <code>moduleName.blueprint</code></p>
+
+<h2>
+<a name="change-log" class="anchor" href="#change-log"><span class="octicon octicon-link"></span></a>Change log</h2>
+
+<ul>
+<li>1.0.1 - BUGFIX - Updated placeholder module to check if there is a property placeholder while running on 'force' mode.</li>
+<li>1.0.0 - release </li>
+</ul>
         </section>
 
         <aside id="sidebar">
