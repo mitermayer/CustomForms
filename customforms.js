@@ -760,62 +760,67 @@
                 });
             };
 
-        SETTINGS.validators = SETTINGS.validators || [];
+        if (SETTINGS.active) {
 
-        SETTINGS.validators.push(function() {
-            return $el.prop('checked');
-        });
+            SETTINGS.validators = SETTINGS.validators || [];
 
-        /**
-         * Initializer for module. Will create custom elements and apply 
-         * default styles to it. Here will also be browser specific features.
-         * Radio module works by adding a custom element before the browser 
-         * input radio form field and binding their values together. When updating
-         * one the other will be updated.
-         * 
-         * @function
-         * @memberof customformsjs.module.Radio
-         */
-        SETTINGS.init = function() {
-            // hide element
-            $el.css(DEFAULTS.hideCss);
+            SETTINGS.validators.push(function() {
+                return $el.prop('checked');
+            });
 
-            // create custom element
-            $customEl = $("<" + DEFAULTS.customEle + "/>");
+            /**
+             * Initializer for module. Will create custom elements and apply 
+             * default styles to it. Here will also be browser specific features.
+             * Radio module works by adding a custom element before the browser 
+             * input radio form field and binding their values together. When updating
+             * one the other will be updated.
+             * 
+             * @function
+             * @memberof customformsjs.module.Radio
+             */
+            SETTINGS.init = function() {
+                // hide element
+                $el.css(DEFAULTS.hideCss);
 
-            $customEl.attr({
-                    id: DEFAULTS.classPrefix + $el.attr("name") + "-" + $el.val(),
-                    'class': _class + ' customForm-hidden ' + _groupClass
-                });
+                // create custom element
+                $customEl = $("<" + DEFAULTS.customEle + "/>");
 
-            // append it to the markup before the element
-            $el.before($customEl);
+                $customEl.attr({
+                        id: DEFAULTS.classPrefix + $el.attr("name") + "-" + $el
+                            .val(),
+                        'class': _class + ' customForm-hidden ' + _groupClass
+                    });
 
-            SETTINGS.ready();
-        };
+                // append it to the markup before the element
+                $el.before($customEl);
 
-        instance = new APP.BaseField(SETTINGS);
+                SETTINGS.ready();
+            };
 
-        /**
-         * Custom validator is added to uncheck all custom elements and default browser
-         * input radio form elements of a particular group and than than check the 
-         * selected custom element and input radio form element. This way only a single
-         * element of a group can be checked at a time.
-         *
-         * @function
-         * @memberof customformsjs.module.Radio
-         */
-        instance.bind('validate', function(event) {
-            var state = event.data.success;
+            instance = new APP.BaseField(SETTINGS);
 
-            // uncheck them
-            $('.' + _groupClass).removeClass('checked');
+            /**
+             * Custom validator is added to uncheck all custom elements and default browser
+             * input radio form elements of a particular group and than than check the 
+             * selected custom element and input radio form element. This way only a single
+             * element of a group can be checked at a time.
+             *
+             * @function
+             * @memberof customformsjs.module.Radio
+             */
+            instance.bind('validate', function(event) {
+                var state = event.data.success;
 
-            $customEl[(!state ? 'remove' : 'add') + 'Class']('checked');
-        });
+                // uncheck them
+                $('.' + _groupClass).removeClass('checked');
 
-        instance.validate();
-        attachEvents();
+                $customEl[(!state ? 'remove' : 'add') + 'Class']('checked');
+            });
+
+            instance.validate();
+            attachEvents();
+
+        }
 
         return instance;
     };
