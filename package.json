@@ -1,7 +1,7 @@
 {
   "name": "customForms",
   "description": "Javascript Library to aid on creation of beautiful form elements",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "customforms.js",
   "repository": {
     "type": "git",
