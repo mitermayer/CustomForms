@@ -141,79 +141,83 @@
                     });
             };
 
-        SETTINGS.validators = SETTINGS.validators || [];
+        if (SETTINGS.active) {
 
-        /**
-         * Initializer for module. Will create custom elements and apply 
-         * default styles to it. Here will also be browser specific features.
-         * File module works by adding a custom element behind the browser 
-         * input file form field and making it transparent. There is also some browser
-         * specifics to calculate the final size in order to be fully on top of the 
-         * input file field.
-         *
-         * @function
-         * @memberof customformsjs.module.File
-         */
-        SETTINGS.init = function() {
-            // hide element
-            $el.css(DEFAULTS.hideCss);
+            SETTINGS.validators = SETTINGS.validators || [];
 
-            //// create custom element
-            $customContainer = $("<" + SETTINGS.containerEle + "/>");
+            /**
+             * Initializer for module. Will create custom elements and apply 
+             * default styles to it. Here will also be browser specific features.
+             * File module works by adding a custom element behind the browser 
+             * input file form field and making it transparent. There is also some browser
+             * specifics to calculate the final size in order to be fully on top of the 
+             * input file field.
+             *
+             * @function
+             * @memberof customformsjs.module.File
+             */
+            SETTINGS.init = function() {
+                // hide element
+                $el.css(DEFAULTS.hideCss);
 
-            // setup attr and styles to container
-            $customContainer.attr({
-                    id: _id + '-container',
-                    'class': _containerClass
-                }).css(SETTINGS.customContainerCss);
+                //// create custom element
+                $customContainer = $("<" + SETTINGS.containerEle + "/>");
 
-            // create custom element
-            $customEl = $("<" + SETTINGS.customEle + "/>");
+                // setup attr and styles to container
+                $customContainer.attr({
+                        id: _id + '-container',
+                        'class': _containerClass
+                    }).css(SETTINGS.customContainerCss);
 
-            // setup attr and styles to custom element
-            $customEl.attr({
-                    id: _id,
-                    'class': _class
-                }).css(SETTINGS.customElCss);
+                // create custom element
+                $customEl = $("<" + SETTINGS.customEle + "/>");
+
+                // setup attr and styles to custom element
+                $customEl.attr({
+                        id: _id,
+                        'class': _class
+                    }).css(SETTINGS.customElCss);
 
 
-            // add container before element
-            $el.before($customContainer);
+                // add container before element
+                $el.before($customContainer);
 
-            // move element inside container
-            $el.appendTo($customContainer);
+                // move element inside container
+                $el.appendTo($customContainer);
 
-            // move custom element inside container
-            $customContainer.append($customEl);
+                // move custom element inside container
+                $customContainer.append($customEl);
 
-            // only after object is added to the DOM we can calculate its dimensions
-            _size.height = $customContainer.css("height");
-            _size.width = $customContainer.css("width");
-            _size.size = getButtonSize(parseInt(_size.width, 10));
+                // only after object is added to the DOM we can calculate its dimensions
+                _size.height = $customContainer.css("height");
+                _size.width = $customContainer.css("width");
+                _size.size = getButtonSize(parseInt(_size.width, 10));
 
-            // we than extend elCss with the dimensions and apply them to element.
-            $el.css($.extend({}, SETTINGS.elCss, _size));
+                // we than extend elCss with the dimensions and apply them to element.
+                $el.css($.extend({}, SETTINGS.elCss, _size));
 
-            SETTINGS.ready();
-        };
+                SETTINGS.ready();
+            };
 
-        instance = new APP.BaseField(SETTINGS);
+            instance = new APP.BaseField(SETTINGS);
 
-        /**
-         * Custom validator is added to find if there is a selected file for input field.
-         * Applying the filename value to the custom element as a text node, or the holding text.
-         *
-         * @function
-         * @memberof customformsjs.module.File
-         */
-        instance.bind('validate', function() {
-            var _selectedText = getFileName();
+            /**
+             * Custom validator is added to find if there is a selected file for input field.
+             * Applying the filename value to the custom element as a text node, or the holding text.
+             *
+             * @function
+             * @memberof customformsjs.module.File
+             */
+            instance.bind('validate', function() {
+                var _selectedText = getFileName();
 
-            $customEl.html(_selectedText ? _selectedText : SETTINGS.holderTxt);
-        });
+                $customEl.html(_selectedText ? _selectedText : SETTINGS.holderTxt);
+            });
 
-        instance.validate();
-        attachEvents();
+            instance.validate();
+            attachEvents();
+
+        }
 
         return instance;
     };
