@@ -10,6 +10,10 @@
   "engines": {
     "node": ">= 0.8.0"
   },
+  "licenses": [{
+     "type": "MIT",
+      "url": "http://github.com/mitermayer/CustomForms/blob/master/LICENSE-MIT"
+  }],
   "scripts": {
     "test": "grunt test"
   },
