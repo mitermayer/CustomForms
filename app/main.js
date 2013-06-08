@@ -63,7 +63,7 @@
                     };
 
                     return lookupTable[typeof match === 'string' ? 'string' :
-                        'array']();
+                    'array']();
                 },
                 checkFilter = function(filter, $element) {
 
@@ -92,7 +92,7 @@
 
 
                         if (typeof _tag === 'string' || checkFilter(_tag.filter,
-                            $element)) {
+                                $element)) {
                             callModule(_modulename, element, _options);
                         }
                     }
@@ -105,7 +105,7 @@
                         };
 
                         lookupTable[getTag($(this)[0]) ? 'getModule' :
-                            'getSupportedChildren']($(this), options);
+                        'getSupportedChildren']($(this), options);
                     });
                 },
                 addSupportedElement = function(module, tag) {
@@ -157,7 +157,7 @@
                     };
 
                     lookupTable[getTag($(this)[0]) ? "validTag" :
-                        "checkChildrenForValidTag"]($(this), options);
+                    "checkChildrenForValidTag"]($(this), options);
                 });
             };
 

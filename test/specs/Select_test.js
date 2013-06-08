@@ -9,9 +9,9 @@
             classPrefix: 'custom-'
         },
         optVal = [
-                'default',
-                'foo',
-                'moo'
+            'default',
+            'foo',
+            'moo'
         ],
         attr = {
             name: 'something',
@@ -22,55 +22,56 @@
      * Setup configuration
      */
     module('Select', {
-        setup: function() {
+            setup: function() {
 
-            var options;
+                var options;
 
-            form = $('<form />');
+                form = $('<form />');
 
-            input = $('<select />');
-            input.attr(attr);
+                input = $('<select />');
+                input.attr(attr);
 
 
-            for (var i = 0, len = optVal.length; i < len; i++) {
-                if (i === 0) {
-                    options += "<option>" + optVal[i] + "</option>";
-                } else {
-                    options += "<option value='" + i + "'>" + optVal[i] +
-                        "</option>";
+                for (var i = 0, len = optVal.length; i < len; i++) {
+                    if (i === 0) {
+                        options += "<option>" + optVal[i] + "</option>";
+                    } else {
+                        options += "<option value='" + i + "'>" + optVal[i] +
+                            "</option>";
+                    }
                 }
+
+                // add options, make default with no value
+                input.html(options);
+
+                form.append(input);
+
+                $('#qunit-fixture').append(form);
+
+                select = customformsjs.module.Select({
+                        element: input.get(0),
+                        classPrefix: settings.classPrefix
+                    });
+
+                var _customElId = settings.classPrefix + (input.attr("id") ||
+                    input
+                    .attr('name'));
+                var _customElContainerId = _customElId + '-container';
+
+                customEl = $('#' + _customElId);
+                customElContainer = $('#' + _customElContainerId);
+
+            },
+            teardown: function() {
+                form = null;
+                select = null;
+                input = null;
+                customEl = null;
+                customElContainer = null;
+
+                $('#qunit-fixture').html('');
             }
-
-            // add options, make default with no value
-            input.html(options);
-
-            form.append(input);
-
-            $('#qunit-fixture').append(form);
-
-            select = customformsjs.module.Select({
-                element: input.get(0),
-                classPrefix: settings.classPrefix
-            });
-
-            var _customElId = settings.classPrefix + (input.attr("id") || input
-                .attr('name'));
-            var _customElContainerId = _customElId + '-container';
-
-            customEl = $('#' + _customElId);
-            customElContainer = $('#' + _customElContainerId);
-
-        },
-        teardown: function() {
-            form = null;
-            select = null;
-            input = null;
-            customEl = null;
-            customElContainer = null;
-
-            $('#qunit-fixture').html('');
-        }
-    });
+        });
 
     /*
      * Initialization tests

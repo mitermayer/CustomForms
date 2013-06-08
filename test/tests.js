@@ -19,32 +19,32 @@
      * Setup configuration
      */
     module('Checkbox', {
-        setup: function() {
+            setup: function() {
 
-            form = $('<form />');
+                form = $('<form />');
 
-            input = $('<input />');
+                input = $('<input />');
 
-            input.attr(attr);
+                input.attr(attr);
 
-            $('#qunit-fixture').append(form.append(input));
+                $('#qunit-fixture').append(form.append(input));
 
-            checkbox = customformsjs.module.Checkbox({
-                element: input.get(0),
-                classPrefix: settings.classPrefix
-            });
+                checkbox = customformsjs.module.Checkbox({
+                        element: input.get(0),
+                        classPrefix: settings.classPrefix
+                    });
 
-            customEl = $('#' + settings.classPrefix + attr.id);
+                customEl = $('#' + settings.classPrefix + attr.id);
 
-        },
-        teardown: function() {
-            checkbox = null;
-            customEl = null;
-            form = null;
-            input = null;
-            $('#qunit-fixture').html('');
-        }
-    });
+            },
+            teardown: function() {
+                checkbox = null;
+                customEl = null;
+                form = null;
+                input = null;
+                $('#qunit-fixture').html('');
+            }
+        });
 
     /*
      * Initialization tests
@@ -122,43 +122,44 @@
      * Setup configuration
      */
     module('file', {
-        setup: function() {
+            setup: function() {
 
-            var options;
+                var options;
 
-            form = $('<form />');
+                form = $('<form />');
 
-            input = $('<input />');
-            input.attr(attr);
+                input = $('<input />');
+                input.attr(attr);
 
-            form.append(input);
+                form.append(input);
 
-            $('#qunit-fixture').append(form);
+                $('#qunit-fixture').append(form);
 
-            file = customformsjs.module.File({
-                element: input.get(0),
-                classPrefix: settings.classPrefix,
-                holderTxt: settings.holderTxt
-            });
+                file = customformsjs.module.File({
+                        element: input.get(0),
+                        classPrefix: settings.classPrefix,
+                        holderTxt: settings.holderTxt
+                    });
 
-            var _customElId = settings.classPrefix + (input.attr("id") || input
-                .attr('name'));
-            var _customElContainerId = _customElId + '-container';
+                var _customElId = settings.classPrefix + (input.attr("id") ||
+                    input
+                    .attr('name'));
+                var _customElContainerId = _customElId + '-container';
 
-            customEl = $('#' + _customElId);
-            customElContainer = $('#' + _customElContainerId);
+                customEl = $('#' + _customElId);
+                customElContainer = $('#' + _customElContainerId);
 
-        },
-        teardown: function() {
-            form = null;
-            file = null;
-            input = null;
-            customEl = null;
-            customElContainer = null;
+            },
+            teardown: function() {
+                form = null;
+                file = null;
+                input = null;
+                customEl = null;
+                customElContainer = null;
 
-            $('#qunit-fixture').html('');
-        }
-    });
+                $('#qunit-fixture').html('');
+            }
+        });
 
     /*
      * Initialization tests
@@ -226,50 +227,51 @@
      * Setup configuration
      */
     module('Radio', {
-        setup: function() {
+            setup: function() {
 
-            form = $('<form />');
+                form = $('<form />');
 
-            $('#qunit-fixture').append(form);
+                $('#qunit-fixture').append(form);
 
-            // generate 3 radio buttons for testing
-            for (var i = 0; i < totalItems; i++) {
+                // generate 3 radio buttons for testing
+                for (var i = 0; i < totalItems; i++) {
 
-                var _input = $('<input />');
+                    var _input = $('<input />');
 
-                // Setting the type on a radio button after the value resets the value in IE6-9, 
-                // to avoid that instead of setting all attributes to the radio at the same type, 
-                // manually set type attribute before the other attributes on the test suit setup
-                _input.attr('type', 'radio');
+                    // Setting the type on a radio button after the value resets the value in IE6-9, 
+                    // to avoid that instead of setting all attributes to the radio at the same type, 
+                    // manually set type attribute before the other attributes on the test suit setup
+                    _input.attr('type', 'radio');
 
-                var optAttr = $.extend({}, attr, {
-                    value: attr.value + i
-                });
+                    var optAttr = $.extend({}, attr, {
+                            value: attr.value + i
+                        });
 
-                form.append(_input);
+                    form.append(_input);
 
-                _input.attr(optAttr);
+                    _input.attr(optAttr);
 
-                radio[i] = customformsjs.module.Radio({
-                    element: _input.get(0),
-                    classPrefix: settings.classPrefix
-                });
+                    radio[i] = customformsjs.module.Radio({
+                            element: _input.get(0),
+                            classPrefix: settings.classPrefix
+                        });
 
-                input[i] = _input;
+                    input[i] = _input;
 
-                customEl[i] = $('#' + settings.classPrefix + _input.attr("name") +
-                    "-" + _input.val());
+                    customEl[i] = $('#' + settings.classPrefix + _input.attr(
+                            "name") +
+                        "-" + _input.val());
 
+                }
+            },
+            teardown: function() {
+                form = null;
+                radio = [];
+                input = [];
+                customEl = [];
+                $('#qunit-fixture').html('');
             }
-        },
-        teardown: function() {
-            form = null;
-            radio = [];
-            input = [];
-            customEl = [];
-            $('#qunit-fixture').html('');
-        }
-    });
+        });
 
     /*
      * Initialization tests
@@ -283,7 +285,7 @@
 
             // checked stated should be a reflection of the input checked property
             strictEqual(input[i].prop('checked'), customEl[i].hasClass(
-                'checked'),
+                    'checked'),
                 'After initliazed, radios checked class should reflect on their relative inputs checked property.');
             strictEqual(customEl[i].hasClass('custom-radio'), true,
                 'Custom elment should have class custom-radio when initializing');
@@ -333,9 +335,9 @@
             classPrefix: 'custom-'
         },
         optVal = [
-                'default',
-                'foo',
-                'moo'
+            'default',
+            'foo',
+            'moo'
         ],
         attr = {
             name: 'something',
@@ -346,55 +348,56 @@
      * Setup configuration
      */
     module('Select', {
-        setup: function() {
+            setup: function() {
 
-            var options;
+                var options;
 
-            form = $('<form />');
+                form = $('<form />');
 
-            input = $('<select />');
-            input.attr(attr);
+                input = $('<select />');
+                input.attr(attr);
 
 
-            for (var i = 0, len = optVal.length; i < len; i++) {
-                if (i === 0) {
-                    options += "<option>" + optVal[i] + "</option>";
-                } else {
-                    options += "<option value='" + i + "'>" + optVal[i] +
-                        "</option>";
+                for (var i = 0, len = optVal.length; i < len; i++) {
+                    if (i === 0) {
+                        options += "<option>" + optVal[i] + "</option>";
+                    } else {
+                        options += "<option value='" + i + "'>" + optVal[i] +
+                            "</option>";
+                    }
                 }
+
+                // add options, make default with no value
+                input.html(options);
+
+                form.append(input);
+
+                $('#qunit-fixture').append(form);
+
+                select = customformsjs.module.Select({
+                        element: input.get(0),
+                        classPrefix: settings.classPrefix
+                    });
+
+                var _customElId = settings.classPrefix + (input.attr("id") ||
+                    input
+                    .attr('name'));
+                var _customElContainerId = _customElId + '-container';
+
+                customEl = $('#' + _customElId);
+                customElContainer = $('#' + _customElContainerId);
+
+            },
+            teardown: function() {
+                form = null;
+                select = null;
+                input = null;
+                customEl = null;
+                customElContainer = null;
+
+                $('#qunit-fixture').html('');
             }
-
-            // add options, make default with no value
-            input.html(options);
-
-            form.append(input);
-
-            $('#qunit-fixture').append(form);
-
-            select = customformsjs.module.Select({
-                element: input.get(0),
-                classPrefix: settings.classPrefix
-            });
-
-            var _customElId = settings.classPrefix + (input.attr("id") || input
-                .attr('name'));
-            var _customElContainerId = _customElId + '-container';
-
-            customEl = $('#' + _customElId);
-            customElContainer = $('#' + _customElContainerId);
-
-        },
-        teardown: function() {
-            form = null;
-            select = null;
-            input = null;
-            customEl = null;
-            customElContainer = null;
-
-            $('#qunit-fixture').html('');
-        }
-    });
+        });
 
     /*
      * Initialization tests
@@ -498,28 +501,28 @@
      * Setup configuration
      */
     module('Text', {
-        setup: function() {
+            setup: function() {
 
-            form = $('<form />');
+                form = $('<form />');
 
-            input = $('<input />');
+                input = $('<input />');
 
-            input.attr(attr).css(css);
+                input.attr(attr).css(css);
 
-            $('#qunit-fixture').append(form.append(input));
+                $('#qunit-fixture').append(form.append(input));
 
-            textfield = customformsjs.module.Text({
-                element: input.get(0),
-                force: true
-            });
-        },
-        teardown: function() {
-            textfield = null;
-            form = null;
-            input = null;
-            $('#qunit-fixture').html('');
-        }
-    });
+                textfield = customformsjs.module.Text({
+                        element: input.get(0),
+                        force: true
+                    });
+            },
+            teardown: function() {
+                textfield = null;
+                form = null;
+                input = null;
+                $('#qunit-fixture').html('');
+            }
+        });
 
     /*
      * Initialization tests
@@ -539,9 +542,9 @@
         input.val("somthing");
         textfield.sync().validate();
         textfield = customformsjs.module.Text({
-            element: input.get(0),
-            force: true
-        });
+                element: input.get(0),
+                force: true
+            });
         _color = colorProxy(input.css("color"));
         notStrictEqual(input.val(), input.attr('placeholder'),
             'When element is intialized with a valid value it should remain with its default value.');
@@ -658,17 +661,17 @@
 
 
         textfield = customformsjs.module.Text({
-            element: input.get(0),
-            force: true,
-            validators: [
-                function(val) {
-                    return val !== "dummy";
-                },
-                function(val) {
-                    return typeof val !== "number";
-                }
-            ]
-        });
+                element: input.get(0),
+                force: true,
+                validators: [
+                    function(val) {
+                        return val !== "dummy";
+                    },
+                    function(val) {
+                        return typeof val !== "number";
+                    }
+                ]
+            });
 
         strictEqual(textfield.validate("dummy").success, false,
             '"dummy" should fail validation');
@@ -698,20 +701,20 @@
 
         textfield
             .bind("update", function() {
-            ok(true,
-                'Event save should be called when model is updated.');
-        })
+                ok(true,
+                    'Event save should be called when model is updated.');
+            })
             .bind("validate", function() {
-            ok(true,
-                'Event validation should be called when model is query for validation.');
-        }).update("bones");
+                ok(true,
+                    'Event validation should be called when model is query for validation.');
+            }).update("bones");
 
 
         textfield = customformsjs.module.Text({
-            element: input.get(0),
-            force: true,
-            events: ["someevent", "customevent"]
-        });
+                element: input.get(0),
+                force: true,
+                events: ["someevent", "customevent"]
+            });
 
         textfield.bind("someevent", function() {
             ok(true,

@@ -134,11 +134,11 @@
                     $customContainer.addClass("focus");
                 })
                     .focusout(function() {
-                    $customContainer.removeClass("focus");
-                })
+                        $customContainer.removeClass("focus");
+                    })
                     .change(function() {
-                    instance.validate();
-                });
+                        instance.validate();
+                    });
             };
 
         SETTINGS.validators = SETTINGS.validators || [];
@@ -163,18 +163,18 @@
 
             // setup attr and styles to container
             $customContainer.attr({
-                id: _id + '-container',
-                'class': _containerClass
-            }).css(SETTINGS.customContainerCss);
+                    id: _id + '-container',
+                    'class': _containerClass
+                }).css(SETTINGS.customContainerCss);
 
             // create custom element
             $customEl = $("<" + SETTINGS.customEle + "/>");
 
             // setup attr and styles to custom element
             $customEl.attr({
-                id: _id,
-                'class': _class
-            }).css(SETTINGS.customElCss);
+                    id: _id,
+                    'class': _class
+                }).css(SETTINGS.customElCss);
 
 
             // add container before element

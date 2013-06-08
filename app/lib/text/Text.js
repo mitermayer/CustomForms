@@ -94,52 +94,53 @@
                         });
                     })
                         .focusout(function() {
-                        $(this).removeClass('focus');
-                        addPlaceholder();
-                    })
+                            $(this).removeClass('focus');
+                            addPlaceholder();
+                        })
                         .closest('form')
                         .bind('submit', function() {
-                        validationFailProxy(function() {
-                            clearText();
+                            validationFailProxy(function() {
+                                clearText();
+                            });
                         });
-                    });
                 };
 
-            SETTINGS.validators = SETTINGS.validators || [];
+            // only initialize the module if the is a placeholder attribute on the input
+            if (SETTINGS.active && _placeholder) {
 
-            SETTINGS.validators.push(function(val) {
-                return val !== _placeholder;
-            });
+                SETTINGS.validators = SETTINGS.validators || [];
 
-            /**
-             * Initializer for module. Will mimic default browser placeholder by
-             * applying a placeholder when input have an invalid field. This can be used
-             * in conjuction of custom validators.
-             * 
-             * @function
-             * @memberof customformsjs.module.Text
-             */
-            SETTINGS.init = function() {
-                $el.addClass(_class);
+                SETTINGS.validators.push(function(val) {
+                    return val !== _placeholder;
+                });
 
-                SETTINGS.ready();
-            };
+                /**
+                 * Initializer for module. Will mimic default browser placeholder by
+                 * applying a placeholder when input have an invalid field. This can be used
+                 * in conjuction of custom validators.
+                 * 
+                 * @function
+                 * @memberof customformsjs.module.Text
+                 */
+                SETTINGS.init = function() {
+                    $el.addClass(_class);
 
-            instance = new APP.BaseField(SETTINGS);
+                    SETTINGS.ready();
+                };
 
-            /**
-             * When validation fails, custom placeholder will be added.
-             *
-             * @function
-             * @memberof customformsjs.module.Text
-             */
-            instance.bind('validate', function(event) {
-                var state = event.data.success;
-                toggleColor(state);
-            });
+                instance = new APP.BaseField(SETTINGS);
 
-            // only attach events if there is a placeholder attribute
-            if (_placeholder) {
+                /**
+                 * When validation fails, custom placeholder will be added.
+                 *
+                 * @function
+                 * @memberof customformsjs.module.Text
+                 */
+                instance.bind('validate', function(event) {
+                    var state = event.data.success;
+                    toggleColor(state);
+                });
+
                 addPlaceholder();
                 attachEvents();
             }

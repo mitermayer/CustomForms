@@ -42,28 +42,28 @@
      * Setup configuration
      */
     module('Text', {
-        setup: function() {
+            setup: function() {
 
-            form = $('<form />');
+                form = $('<form />');
 
-            input = $('<input />');
+                input = $('<input />');
 
-            input.attr(attr).css(css);
+                input.attr(attr).css(css);
 
-            $('#qunit-fixture').append(form.append(input));
+                $('#qunit-fixture').append(form.append(input));
 
-            textfield = customformsjs.module.Text({
-                element: input.get(0),
-                force: true
-            });
-        },
-        teardown: function() {
-            textfield = null;
-            form = null;
-            input = null;
-            $('#qunit-fixture').html('');
-        }
-    });
+                textfield = customformsjs.module.Text({
+                        element: input.get(0),
+                        force: true
+                    });
+            },
+            teardown: function() {
+                textfield = null;
+                form = null;
+                input = null;
+                $('#qunit-fixture').html('');
+            }
+        });
 
     /*
      * Initialization tests
@@ -83,9 +83,9 @@
         input.val("somthing");
         textfield.sync().validate();
         textfield = customformsjs.module.Text({
-            element: input.get(0),
-            force: true
-        });
+                element: input.get(0),
+                force: true
+            });
         _color = colorProxy(input.css("color"));
         notStrictEqual(input.val(), input.attr('placeholder'),
             'When element is intialized with a valid value it should remain with its default value.');
@@ -202,17 +202,17 @@
 
 
         textfield = customformsjs.module.Text({
-            element: input.get(0),
-            force: true,
-            validators: [
-                function(val) {
-                    return val !== "dummy";
-                },
-                function(val) {
-                    return typeof val !== "number";
-                }
-            ]
-        });
+                element: input.get(0),
+                force: true,
+                validators: [
+                    function(val) {
+                        return val !== "dummy";
+                    },
+                    function(val) {
+                        return typeof val !== "number";
+                    }
+                ]
+            });
 
         strictEqual(textfield.validate("dummy").success, false,
             '"dummy" should fail validation');
@@ -242,20 +242,20 @@
 
         textfield
             .bind("update", function() {
-            ok(true,
-                'Event save should be called when model is updated.');
-        })
+                ok(true,
+                    'Event save should be called when model is updated.');
+            })
             .bind("validate", function() {
-            ok(true,
-                'Event validation should be called when model is query for validation.');
-        }).update("bones");
+                ok(true,
+                    'Event validation should be called when model is query for validation.');
+            }).update("bones");
 
 
         textfield = customformsjs.module.Text({
-            element: input.get(0),
-            force: true,
-            events: ["someevent", "customevent"]
-        });
+                element: input.get(0),
+                force: true,
+                events: ["someevent", "customevent"]
+            });
 
         textfield.bind("someevent", function() {
             ok(true,
