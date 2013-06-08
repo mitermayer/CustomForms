@@ -963,78 +963,82 @@
                     });
             };
 
-        SETTINGS.validators = SETTINGS.validators || [];
+        if (SETTINGS.active) {
 
-        /**
-         * Initializer for module. Will create custom elements and apply 
-         * default styles to it. Here will also be browser specific features.
-         * Select module works by adding a custom element behind the browser 
-         * select form field and making it transparent.
-         *
-         * @function
-         * @memberof customformsjs.module.Select
-         */
-        SETTINGS.init = function() {
-            // hide element
-            $el.css(DEFAULTS.hideCss);
+            SETTINGS.validators = SETTINGS.validators || [];
 
-            //// create custom element
-            $customContainer = $("<" + SETTINGS.containerEle + "/>");
+            /**
+             * Initializer for module. Will create custom elements and apply 
+             * default styles to it. Here will also be browser specific features.
+             * Select module works by adding a custom element behind the browser 
+             * select form field and making it transparent.
+             *
+             * @function
+             * @memberof customformsjs.module.Select
+             */
+            SETTINGS.init = function() {
+                // hide element
+                $el.css(DEFAULTS.hideCss);
 
-            // setup attr and styles to container
-            $customContainer.attr({
-                    id: _id + '-container',
-                    'class': _containerClass
-                }).css(SETTINGS.customContainerCss);
+                //// create custom element
+                $customContainer = $("<" + SETTINGS.containerEle + "/>");
 
-            // create custom element
-            $customEl = $("<" + SETTINGS.customEle + "/>");
+                // setup attr and styles to container
+                $customContainer.attr({
+                        id: _id + '-container',
+                        'class': _containerClass
+                    }).css(SETTINGS.customContainerCss);
 
-            // setup attr and styles to custom element
-            $customEl.attr({
-                    id: _id,
-                    'class': _class
-                }).css(SETTINGS.customElCss);
+                // create custom element
+                $customEl = $("<" + SETTINGS.customEle + "/>");
+
+                // setup attr and styles to custom element
+                $customEl.attr({
+                        id: _id,
+                        'class': _class
+                    }).css(SETTINGS.customElCss);
 
 
-            // add container before element
-            $el.before($customContainer);
+                // add container before element
+                $el.before($customContainer);
 
-            // move element inside container
-            $el.appendTo($customContainer);
+                // move element inside container
+                $el.appendTo($customContainer);
 
-            // move custom element inside container
-            $customContainer.append($customEl);
+                // move custom element inside container
+                $customContainer.append($customEl);
 
-            // only after object is added to the DOM we can calculate its dimensions
-            _size.height = $customContainer.css("height");
-            _size.width = $customContainer.css("width");
+                // only after object is added to the DOM we can calculate its dimensions
+                _size.height = $customContainer.css("height");
+                _size.width = $customContainer.css("width");
 
-            // we than extend elCss with the dimensions and apply them to element.
-            $el.css($.extend({}, SETTINGS.elCss, _size));
+                // we than extend elCss with the dimensions and apply them to element.
+                $el.css($.extend({}, SETTINGS.elCss, _size));
 
-            SETTINGS.ready();
-        };
+                SETTINGS.ready();
+            };
 
-        instance = new APP.BaseField(SETTINGS);
+            instance = new APP.BaseField(SETTINGS);
 
-        /**
-         * Custom validator is added to find wich option is selected and get its text value.
-         * Applying the option value the custom element as a text node.
-         *
-         * @function
-         * @memberof customformsjs.module.Select
-         */
-        instance.bind('validate', function() {
-            var _selectedText = $el.find('option:selected').text();
+            /**
+             * Custom validator is added to find wich option is selected and get its text value.
+             * Applying the option value the custom element as a text node.
+             *
+             * @function
+             * @memberof customformsjs.module.Select
+             */
+            instance.bind('validate', function() {
+                var _selectedText = $el.find('option:selected').text();
 
-            _selectedText = _selectedText || $el.find('option').first().text();
+                _selectedText = _selectedText || $el.find('option').first().text();
 
-            $customEl.html(_selectedText);
-        });
+                $customEl.html(_selectedText);
+            });
 
-        instance.validate();
-        attachEvents();
+            instance.validate();
+            attachEvents();
+
+        }
 
         return instance;
     };
