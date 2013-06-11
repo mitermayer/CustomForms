@@ -131,8 +131,14 @@ Agile board</p>
 <a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
 
 <div class="highlight"><pre>
-  <span class="c1">// You can overwrite defaults by passing an object with some options</span>
-  <span class="kd">var</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">customEle</span><span class="o">:</span> <span class="s1">'span'</span> <span class="p">};</span>
+  <span class="c1">// You can overwrite defaults by passing an object with some options, when an option is passed</span>
+  <span class="c1">// without a module name as namespace it will be a global option, module namespaced options will </span>
+  <span class="c1">// overwrite global options, also modules will have some options that are particular for that module,</span>
+  <span class="c1">// please refer to the documentation page to see all possible options for each module.</span>
+  <span class="kd">var</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">active</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">lowercasemodulename</span><span class="o">:</span> <span class="p">{</span> <span class="nx">active</span><span class="o">:</span> <span class="kc">false</span> <span class="p">}</span> <span class="p">};</span>
+
+  <span class="c1">// All supported elements inside container, will recurse to find all elements</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">'#container'</span><span class="p">).</span><span class="nx">cstmForm</span><span class="p">(</span> <span class="nx">options</span> <span class="p">)</span> 
 
   <span class="c1">// All Form elements</span>
   <span class="nx">$</span><span class="p">(</span><span class="s1">'form'</span><span class="p">).</span><span class="nx">cstmForm</span><span class="p">(</span> <span class="nx">options</span> <span class="p">)</span> 
@@ -155,6 +161,7 @@ Agile board</p>
 <a name="change-log" class="anchor" href="#change-log"><span class="octicon octicon-link"></span></a>Change log</h2>
 
 <ul>
+<li>1.0.2 - BUGFIX - Updated all modules to properly make use of the 'active' option and updated documentation page. </li>
 <li>1.0.1 - BUGFIX - Updated placeholder module to check if there is a property placeholder while running on 'force' mode.</li>
 <li>1.0.0 - release </li>
 </ul>
