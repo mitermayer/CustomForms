@@ -106,6 +106,7 @@ A module will need to extend class ```app/lib/BaseField.js``` and implement ```m
 
 ## Change log
 
+ - 1.0.3 - Including to jQuery plugin repositiory.
  - 1.0.2 - BUGFIX - Updated all modules to properly make use of the 'active' option and updated documentation page. 
  - 1.0.1 - BUGFIX - Updated placeholder module to check if there is a property placeholder while running on 'force' mode.
  - 1.0.0 - release 
