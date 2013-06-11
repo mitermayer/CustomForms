@@ -80,12 +80,12 @@
 
             // setup default validator
             _validators.push({
-                    validator: function(val) {
-                        // checks if value is not undefined
-                        return val !== "";
-                    },
-                    message: "value can't be undefined."
-                });
+                validator: function(val) {
+                    // checks if value is not undefined
+                    return val !== "";
+                },
+                message: "value can't be undefined."
+            });
 
             // setup custom validators
             if (obj.validators) {
@@ -93,9 +93,9 @@
                     var _validator = obj.validators[v];
 
                     _validators.push({
-                            validator: _validators.validator || _validator,
-                            message: _validator.message
-                        });
+                        validator: _validators.validator || _validator,
+                        message: _validator.message
+                    });
                 }
             }
 
@@ -341,11 +341,11 @@
                     $customEl.addClass("focus");
                 })
                     .focusout(function() {
-                        $customEl.removeClass("focus");
-                    })
+                    $customEl.removeClass("focus");
+                })
                     .change(function() {
-                        instance.validate();
-                    });
+                    instance.validate();
+                });
 
                 $customEl.click(function(e) {
                     e.preventDefault();
@@ -381,10 +381,10 @@
                 $customEl = $("<" + DEFAULTS.customEle + "/>");
 
                 $customEl.attr({
-                        id: DEFAULTS.classPrefix + ($el.attr("id") || $el.attr(
-                                "name")),
-                        'class': _class + ' customForm-hidden'
-                    });
+                    id: DEFAULTS.classPrefix + ($el.attr("id") || $el.attr(
+                        "name")),
+                    'class': _class + ' customForm-hidden'
+                });
 
                 // append it to the markup before the element
                 $el.before($customEl);
@@ -570,11 +570,11 @@
                     $customContainer.addClass("focus");
                 })
                     .focusout(function() {
-                        $customContainer.removeClass("focus");
-                    })
+                    $customContainer.removeClass("focus");
+                })
                     .change(function() {
-                        instance.validate();
-                    });
+                    instance.validate();
+                });
             };
 
         if (SETTINGS.active) {
@@ -601,18 +601,18 @@
 
                 // setup attr and styles to container
                 $customContainer.attr({
-                        id: _id + '-container',
-                        'class': _containerClass
-                    }).css(SETTINGS.customContainerCss);
+                    id: _id + '-container',
+                    'class': _containerClass
+                }).css(SETTINGS.customContainerCss);
 
                 // create custom element
                 $customEl = $("<" + SETTINGS.customEle + "/>");
 
                 // setup attr and styles to custom element
                 $customEl.attr({
-                        id: _id,
-                        'class': _class
-                    }).css(SETTINGS.customElCss);
+                    id: _id,
+                    'class': _class
+                }).css(SETTINGS.customElCss);
 
 
                 // add container before element
@@ -754,11 +754,11 @@
                     $customEl.addClass("focus");
                 })
                     .focusout(function() {
-                        $customEl.removeClass("focus");
-                    })
+                    $customEl.removeClass("focus");
+                })
                     .change(function() {
-                        instance.validate();
-                    });
+                    instance.validate();
+                });
 
                 $customEl.click(function(e) {
                     e.preventDefault();
@@ -794,10 +794,10 @@
                 $customEl = $("<" + DEFAULTS.customEle + "/>");
 
                 $customEl.attr({
-                        id: DEFAULTS.classPrefix + $el.attr("name") + "-" + $el
-                            .val(),
-                        'class': _class + ' customForm-hidden ' + _groupClass
-                    });
+                    id: DEFAULTS.classPrefix + $el.attr("name") + "-" + $el
+                        .val(),
+                    'class': _class + ' customForm-hidden ' + _groupClass
+                });
 
                 // append it to the markup before the element
                 $el.before($customEl);
@@ -969,11 +969,11 @@
                     $customContainer.addClass("focus");
                 })
                     .focusout(function() {
-                        $customContainer.removeClass("focus");
-                    })
+                    $customContainer.removeClass("focus");
+                })
                     .change(function() {
-                        instance.validate();
-                    });
+                    instance.validate();
+                });
             };
 
         if (SETTINGS.active) {
@@ -998,18 +998,18 @@
 
                 // setup attr and styles to container
                 $customContainer.attr({
-                        id: _id + '-container',
-                        'class': _containerClass
-                    }).css(SETTINGS.customContainerCss);
+                    id: _id + '-container',
+                    'class': _containerClass
+                }).css(SETTINGS.customContainerCss);
 
                 // create custom element
                 $customEl = $("<" + SETTINGS.customEle + "/>");
 
                 // setup attr and styles to custom element
                 $customEl.attr({
-                        id: _id,
-                        'class': _class
-                    }).css(SETTINGS.customElCss);
+                    id: _id,
+                    'class': _class
+                }).css(SETTINGS.customElCss);
 
 
                 // add container before element
@@ -1165,15 +1165,15 @@
                         });
                     })
                         .focusout(function() {
-                            $(this).removeClass('focus');
-                            addPlaceholder();
-                        })
+                        $(this).removeClass('focus');
+                        addPlaceholder();
+                    })
                         .closest('form')
                         .bind('submit', function() {
-                            validationFailProxy(function() {
-                                clearText();
-                            });
+                        validationFailProxy(function() {
+                            clearText();
                         });
+                    });
                 };
 
             // only initialize the module if the is a placeholder attribute on the input
@@ -1244,26 +1244,29 @@
     /**
      * @namespace
      * @name customformsjs
+     * @example
+     * // You can overwrite defaults by passing an object with some options, when an option is passed
+     * // without a module name as namespace it will be a global option, module namespaced options will 
+     * // overwrite global options, also modules will have some options that are particular for that module,
+     * // please refer to the documentation page to see all possible options for each module.
+     *  var options = { active: true, lowercasemodulename: { active: false } };
+     *  
+     *  // All supported elements inside container, will recurse to find all elements
+     *  $('#container').cstmForm( options ) 
+     *
+     *  // All Form elements
+     *  $('form').cstmForm( options ) 
+     *
+     *  // target a certain group of element 
+     *  $('input[type=file]').cstmForm( options )
+     * 
+     *  // You can target specific groups of elements
+     *  $('input[type=radio], input[type=checkbox], select').cstmForm( options )
      */
     var APP = global.customformsjs = global.customformsjs || {},
 
         fieldFactory = (function() {
 
-            /*
-             *SUPPORTED_ELEMENTS = {
-             *    tagName: [
-             *        {
-             *            filter: { 'attrname': ['arrval'] },
-             *            module: "moduleName"
-             *        },
-             *        {
-             *            filter: { 'attrname2': 'strval' }
-             *            module: "moduleName"
-             *        },
-             *        "strmodulename"
-             *    ]
-             *};
-             */
             var SUPPORTED_ELEMENTS = {},
                 GLOBAL_OPTIONS = {},
                 capitaliseFirstLetter = function(string) {
@@ -1304,7 +1307,7 @@
                     };
 
                     return lookupTable[typeof match === 'string' ? 'string' :
-                    'array']();
+                        'array']();
                 },
                 checkFilter = function(filter, $element) {
 
@@ -1333,7 +1336,7 @@
 
 
                         if (typeof _tag === 'string' || checkFilter(_tag.filter,
-                                $element)) {
+                            $element)) {
                             callModule(_modulename, element, _options);
                         }
                     }
@@ -1346,7 +1349,7 @@
                         };
 
                         lookupTable[getTag($(this)[0]) ? 'getModule' :
-                        'getSupportedChildren']($(this), options);
+                            'getSupportedChildren']($(this), options);
                     });
                 },
                 addSupportedElement = function(module, tag) {
@@ -1384,7 +1387,21 @@
                     });
                 };
 
-            // build list of supported modules
+            // Build list of supported modules on the following format:
+            //
+            //SUPPORTED_ELEMENTS = {
+            //    tagName: [
+            //        {
+            //            filter: { 'attrname': ['arrval'] },
+            //            module: "moduleName"
+            //        },
+            //        {
+            //            filter: { 'attrname2': 'strval' }
+            //            module: "moduleName"
+            //        },
+            //        "strmodulename"
+            //    ]
+            //};
             buildSupportedElementsList();
 
             //return function()
@@ -1398,12 +1415,13 @@
                     };
 
                     lookupTable[getTag($(this)[0]) ? "validTag" :
-                    "checkChildrenForValidTag"]($(this), options);
+                        "checkChildrenForValidTag"]($(this), options);
                 });
             };
 
         })();
 
+    // assign to jquery as a pluggin
     $.fn.cstmForm = fieldFactory;
 
 }(this));

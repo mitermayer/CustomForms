@@ -75,11 +75,11 @@
                     $customEl.addClass("focus");
                 })
                     .focusout(function() {
-                        $customEl.removeClass("focus");
-                    })
+                    $customEl.removeClass("focus");
+                })
                     .change(function() {
-                        instance.validate();
-                    });
+                    instance.validate();
+                });
 
                 $customEl.click(function(e) {
                     e.preventDefault();
@@ -115,10 +115,10 @@
                 $customEl = $("<" + DEFAULTS.customEle + "/>");
 
                 $customEl.attr({
-                        id: DEFAULTS.classPrefix + $el.attr("name") + "-" + $el
-                            .val(),
-                        'class': _class + ' customForm-hidden ' + _groupClass
-                    });
+                    id: DEFAULTS.classPrefix + $el.attr("name") + "-" + $el
+                        .val(),
+                    'class': _class + ' customForm-hidden ' + _groupClass
+                });
 
                 // append it to the markup before the element
                 $el.before($customEl);

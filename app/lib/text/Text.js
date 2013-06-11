@@ -94,15 +94,15 @@
                         });
                     })
                         .focusout(function() {
-                            $(this).removeClass('focus');
-                            addPlaceholder();
-                        })
+                        $(this).removeClass('focus');
+                        addPlaceholder();
+                    })
                         .closest('form')
                         .bind('submit', function() {
-                            validationFailProxy(function() {
-                                clearText();
-                            });
+                        validationFailProxy(function() {
+                            clearText();
                         });
+                    });
                 };
 
             // only initialize the module if the is a placeholder attribute on the input
