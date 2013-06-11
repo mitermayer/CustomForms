@@ -86,57 +86,62 @@
                 });
             };
 
-        SETTINGS.validators = SETTINGS.validators || [];
+        if (SETTINGS.active) {
 
-        SETTINGS.validators.push(function() {
-            return $el.prop('checked');
-        });
+            SETTINGS.validators = SETTINGS.validators || [];
 
-        /**
-         * Initializer for module. Will create custom elements and apply 
-         * default styles to it. Here will also be browser specific features.
-         * Checkbox module works by adding a custom element before the browser 
-         * input checkbox form field and binding their values together. When updating
-         * one the other will be updated.
-         * 
-         * @function
-         * @memberof customformsjs.module.Checkbox
-         */
-        SETTINGS.init = function() {
-            // hide element
-            $el.css(DEFAULTS.hideCss);
-
-            // create custom element
-            $customEl = $("<" + DEFAULTS.customEle + "/>");
-
-            $customEl.attr({
-                id: DEFAULTS.classPrefix + ($el.attr("id") || $el.attr("name")),
-                'class': _class + ' customForm-hidden'
+            SETTINGS.validators.push(function() {
+                return $el.prop('checked');
             });
 
-            // append it to the markup before the element
-            $el.before($customEl);
+            /**
+             * Initializer for module. Will create custom elements and apply 
+             * default styles to it. Here will also be browser specific features.
+             * Checkbox module works by adding a custom element before the browser 
+             * input checkbox form field and binding their values together. When updating
+             * one the other will be updated.
+             * 
+             * @function
+             * @memberof customformsjs.module.Checkbox
+             */
+            SETTINGS.init = function() {
+                // hide element
+                $el.css(DEFAULTS.hideCss);
 
-            SETTINGS.ready();
-        };
+                // create custom element
+                $customEl = $("<" + DEFAULTS.customEle + "/>");
 
-        instance = new APP.BaseField(SETTINGS);
+                $customEl.attr({
+                    id: DEFAULTS.classPrefix + ($el.attr("id") || $el.attr(
+                        "name")),
+                    'class': _class + ' customForm-hidden'
+                });
 
-        /**
-         * Updating custom element checked state will trigger an update on the browser
-         * default input checkbox checked state property and vice versa.
-         *
-         * @function
-         * @memberof customformsjs.module.Checkbox
-         */
-        instance.bind('validate', function(event) {
-            var state = event.data.success;
+                // append it to the markup before the element
+                $el.before($customEl);
 
-            $customEl[(!state ? 'remove' : 'add') + 'Class']('checked');
-        });
+                SETTINGS.ready();
+            };
 
-        instance.validate();
-        attachEvents();
+            instance = new APP.BaseField(SETTINGS);
+
+            /**
+             * Updating custom element checked state will trigger an update on the browser
+             * default input checkbox checked state property and vice versa.
+             *
+             * @function
+             * @memberof customformsjs.module.Checkbox
+             */
+            instance.bind('validate', function(event) {
+                var state = event.data.success;
+
+                $customEl[(!state ? 'remove' : 'add') + 'Class']('checked');
+            });
+
+            instance.validate();
+            attachEvents();
+
+        }
 
         return instance;
     };

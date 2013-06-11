@@ -355,57 +355,62 @@
                 });
             };
 
-        SETTINGS.validators = SETTINGS.validators || [];
+        if (SETTINGS.active) {
 
-        SETTINGS.validators.push(function() {
-            return $el.prop('checked');
-        });
+            SETTINGS.validators = SETTINGS.validators || [];
 
-        /**
-         * Initializer for module. Will create custom elements and apply 
-         * default styles to it. Here will also be browser specific features.
-         * Checkbox module works by adding a custom element before the browser 
-         * input checkbox form field and binding their values together. When updating
-         * one the other will be updated.
-         * 
-         * @function
-         * @memberof customformsjs.module.Checkbox
-         */
-        SETTINGS.init = function() {
-            // hide element
-            $el.css(DEFAULTS.hideCss);
-
-            // create custom element
-            $customEl = $("<" + DEFAULTS.customEle + "/>");
-
-            $customEl.attr({
-                id: DEFAULTS.classPrefix + ($el.attr("id") || $el.attr("name")),
-                'class': _class + ' customForm-hidden'
+            SETTINGS.validators.push(function() {
+                return $el.prop('checked');
             });
 
-            // append it to the markup before the element
-            $el.before($customEl);
+            /**
+             * Initializer for module. Will create custom elements and apply 
+             * default styles to it. Here will also be browser specific features.
+             * Checkbox module works by adding a custom element before the browser 
+             * input checkbox form field and binding their values together. When updating
+             * one the other will be updated.
+             * 
+             * @function
+             * @memberof customformsjs.module.Checkbox
+             */
+            SETTINGS.init = function() {
+                // hide element
+                $el.css(DEFAULTS.hideCss);
 
-            SETTINGS.ready();
-        };
+                // create custom element
+                $customEl = $("<" + DEFAULTS.customEle + "/>");
 
-        instance = new APP.BaseField(SETTINGS);
+                $customEl.attr({
+                    id: DEFAULTS.classPrefix + ($el.attr("id") || $el.attr(
+                        "name")),
+                    'class': _class + ' customForm-hidden'
+                });
 
-        /**
-         * Updating custom element checked state will trigger an update on the browser
-         * default input checkbox checked state property and vice versa.
-         *
-         * @function
-         * @memberof customformsjs.module.Checkbox
-         */
-        instance.bind('validate', function(event) {
-            var state = event.data.success;
+                // append it to the markup before the element
+                $el.before($customEl);
 
-            $customEl[(!state ? 'remove' : 'add') + 'Class']('checked');
-        });
+                SETTINGS.ready();
+            };
 
-        instance.validate();
-        attachEvents();
+            instance = new APP.BaseField(SETTINGS);
+
+            /**
+             * Updating custom element checked state will trigger an update on the browser
+             * default input checkbox checked state property and vice versa.
+             *
+             * @function
+             * @memberof customformsjs.module.Checkbox
+             */
+            instance.bind('validate', function(event) {
+                var state = event.data.success;
+
+                $customEl[(!state ? 'remove' : 'add') + 'Class']('checked');
+            });
+
+            instance.validate();
+            attachEvents();
+
+        }
 
         return instance;
     };
@@ -572,79 +577,83 @@
                 });
             };
 
-        SETTINGS.validators = SETTINGS.validators || [];
+        if (SETTINGS.active) {
 
-        /**
-         * Initializer for module. Will create custom elements and apply 
-         * default styles to it. Here will also be browser specific features.
-         * File module works by adding a custom element behind the browser 
-         * input file form field and making it transparent. There is also some browser
-         * specifics to calculate the final size in order to be fully on top of the 
-         * input file field.
-         *
-         * @function
-         * @memberof customformsjs.module.File
-         */
-        SETTINGS.init = function() {
-            // hide element
-            $el.css(DEFAULTS.hideCss);
+            SETTINGS.validators = SETTINGS.validators || [];
 
-            //// create custom element
-            $customContainer = $("<" + SETTINGS.containerEle + "/>");
+            /**
+             * Initializer for module. Will create custom elements and apply 
+             * default styles to it. Here will also be browser specific features.
+             * File module works by adding a custom element behind the browser 
+             * input file form field and making it transparent. There is also some browser
+             * specifics to calculate the final size in order to be fully on top of the 
+             * input file field.
+             *
+             * @function
+             * @memberof customformsjs.module.File
+             */
+            SETTINGS.init = function() {
+                // hide element
+                $el.css(DEFAULTS.hideCss);
 
-            // setup attr and styles to container
-            $customContainer.attr({
-                id: _id + '-container',
-                'class': _containerClass
-            }).css(SETTINGS.customContainerCss);
+                //// create custom element
+                $customContainer = $("<" + SETTINGS.containerEle + "/>");
 
-            // create custom element
-            $customEl = $("<" + SETTINGS.customEle + "/>");
+                // setup attr and styles to container
+                $customContainer.attr({
+                    id: _id + '-container',
+                    'class': _containerClass
+                }).css(SETTINGS.customContainerCss);
 
-            // setup attr and styles to custom element
-            $customEl.attr({
-                id: _id,
-                'class': _class
-            }).css(SETTINGS.customElCss);
+                // create custom element
+                $customEl = $("<" + SETTINGS.customEle + "/>");
+
+                // setup attr and styles to custom element
+                $customEl.attr({
+                    id: _id,
+                    'class': _class
+                }).css(SETTINGS.customElCss);
 
 
-            // add container before element
-            $el.before($customContainer);
+                // add container before element
+                $el.before($customContainer);
 
-            // move element inside container
-            $el.appendTo($customContainer);
+                // move element inside container
+                $el.appendTo($customContainer);
 
-            // move custom element inside container
-            $customContainer.append($customEl);
+                // move custom element inside container
+                $customContainer.append($customEl);
 
-            // only after object is added to the DOM we can calculate its dimensions
-            _size.height = $customContainer.css("height");
-            _size.width = $customContainer.css("width");
-            _size.size = getButtonSize(parseInt(_size.width, 10));
+                // only after object is added to the DOM we can calculate its dimensions
+                _size.height = $customContainer.css("height");
+                _size.width = $customContainer.css("width");
+                _size.size = getButtonSize(parseInt(_size.width, 10));
 
-            // we than extend elCss with the dimensions and apply them to element.
-            $el.css($.extend({}, SETTINGS.elCss, _size));
+                // we than extend elCss with the dimensions and apply them to element.
+                $el.css($.extend({}, SETTINGS.elCss, _size));
 
-            SETTINGS.ready();
-        };
+                SETTINGS.ready();
+            };
 
-        instance = new APP.BaseField(SETTINGS);
+            instance = new APP.BaseField(SETTINGS);
 
-        /**
-         * Custom validator is added to find if there is a selected file for input field.
-         * Applying the filename value to the custom element as a text node, or the holding text.
-         *
-         * @function
-         * @memberof customformsjs.module.File
-         */
-        instance.bind('validate', function() {
-            var _selectedText = getFileName();
+            /**
+             * Custom validator is added to find if there is a selected file for input field.
+             * Applying the filename value to the custom element as a text node, or the holding text.
+             *
+             * @function
+             * @memberof customformsjs.module.File
+             */
+            instance.bind('validate', function() {
+                var _selectedText = getFileName();
 
-            $customEl.html(_selectedText ? _selectedText : SETTINGS.holderTxt);
-        });
+                $customEl.html(_selectedText ? _selectedText : SETTINGS.holderTxt);
+            });
 
-        instance.validate();
-        attachEvents();
+            instance.validate();
+            attachEvents();
+
+        }
 
         return instance;
     };
@@ -759,62 +768,67 @@
                 });
             };
 
-        SETTINGS.validators = SETTINGS.validators || [];
+        if (SETTINGS.active) {
 
-        SETTINGS.validators.push(function() {
-            return $el.prop('checked');
-        });
+            SETTINGS.validators = SETTINGS.validators || [];
 
-        /**
-         * Initializer for module. Will create custom elements and apply 
-         * default styles to it. Here will also be browser specific features.
-         * Radio module works by adding a custom element before the browser 
-         * input radio form field and binding their values together. When updating
-         * one the other will be updated.
-         * 
-         * @function
-         * @memberof customformsjs.module.Radio
-         */
-        SETTINGS.init = function() {
-            // hide element
-            $el.css(DEFAULTS.hideCss);
-
-            // create custom element
-            $customEl = $("<" + DEFAULTS.customEle + "/>");
-
-            $customEl.attr({
-                id: DEFAULTS.classPrefix + $el.attr("name") + "-" + $el.val(),
-                'class': _class + ' customForm-hidden ' + _groupClass
+            SETTINGS.validators.push(function() {
+                return $el.prop('checked');
             });
 
-            // append it to the markup before the element
-            $el.before($customEl);
+            /**
+             * Initializer for module. Will create custom elements and apply 
+             * default styles to it. Here will also be browser specific features.
+             * Radio module works by adding a custom element before the browser 
+             * input radio form field and binding their values together. When updating
+             * one the other will be updated.
+             * 
+             * @function
+             * @memberof customformsjs.module.Radio
+             */
+            SETTINGS.init = function() {
+                // hide element
+                $el.css(DEFAULTS.hideCss);
 
-            SETTINGS.ready();
-        };
+                // create custom element
+                $customEl = $("<" + DEFAULTS.customEle + "/>");
 
-        instance = new APP.BaseField(SETTINGS);
+                $customEl.attr({
+                    id: DEFAULTS.classPrefix + $el.attr("name") + "-" + $el
+                        .val(),
+                    'class': _class + ' customForm-hidden ' + _groupClass
+                });
 
-        /**
-         * Custom validator is added to uncheck all custom elements and default browser
-         * input radio form elements of a particular group and than than check the 
-         * selected custom element and input radio form element. This way only a single
-         * element of a group can be checked at a time.
-         *
-         * @function
-         * @memberof customformsjs.module.Radio
-         */
-        instance.bind('validate', function(event) {
-            var state = event.data.success;
+                // append it to the markup before the element
+                $el.before($customEl);
 
-            // uncheck them
-            $('.' + _groupClass).removeClass('checked');
+                SETTINGS.ready();
+            };
 
-            $customEl[(!state ? 'remove' : 'add') + 'Class']('checked');
-        });
+            instance = new APP.BaseField(SETTINGS);
 
-        instance.validate();
-        attachEvents();
+            /**
+             * Custom validator is added to uncheck all custom elements and default browser
+             * input radio form elements of a particular group and than than check the 
+             * selected custom element and input radio form element. This way only a single
+             * element of a group can be checked at a time.
+             *
+             * @function
+             * @memberof customformsjs.module.Radio
+             */
+            instance.bind('validate', function(event) {
+                var state = event.data.success;
+
+                // uncheck them
+                $('.' + _groupClass).removeClass('checked');
+
+                $customEl[(!state ? 'remove' : 'add') + 'Class']('checked');
+            });
+
+            instance.validate();
+            attachEvents();
+
+        }
 
         return instance;
     };
@@ -962,78 +976,82 @@
                 });
             };
 
-        SETTINGS.validators = SETTINGS.validators || [];
+        if (SETTINGS.active) {
 
-        /**
-         * Initializer for module. Will create custom elements and apply 
-         * default styles to it. Here will also be browser specific features.
-         * Select module works by adding a custom element behind the browser 
-         * select form field and making it transparent.
-         *
-         * @function
-         * @memberof customformsjs.module.Select
-         */
-        SETTINGS.init = function() {
-            // hide element
-            $el.css(DEFAULTS.hideCss);
+            SETTINGS.validators = SETTINGS.validators || [];
 
-            //// create custom element
-            $customContainer = $("<" + SETTINGS.containerEle + "/>");
+            /**
+             * Initializer for module. Will create custom elements and apply 
+             * default styles to it. Here will also be browser specific features.
+             * Select module works by adding a custom element behind the browser 
+             * select form field and making it transparent.
+             *
+             * @function
+             * @memberof customformsjs.module.Select
+             */
+            SETTINGS.init = function() {
+                // hide element
+                $el.css(DEFAULTS.hideCss);
 
-            // setup attr and styles to container
-            $customContainer.attr({
-                id: _id + '-container',
-                'class': _containerClass
-            }).css(SETTINGS.customContainerCss);
+                //// create custom element
+                $customContainer = $("<" + SETTINGS.containerEle + "/>");
 
-            // create custom element
-            $customEl = $("<" + SETTINGS.customEle + "/>");
+                // setup attr and styles to container
+                $customContainer.attr({
+                    id: _id + '-container',
+                    'class': _containerClass
+                }).css(SETTINGS.customContainerCss);
 
-            // setup attr and styles to custom element
-            $customEl.attr({
-                id: _id,
-                'class': _class
-            }).css(SETTINGS.customElCss);
+                // create custom element
+                $customEl = $("<" + SETTINGS.customEle + "/>");
+
+                // setup attr and styles to custom element
+                $customEl.attr({
+                    id: _id,
+                    'class': _class
+                }).css(SETTINGS.customElCss);
 
 
-            // add container before element
-            $el.before($customContainer);
+                // add container before element
+                $el.before($customContainer);
 
-            // move element inside container
-            $el.appendTo($customContainer);
+                // move element inside container
+                $el.appendTo($customContainer);
 
-            // move custom element inside container
-            $customContainer.append($customEl);
+                // move custom element inside container
+                $customContainer.append($customEl);
 
-            // only after object is added to the DOM we can calculate its dimensions
-            _size.height = $customContainer.css("height");
-            _size.width = $customContainer.css("width");
+                // only after object is added to the DOM we can calculate its dimensions
+                _size.height = $customContainer.css("height");
+                _size.width = $customContainer.css("width");
 
-            // we than extend elCss with the dimensions and apply them to element.
-            $el.css($.extend({}, SETTINGS.elCss, _size));
+                // we than extend elCss with the dimensions and apply them to element.
+                $el.css($.extend({}, SETTINGS.elCss, _size));
 
-            SETTINGS.ready();
-        };
+                SETTINGS.ready();
+            };
 
-        instance = new APP.BaseField(SETTINGS);
+            instance = new APP.BaseField(SETTINGS);
 
-        /**
-         * Custom validator is added to find wich option is selected and get its text value.
-         * Applying the option value the custom element as a text node.
-         *
-         * @function
-         * @memberof customformsjs.module.Select
-         */
-        instance.bind('validate', function() {
-            var _selectedText = $el.find('option:selected').text();
+            /**
+             * Custom validator is added to find wich option is selected and get its text value.
+             * Applying the option value the custom element as a text node.
+             *
+             * @function
+             * @memberof customformsjs.module.Select
+             */
+            instance.bind('validate', function() {
+                var _selectedText = $el.find('option:selected').text();
 
-            _selectedText = _selectedText || $el.find('option').first().text();
+                _selectedText = _selectedText || $el.find('option').first().text();
 
-            $customEl.html(_selectedText);
-        });
+                $customEl.html(_selectedText);
+            });
 
-        instance.validate();
-        attachEvents();
+            instance.validate();
+            attachEvents();
+
+        }
 
         return instance;
     };
@@ -1158,41 +1176,45 @@
                     });
                 };
 
-            SETTINGS.validators = SETTINGS.validators || [];
+            // only initialize the module if the is a placeholder attribute on the input
+            if (SETTINGS.active && _placeholder) {
 
-            SETTINGS.validators.push(function(val) {
-                return val !== _placeholder;
-            });
+                SETTINGS.validators = SETTINGS.validators || [];
 
-            /**
-             * Initializer for module. Will mimic default browser placeholder by
-             * applying a placeholder when input have an invalid field. This can be used
-             * in conjuction of custom validators.
-             * 
-             * @function
-             * @memberof customformsjs.module.Text
-             */
-            SETTINGS.init = function() {
-                $el.addClass(_class);
+                SETTINGS.validators.push(function(val) {
+                    return val !== _placeholder;
+                });
 
-                SETTINGS.ready();
-            };
+                /**
+                 * Initializer for module. Will mimic default browser placeholder by
+                 * applying a placeholder when input have an invalid field. This can be used
+                 * in conjuction of custom validators.
+                 * 
+                 * @function
+                 * @memberof customformsjs.module.Text
+                 */
+                SETTINGS.init = function() {
+                    $el.addClass(_class);
 
-            instance = new APP.BaseField(SETTINGS);
+                    SETTINGS.ready();
+                };
 
-            /**
-             * When validation fails, custom placeholder will be added.
-             *
-             * @function
-             * @memberof customformsjs.module.Text
-             */
-            instance.bind('validate', function(event) {
-                var state = event.data.success;
-                toggleColor(state);
-            });
+                instance = new APP.BaseField(SETTINGS);
 
-            addPlaceholder();
-            attachEvents();
+                /**
+                 * When validation fails, custom placeholder will be added.
+                 *
+                 * @function
+                 * @memberof customformsjs.module.Text
+                 */
+                instance.bind('validate', function(event) {
+                    var state = event.data.success;
+                    toggleColor(state);
+                });
+
+                addPlaceholder();
+                attachEvents();
+            }
         }
 
         return instance;
@@ -1222,26 +1244,29 @@
     /**
      * @namespace
      * @name customformsjs
+     * @example
+     * // You can overwrite defaults by passing an object with some options, when an option is passed
+     * // without a module name as namespace it will be a global option, module namespaced options will 
+     * // overwrite global options, also modules will have some options that are particular for that module,
+     * // please refer to the documentation page to see all possible options for each module.
+     *  var options = { active: true, lowercasemodulename: { active: false } };
+     *  
+     *  // All supported elements inside container, will recurse to find all elements
+     *  $('#container').cstmForm( options ) 
+     *
+     *  // All Form elements
+     *  $('form').cstmForm( options ) 
+     *
+     *  // target a certain group of element 
+     *  $('input[type=file]').cstmForm( options )
+     * 
+     *  // You can target specific groups of elements
+     *  $('input[type=radio], input[type=checkbox], select').cstmForm( options )
      */
     var APP = global.customformsjs = global.customformsjs || {},
 
         fieldFactory = (function() {
 
-            /*
-             *SUPPORTED_ELEMENTS = {
-             *    tagName: [
-             *        {
-             *            filter: { 'attrname': ['arrval'] },
-             *            module: "moduleName"
-             *        },
-             *        {
-             *            filter: { 'attrname2': 'strval' }
-             *            module: "moduleName"
-             *        },
-             *        "strmodulename"
-             *    ]
-             *};
-             */
             var SUPPORTED_ELEMENTS = {},
                 GLOBAL_OPTIONS = {},
                 capitaliseFirstLetter = function(string) {
@@ -1362,7 +1387,21 @@
                     });
                 };
 
-            // build list of supported modules
+            // Build list of supported modules on the following format:
+            //
+            //SUPPORTED_ELEMENTS = {
+            //    tagName: [
+            //        {
+            //            filter: { 'attrname': ['arrval'] },
+            //            module: "moduleName"
+            //        },
+            //        {
+            //            filter: { 'attrname2': 'strval' }
+            //            module: "moduleName"
+            //        },
+            //        "strmodulename"
+            //    ]
+            //};
             buildSupportedElementsList();
 
             //return function()
@@ -1382,6 +1421,7 @@
 
         })();
 
+    // assign to jquery as a pluggin
     $.fn.cstmForm = fieldFactory;
 
 }(this));

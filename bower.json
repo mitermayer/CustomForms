@@ -1,0 +1,13 @@
+{
+    "name": "customForms",
+    "version": "1.0.2",
+    "main": "./customForms.js",
+    "description": "Javascript Library to aid on creation of beautiful form elements",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:mitermayer/CustomForms.git"
+    },
+    "dependencies": {
+        "jquery": ">= 1.6.1"
+    }
+}

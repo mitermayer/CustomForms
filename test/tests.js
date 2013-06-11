@@ -141,7 +141,8 @@
                 holderTxt: settings.holderTxt
             });
 
-            var _customElId = settings.classPrefix + (input.attr("id") || input
+            var _customElId = settings.classPrefix + (input.attr("id") ||
+                input
                 .attr('name'));
             var _customElContainerId = _customElId + '-container';
 
@@ -257,7 +258,8 @@
 
                 input[i] = _input;
 
-                customEl[i] = $('#' + settings.classPrefix + _input.attr("name") +
+                customEl[i] = $('#' + settings.classPrefix + _input.attr(
+                    "name") +
                     "-" + _input.val());
 
             }
@@ -377,7 +379,8 @@
                 classPrefix: settings.classPrefix
             });
 
-            var _customElId = settings.classPrefix + (input.attr("id") || input
+            var _customElId = settings.classPrefix + (input.attr("id") ||
+                input
                 .attr('name'));
             var _customElContainerId = _customElId + '-container';
 

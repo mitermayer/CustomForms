@@ -78,8 +78,14 @@ Options and defaults can be found on the documentation page for each individual 
 ## Usage
 ```javascript
 
-  // You can overwrite defaults by passing an object with some options
-  var options = { customEle: 'span' };
+  // You can overwrite defaults by passing an object with some options, when an option is passed
+  // without a module name as namespace it will be a global option, module namespaced options will 
+  // overwrite global options, also modules will have some options that are particular for that module,
+  // please refer to the documentation page to see all possible options for each module.
+  var options = { active: true, lowercasemodulename: { active: false } };
+  
+  // All supported elements inside container, will recurse to find all elements
+  $('#container').cstmForm( options ) 
 
   // All Form elements
   $('form').cstmForm( options ) 
@@ -97,3 +103,9 @@ Options and defaults can be found on the documentation page for each individual 
 Feel free to submit new modules as pull requests. All module must have proper jsdoc syntax comments and related unit testing in order to be merged. After having made any pull request you will be able to join the trello board.
 
 A module will need to extend class ```app/lib/BaseField.js``` and implement ```moduleName.blueprint```
+
+## Change log
+
+ - 1.0.2 - BUGFIX - Updated all modules to properly make use of the 'active' option and updated documentation page. 
+ - 1.0.1 - BUGFIX - Updated placeholder module to check if there is a property placeholder while running on 'force' mode.
+ - 1.0.0 - release 

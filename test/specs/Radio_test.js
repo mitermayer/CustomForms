@@ -49,7 +49,8 @@
 
                 input[i] = _input;
 
-                customEl[i] = $('#' + settings.classPrefix + _input.attr("name") +
+                customEl[i] = $('#' + settings.classPrefix + _input.attr(
+                    "name") +
                     "-" + _input.val());
 
             }
