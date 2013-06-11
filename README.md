@@ -14,7 +14,7 @@ All code is **Unit Tested** and **Cross Browser Tested** with the **lastest jque
 Future **releases**, **bugs** and **ehancement** can all be found on the trello board. All issues created on github will have a trello card associated with it.
 
 
-###[Documentation Page](http://customformsjs.com/doc/ "Documentation page")
+###[Documentation Page](http://customformsjs.com/doc/customformsjs.html "Documentation page")
 
 
 [![Travis](http://customformsjs.com/demo/img/small_travis.jpg)](https://travis-ci.org/mitermayer/CustomForms)
