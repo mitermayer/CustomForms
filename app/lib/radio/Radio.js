@@ -9,7 +9,7 @@
          * Module default settings.
          *
          * @constant
-         * @default 
+         * @default
          * @access private
          * @memberof customformsjs.module.Radio
          */
@@ -28,10 +28,10 @@
 
 
     /**
-     * Add support for styling input radio fields. 
+     * Add support for styling input radio fields.
      * A custom element is added before the browser default input radio field,
-     * The valued is binded to the default browser radio field. When clicking on 
-     * the custom element they will updated the default input radio and vise versa. 
+     * The valued is binded to the default browser radio field. When clicking on
+     * the custom element they will updated the default input radio and vise versa.
      * Updates on the browser default field will also trigger updates on the custom input field.
      * Options can be passed to extend the defaults.
      *
@@ -54,8 +54,8 @@
      *      events: [], // custom events can be added.
      *      validators: [] // custom validators can be added.
      * };
-     * 
-     * customformsjs.module.Radio(DEFAULTS); 
+     *
+     * customformsjs.module.Radio(DEFAULTS);
      *
      * @returns {Object} Returns an Instance of module Radio.
      */
@@ -75,16 +75,22 @@
                     $customEl.addClass("focus");
                 })
                     .focusout(function() {
-                    $customEl.removeClass("focus");
-                })
+                        $customEl.removeClass("focus");
+                    })
                     .change(function() {
-                    instance.validate();
-                });
+                        // uncheck other radio buttons in group
+                        $('.' + _groupClass).removeClass('checked');
+
+                        instance.validate();
+                    });
 
                 $customEl.click(function(e) {
                     e.preventDefault();
 
                     $el.prop('checked', true);
+                    // ensure original element `change` event is fired
+                    $el.trigger('change');
+
                     instance.validate();
                 });
             };
@@ -98,12 +104,12 @@
             });
 
             /**
-             * Initializer for module. Will create custom elements and apply 
+             * Initializer for module. Will create custom elements and apply
              * default styles to it. Here will also be browser specific features.
-             * Radio module works by adding a custom element before the browser 
+             * Radio module works by adding a custom element before the browser
              * input radio form field and binding their values together. When updating
              * one the other will be updated.
-             * 
+             *
              * @function
              * @memberof customformsjs.module.Radio
              */
@@ -115,10 +121,10 @@
                 $customEl = $("<" + DEFAULTS.customEle + "/>");
 
                 $customEl.attr({
-                    id: DEFAULTS.classPrefix + $el.attr("name") + "-" + $el
-                        .val(),
-                    'class': _class + ' customForm-hidden ' + _groupClass
-                });
+                        id: DEFAULTS.classPrefix + $el.attr("name") + "-" + $el
+                            .val(),
+                        'class': _class + ' customForm-hidden ' + _groupClass
+                    });
 
                 // append it to the markup before the element
                 $el.before($customEl);
@@ -130,7 +136,7 @@
 
             /**
              * Custom validator is added to uncheck all custom elements and default browser
-             * input radio form elements of a particular group and than than check the 
+             * input radio form elements of a particular group and than than check the
              * selected custom element and input radio form element. This way only a single
              * element of a group can be checked at a time.
              *
@@ -139,9 +145,6 @@
              */
             instance.bind('validate', function(event) {
                 var state = event.data.success;
-
-                // uncheck them
-                $('.' + _groupClass).removeClass('checked');
 
                 $customEl[(!state ? 'remove' : 'add') + 'Class']('checked');
             });
@@ -155,8 +158,8 @@
     };
 
     /**
-     * Blueprint used to allow custom field creation. 
-     * Element must be an object with a tagname 'input' with an attribute 'type' that 
+     * Blueprint used to allow custom field creation.
+     * Element must be an object with a tagname 'input' with an attribute 'type' that
      * has a value of 'radio'.
      *
      * @property {Object} customformsjs.module.Radio.blueprint used to see if element meet module requirements.
