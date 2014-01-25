@@ -9,7 +9,7 @@
          * Module default settings.
          *
          * @constant
-         * @default 
+         * @default
          * @access private
          * @memberof customformsjs.module.Text
          */
@@ -47,8 +47,8 @@
      *      events: [], // custom events can be added.
      *      validators: [] // custom validators can be added.
      * };
-     * 
-     * customformsjs.module.Text(DEFAULTS); 
+     *
+     * customformsjs.module.Text(DEFAULTS);
      *
      * @returns {Object} Returns an Instance of module Text.
      */
@@ -94,15 +94,15 @@
                         });
                     })
                         .focusout(function() {
-                        $(this).removeClass('focus');
-                        addPlaceholder();
-                    })
+                            $(this).removeClass('focus');
+                            addPlaceholder();
+                        })
                         .closest('form')
                         .bind('submit', function() {
-                        validationFailProxy(function() {
-                            clearText();
+                            validationFailProxy(function() {
+                                clearText();
+                            });
                         });
-                    });
                 };
 
             // only initialize the module if the is a placeholder attribute on the input
@@ -118,7 +118,7 @@
                  * Initializer for module. Will mimic default browser placeholder by
                  * applying a placeholder when input have an invalid field. This can be used
                  * in conjuction of custom validators.
-                 * 
+                 *
                  * @function
                  * @memberof customformsjs.module.Text
                  */
@@ -150,8 +150,8 @@
     };
 
     /**
-     * Blueprint used to allow custom field creation. 
-     * Element must be an object with a tagname 'input' with an attribute 'type' that 
+     * Blueprint used to allow custom field creation.
+     * Element must be an object with a tagname 'input' with an attribute 'type' that
      * has a value of ('text', 'search', 'tel', 'url', 'email', 'password') field.
      *
      * @property {Object} customformsjs.module.Text.blueprint used to see if element meet module requirements.

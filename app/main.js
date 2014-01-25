@@ -5,20 +5,20 @@
      * @name customformsjs
      * @example
      * // You can overwrite defaults by passing an object with some options, when an option is passed
-     * // without a module name as namespace it will be a global option, module namespaced options will 
+     * // without a module name as namespace it will be a global option, module namespaced options will
      * // overwrite global options, also modules will have some options that are particular for that module,
      * // please refer to the documentation page to see all possible options for each module.
      *  var options = { active: true, lowercasemodulename: { active: false } };
-     *  
+     *
      *  // All supported elements inside container, will recurse to find all elements
-     *  $('#container').cstmForm( options ) 
+     *  $('#container').cstmForm( options )
      *
      *  // All Form elements
-     *  $('form').cstmForm( options ) 
+     *  $('form').cstmForm( options )
      *
-     *  // target a certain group of element 
+     *  // target a certain group of element
      *  $('input[type=file]').cstmForm( options )
-     * 
+     *
      *  // You can target specific groups of elements
      *  $('input[type=radio], input[type=checkbox], select').cstmForm( options )
      */

@@ -9,7 +9,7 @@
          * Module default settings.
          *
          * @constant
-         * @default 
+         * @default
          * @access private
          * @memberof customformsjs.module.Select
          */
@@ -47,7 +47,7 @@
 
 
     /**
-     * Add support for styling select fields. 
+     * Add support for styling select fields.
      * A custom element is added behind the browser default select field,
      * and the select field is made transparent to create the illusion of a
      * custom element. Options can be passed to extend the defaults.
@@ -89,8 +89,8 @@
      *      events: [], // custom events can be added.
      *      validators: [] // custom validators can be added.
      * };
-     * 
-     * customformsjs.module.Select(DEFAULTS); 
+     *
+     * customformsjs.module.Select(DEFAULTS);
      *
      * @returns {Object} Returns an Instance of module Select.
      */
@@ -115,11 +115,11 @@
                     $customContainer.addClass("focus");
                 })
                     .focusout(function() {
-                    $customContainer.removeClass("focus");
-                })
+                        $customContainer.removeClass("focus");
+                    })
                     .change(function() {
-                    instance.validate();
-                });
+                        instance.validate();
+                    });
             };
 
         if (SETTINGS.active) {
@@ -127,9 +127,9 @@
             SETTINGS.validators = SETTINGS.validators || [];
 
             /**
-             * Initializer for module. Will create custom elements and apply 
+             * Initializer for module. Will create custom elements and apply
              * default styles to it. Here will also be browser specific features.
-             * Select module works by adding a custom element behind the browser 
+             * Select module works by adding a custom element behind the browser
              * select form field and making it transparent.
              *
              * @function
@@ -203,7 +203,7 @@
     };
 
     /**
-     * Blueprint used to allow custom field creation. 
+     * Blueprint used to allow custom field creation.
      * Element must be an object with a tagname 'select'
      *
      * @property {Object} blueprint used to see if element meet module requirements.

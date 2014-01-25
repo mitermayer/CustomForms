@@ -29,14 +29,19 @@
 
                 var _input = $('<input />');
 
-                // Setting the type on a radio button after the value resets the value in IE6-9, 
-                // to avoid that instead of setting all attributes to the radio at the same type, 
+                // Setting the type on a radio button after the value resets the value in IE6-9,
+                // to avoid that instead of setting all attributes to the radio at the same type,
                 // manually set type attribute before the other attributes on the test suit setup
                 _input.attr('type', 'radio');
 
                 var optAttr = $.extend({}, attr, {
                     value: attr.value + i
                 });
+
+                // Lets make the second item checked by default
+                if (i === 1) {
+                    optAttr.checked = "checked";
+                }
 
                 form.append(_input);
 
@@ -50,7 +55,7 @@
                 input[i] = _input;
 
                 customEl[i] = $('#' + settings.classPrefix + _input.attr(
-                    "name") +
+                        "name") +
                     "-" + _input.val());
 
             }
@@ -76,7 +81,7 @@
 
             // checked stated should be a reflection of the input checked property
             strictEqual(input[i].prop('checked'), customEl[i].hasClass(
-                'checked'),
+                    'checked'),
                 'After initliazed, radios checked class should reflect on their relative inputs checked property.');
             strictEqual(customEl[i].hasClass('custom-radio'), true,
                 'Custom elment should have class custom-radio when initializing');

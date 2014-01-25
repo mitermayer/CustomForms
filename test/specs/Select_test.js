@@ -9,9 +9,9 @@
             classPrefix: 'custom-'
         },
         optVal = [
-                'default',
-                'foo',
-                'moo'
+            'default',
+            'foo',
+            'moo'
         ],
         attr = {
             name: 'something',

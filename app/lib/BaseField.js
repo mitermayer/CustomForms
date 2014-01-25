@@ -8,32 +8,32 @@
      * Base class for all modules, it provides a link between the html element and
      * the model. It also implements custom events and validators.
      *
-     * @constructor  
-     * @name customformsjs.BaseField 
+     * @constructor
+     * @name customformsjs.BaseField
      * @param {Object} obj Options to initialize BaseField.
-     * @param {Object} obj.element Object that has an attribute 'value'. 
-     * @param {Array} obj.validators Field Validators. 
-     * @param {Array} obj.events Custom events. 
-     * @param {Function} obj.init Callback function to initialize subclass when BaseField is ready. 
+     * @param {Object} obj.element Object that has an attribute 'value'.
+     * @param {Array} obj.validators Field Validators.
+     * @param {Array} obj.events Custom events.
+     * @param {Function} obj.init Callback function to initialize subclass when BaseField is ready.
      * @example
-     * new APP.BaseField({ 
-     *     element: htmlelmenent, 
-     *     events: ["customEventNameSpace", { *         name: "otherCustomEventNamespace", 
+     * new APP.BaseField({
+     *     element: htmlelmenent,
+     *     events: ["customEventNameSpace", { *         name: "otherCustomEventNamespace",
      *         callback: function(event){
      *           // custom "otherCustomEventNamespace" event callback.
      *         }
-     *     }], 
+     *     }],
      *     validators: [{
      *         validator: function(value) {
-     *              return value === 'Dummy'; 
+     *              return value === 'Dummy';
      *         },
      *         message: "Value should be 'Dummy'"
-     *     }], 
+     *     }],
      *     init: function(){
      *         // this only gets fired after initialization has been completed.
      *         console.log("ready");
-     *     } 
-     * }); 
+     *     }
+     * });
      * @returns {Object} Returns an Object with some base methods.
      */
     APP.BaseField = function(obj) {
@@ -44,10 +44,10 @@
             _validators = [];
 
         /**
-         * Attach HTMLelement reference, and setup events and validators. 
+         * Attach HTMLelement reference, and setup events and validators.
          * Will call a callback function when it's done.
          *
-         * @function 
+         * @function
          * @memberof customformsjs.BaseField
          * @returns {Bool} Returns true with no error occur.
          */
@@ -111,8 +111,8 @@
          * Bind a callback to a custom event namespace, if the namespace doesn't
          * exists it will create one and add to it.
          *
-         * @function 
-         * @param {String} evnt Custom event name. 
+         * @function
+         * @param {String} evnt Custom event name.
          * @param {Function} func Callback function to be called when event is triggered.
          * @memberof customformsjs.BaseField
          * @returns {Object} Returns context for chaining.
@@ -126,10 +126,10 @@
         };
 
         /**
-         * Unbind the referenced function event from a custom event namespace. 
+         * Unbind the referenced function event from a custom event namespace.
          *
-         * @function 
-         * @param {String} evnt Custom event name. 
+         * @function
+         * @param {String} evnt Custom event name.
          * @param {Function} func Callback function reference.
          * @memberof customformsjs.BaseField
          * @returns {Object} Returns context for chaining.
@@ -149,7 +149,7 @@
          * Update value with a valid specified String. Triggers 'update' event, and send
          * the updated value as an event data attribute.
          *
-         * @function 
+         * @function
          * @param {String} val Value to update field.
          * @param {Bool} force If true, value will be updated regardless of validation.
          * @memberof customformsjs.BaseField
@@ -166,10 +166,10 @@
         };
 
         /**
-         * Update the related element with the value stored in this custom element. 
-         * Triggers 'save' event, and send the saved value as an event data attribute. 
+         * Update the related element with the value stored in this custom element.
+         * Triggers 'save' event, and send the saved value as an event data attribute.
          *
-         * @function 
+         * @function
          * @memberof customformsjs.BaseField
          * @returns {Object} Returns context for chaining.
          */
@@ -182,10 +182,10 @@
         };
 
         /**
-         * Update the custom element with the value stored in element. 
-         * Triggers 'sync' event, and send the syncd value as an event data attribute. 
+         * Update the custom element with the value stored in element.
+         * Triggers 'sync' event, and send the syncd value as an event data attribute.
          *
-         * @function 
+         * @function
          * @memberof customformsjs.BaseField
          * @returns {Object} returns context for chaining.
          */
@@ -202,7 +202,7 @@
          * Will return an Object with a property success and a property
          * message with an array of error messages.
          *
-         * @function 
+         * @function
          * @param {String} val  Value to be validated
          * @memberof customformsjs.BaseField
          * @returns {Object} Returns success status, and array of error messages.
@@ -231,13 +231,13 @@
         };
 
         /**
-         * Triggers an event from a particular event namespace. Will call 
+         * Triggers an event from a particular event namespace. Will call
          * all functions that are linked with that namespace with an Event Object.
-         * It will have a reference to the element, custom element, event 
-         * namespace, timestamp and data that can be passed on as part of the trigger. 
+         * It will have a reference to the element, custom element, event
+         * namespace, timestamp and data that can be passed on as part of the trigger.
          *
-         * @function 
-         * @param {String} evnt event namespace 
+         * @function
+         * @param {String} evnt event namespace
          * @param {Object} data data to be passed on as part of the event
          * @memberof customformsjs.BaseField
          * @returns {Object} returns context for chaining.

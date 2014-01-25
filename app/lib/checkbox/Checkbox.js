@@ -9,7 +9,7 @@
          * Module default settings.
          *
          * @constant
-         * @default 
+         * @default
          * @access private
          * @memberof customformsjs.module.Checkbox
          */
@@ -27,10 +27,10 @@
         };
 
     /**
-     * Add support for styling input checkbox fields. 
+     * Add support for styling input checkbox fields.
      * A custom element is added before the browser default input checkbox field,
-     * The valued is binded to the default browser checkbox field. When clicking on 
-     * the custom element they will updated the default input checkbox and vise versa. 
+     * The valued is binded to the default browser checkbox field. When clicking on
+     * the custom element they will updated the default input checkbox and vise versa.
      * Updates on the browser default field will also trigger updates on the custom input field.
      * Options can be passed to extend the defaults.
      *
@@ -53,8 +53,8 @@
      *      events: [], // custom events can be added.
      *      validators: [] // custom validators can be added.
      * };
-     * 
-     * customformsjs.module.Checkbox(DEFAULTS); 
+     *
+     * customformsjs.module.Checkbox(DEFAULTS);
      *
      * @returns {Object} Returns an Instance of module Checkbox.
      */
@@ -72,11 +72,11 @@
                     $customEl.addClass("focus");
                 })
                     .focusout(function() {
-                    $customEl.removeClass("focus");
-                })
+                        $customEl.removeClass("focus");
+                    })
                     .change(function() {
-                    instance.validate();
-                });
+                        instance.validate();
+                    });
 
                 $customEl.click(function(e) {
                     e.preventDefault();
@@ -95,12 +95,12 @@
             });
 
             /**
-             * Initializer for module. Will create custom elements and apply 
+             * Initializer for module. Will create custom elements and apply
              * default styles to it. Here will also be browser specific features.
-             * Checkbox module works by adding a custom element before the browser 
+             * Checkbox module works by adding a custom element before the browser
              * input checkbox form field and binding their values together. When updating
              * one the other will be updated.
-             * 
+             *
              * @function
              * @memberof customformsjs.module.Checkbox
              */
@@ -147,8 +147,8 @@
     };
 
     /**
-     * Blueprint used to allow custom field creation. 
-     * Element must be an object with a tagname 'input' with an attribute 'type' that 
+     * Blueprint used to allow custom field creation.
+     * Element must be an object with a tagname 'input' with an attribute 'type' that
      * has a value of 'checkbox'.
      *
      * @property {Object} customformsjs.module.Checkbox.blueprint used to see if element meet module requirements.
