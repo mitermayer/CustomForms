@@ -205,6 +205,7 @@
             element: input.get(0),
             force: true,
             validators: [
+
                 function(val) {
                     return val !== "dummy";
                 },
@@ -242,13 +243,13 @@
 
         textfield
             .bind("update", function() {
-            ok(true,
-                'Event save should be called when model is updated.');
-        })
+                ok(true,
+                    'Event save should be called when model is updated.');
+            })
             .bind("validate", function() {
-            ok(true,
-                'Event validation should be called when model is query for validation.');
-        }).update("bones");
+                ok(true,
+                    'Event validation should be called when model is query for validation.');
+            }).update("bones");
 
 
         textfield = customformsjs.module.Text({

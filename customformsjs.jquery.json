@@ -1,0 +1,51 @@
+{
+    "name": "customformsjs",
+    "title": "Customformsjs - webforms made by engineers",
+    "version": "1.0.5",
+    "description": "Javascript Library to aid on creation of beautiful form elements",
+    "keywords": [
+        "form",
+        "cross",
+        "browser",
+        "xbrower",
+        "custom",
+        "style",
+        "placeholder",
+        "checkbox",
+        "radio",
+        "select",
+        "file",
+        "unit",
+        "test",
+        "animation"
+    ],
+    "author": {
+        "name": "Mitermayer Reis",
+        "email": "mitermayer.reis@gmail.com",
+        "url": "http://job.mitermayer.com/"
+    },
+    "maintainers": [
+        {
+            "name": "Mitermayer Reis",
+            "email": "mitermayer.reis@gmail.com",
+            "url": "http://job.mitermayer.com/"
+        },
+        {
+            "name": "Matt Stone",
+            "email": "nitchy.s@gmail.com"
+        }
+    ],
+    "licenses": [{
+            "type": "MIT",
+            "url": "http://github.com/mitermayer/CustomForms/blob/master/LICENSE-MIT"
+        }
+    ],
+    "demo": "http://customformsjs.com/demo/",
+    "bugs": "https://github.com/mitermayer/CustomForms/issues",
+    "homepage": "http://customformsjs.com/",
+    "docs": "http://customformsjs.com/doc/",
+    "download": "https://github.com/mitermayer/CustomForms/zipball/master",
+    "dependencies": {
+        "jquery": ">= 1.6.1"
+    }
+}

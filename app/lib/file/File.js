@@ -9,7 +9,7 @@
          * Module default settings.
          *
          * @constant
-         * @default 
+         * @default
          * @access private
          * @memberof customformsjs.module.File
          */
@@ -52,7 +52,7 @@
 
 
     /**
-     * Add support for styling input file fields. 
+     * Add support for styling input file fields.
      * A custom element is added behind the browser default input file field,
      * and the file field is made transparent to create the illusion of a
      * custom element. Options can be passed to extend the defaults.
@@ -100,8 +100,8 @@
      *      events: [], // custom events can be added.
      *      validators: [] // custom validators can be added.
      * };
-     * 
-     * customformsjs.module.File(DEFAULTS); 
+     *
+     * customformsjs.module.File(DEFAULTS);
      *
      * @returns {Object} Returns an Instance of module File.
      */
@@ -134,11 +134,11 @@
                     $customContainer.addClass("focus");
                 })
                     .focusout(function() {
-                    $customContainer.removeClass("focus");
-                })
+                        $customContainer.removeClass("focus");
+                    })
                     .change(function() {
-                    instance.validate();
-                });
+                        instance.validate();
+                    });
             };
 
         if (SETTINGS.active) {
@@ -146,11 +146,11 @@
             SETTINGS.validators = SETTINGS.validators || [];
 
             /**
-             * Initializer for module. Will create custom elements and apply 
+             * Initializer for module. Will create custom elements and apply
              * default styles to it. Here will also be browser specific features.
-             * File module works by adding a custom element behind the browser 
+             * File module works by adding a custom element behind the browser
              * input file form field and making it transparent. There is also some browser
-             * specifics to calculate the final size in order to be fully on top of the 
+             * specifics to calculate the final size in order to be fully on top of the
              * input file field.
              *
              * @function
@@ -223,8 +223,8 @@
     };
 
     /**
-     * Blueprint used to allow custom field creation. 
-     * Element must be an object with a tagname 'input' with an attribute 'type' that 
+     * Blueprint used to allow custom field creation.
+     * Element must be an object with a tagname 'input' with an attribute 'type' that
      * has a value of 'file'.
      *
      * @property {Object} customformsjs.module.File.blueprint used to see if element meet module requirements.

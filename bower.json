@@ -1,8 +1,24 @@
 {
-    "name": "customForms",
-    "version": "1.0.2",
+    "name": "customformsjs",
+    "version": "1.0.5",
     "main": "./customForms.js",
     "description": "Javascript Library to aid on creation of beautiful form elements",
+    "author": {
+        "name": "Mitermayer Reis",
+        "email": "mitermayer.reis@gmail.com",
+        "url": "http://job.mitermayer.com/"
+    },
+    "contributors": [
+        {
+            "name": "Mitermayer Reis",
+            "email": "mitermayer.reis@gmail.com",
+            "url": "http://job.mitermayer.com/"
+        },
+        {
+            "name": "Matt Stone",
+            "email": "nitchy.s@gmail.com"
+        }
+    ],
     "repository": {
         "type": "git",
         "url": "git@github.com:mitermayer/CustomForms.git"

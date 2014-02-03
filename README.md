@@ -3,7 +3,7 @@
 # Customformsjs ##
 
 After 2 long years **version 1.0** is now released, the goal of customforms was to provide an
-easy and customizeble way to implement form fields. 
+easy and customizeble way to implement form fields.
 
 The goal was not only make it work but also
 build it on top of **software engineering best practices and principles**.
@@ -26,7 +26,7 @@ Agile board
 ***
 
 ##view demo with **jQuery 2.0**
-[![View demo jquery lastest version](http://customformsjs.com/demo/img/demo-button.png)](http://customformsjs.com/demo/)  
+[![View demo jquery lastest version](http://customformsjs.com/demo/img/demo-button.png)](http://customformsjs.com/demo/)
 
 ***
 
@@ -38,7 +38,7 @@ Agile board
 
 ## Modules
 * **Text** - _Cross browser support to placeholders_.
-* **Select** - _Custom select box_ 
+* **Select** - _Custom select box_
 * **File** - _Custom input file_
 * **Checkbox** - _Custom checkboxes_
 * **Radio** - _Custom radio_
@@ -79,20 +79,20 @@ Options and defaults can be found on the documentation page for each individual 
 ```javascript
 
   // You can overwrite defaults by passing an object with some options, when an option is passed
-  // without a module name as namespace it will be a global option, module namespaced options will 
+  // without a module name as namespace it will be a global option, module namespaced options will
   // overwrite global options, also modules will have some options that are particular for that module,
   // please refer to the documentation page to see all possible options for each module.
   var options = { active: true, lowercasemodulename: { active: false } };
-  
+
   // All supported elements inside container, will recurse to find all elements
-  $('#container').cstmForm( options ) 
+  $('#container').cstmForm( options )
 
   // All Form elements
-  $('form').cstmForm( options ) 
+  $('form').cstmForm( options )
 
-  // target a certain group of element 
+  // target a certain group of element
   $('input[type=file]').cstmForm( options )
- 
+
   // You can target specific groups of elements
   $('input[type=radio], input[type=checkbox], select').cstmForm( options )
 ```
@@ -106,6 +106,9 @@ A module will need to extend class ```app/lib/BaseField.js``` and implement ```m
 
 ## Change log
 
- - 1.0.2 - BUGFIX - Updated all modules to properly make use of the 'active' option and updated documentation page. 
+ - 1.0.5 - Fixing Jquery plugin repositiory referencing.
+ - 1.0.4 - BUGFIX - Radio button checked state initialization when not in the last element of a group.
+ - 1.0.3 - Including to jQuery plugin repositiory.
+ - 1.0.2 - BUGFIX - Updated all modules to properly make use of the 'active' option and updated documentation page.
  - 1.0.1 - BUGFIX - Updated placeholder module to check if there is a property placeholder while running on 'force' mode.
- - 1.0.0 - release 
+ - 1.0.0 - release
