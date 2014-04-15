@@ -1,6 +1,6 @@
 {
     "name": "customformsjs",
-    "version": "1.0.6",
+    "version": "1.0.6a",
     "main": "./customForms.js",
     "description": "Javascript Library to aid on creation of beautiful form elements",
     "author": {
