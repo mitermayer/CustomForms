@@ -161,7 +161,7 @@ module.exports = function(grunt) {
     // js-beautifier
     grunt.loadNpmTasks('grunt-jsbeautifier');
 
-    // install 
+    // install
     grunt.registerTask('install', 'Install javascript components defined on Gruntfile', ['bowerful:latest', 'clean:installLatest', 'bowerful:older', 'clean:installOlder']);
 
     // test
