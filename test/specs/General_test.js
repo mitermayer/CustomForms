@@ -7,18 +7,18 @@
      * Setup configuration
      */
     module('General', {
-            setup: function() {
+        setup: function() {
 
-                form = $('<form />');
+            form = $('<form />');
 
-                $('#qunit-fixture').append(form);
+            $('#qunit-fixture').append(form);
 
-            },
-            teardown: function() {
-                form = null;
-                $('#qunit-fixture').html('');
-            }
-        });
+        },
+        teardown: function() {
+            form = null;
+            $('#qunit-fixture').html('');
+        }
+    });
 
     /*
      * jQuery

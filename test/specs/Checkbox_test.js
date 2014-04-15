@@ -19,32 +19,32 @@
      * Setup configuration
      */
     module('Checkbox', {
-            setup: function() {
+        setup: function() {
 
-                form = $('<form />');
+            form = $('<form />');
 
-                input = $('<input />');
+            input = $('<input />');
 
-                input.attr(attr);
+            input.attr(attr);
 
-                $('#qunit-fixture').append(form.append(input));
+            $('#qunit-fixture').append(form.append(input));
 
-                checkbox = customformsjs.module.Checkbox({
-                        element: input.get(0),
-                        classPrefix: settings.classPrefix
-                    });
+            checkbox = customformsjs.module.Checkbox({
+                element: input.get(0),
+                classPrefix: settings.classPrefix
+            });
 
-                customEl = $('#' + settings.classPrefix + attr.id);
+            customEl = $('#' + settings.classPrefix + attr.id);
 
-            },
-            teardown: function() {
-                checkbox = null;
-                customEl = null;
-                form = null;
-                input = null;
-                $('#qunit-fixture').html('');
-            }
-        });
+        },
+        teardown: function() {
+            checkbox = null;
+            customEl = null;
+            form = null;
+            input = null;
+            $('#qunit-fixture').html('');
+        }
+    });
 
     /*
      * Initialization tests

@@ -80,12 +80,12 @@
 
             // setup default validator
             _validators.push({
-                    validator: function(val) {
-                        // checks if value is not undefined
-                        return val !== "";
-                    },
-                    message: "value can't be undefined."
-                });
+                validator: function(val) {
+                    // checks if value is not undefined
+                    return val !== "";
+                },
+                message: "value can't be undefined."
+            });
 
             // setup custom validators
             if (obj.validators) {
@@ -93,9 +93,9 @@
                     var _validator = obj.validators[v];
 
                     _validators.push({
-                            validator: _validators.validator || _validator,
-                            message: _validator.message
-                        });
+                        validator: _validators.validator || _validator,
+                        message: _validator.message
+                    });
                 }
             }
 
@@ -381,10 +381,10 @@
                 $customEl = $("<" + DEFAULTS.customEle + "/>");
 
                 $customEl.attr({
-                        id: DEFAULTS.classPrefix + ($el.attr("id") || $el.attr(
-                                "name")),
-                        'class': _class + ' customForm-hidden'
-                    });
+                    id: DEFAULTS.classPrefix + ($el.attr("id") || $el.attr(
+                        "name")),
+                    'class': _class + ' customForm-hidden'
+                });
 
                 // append it to the markup before the element
                 $el.before($customEl);
@@ -601,18 +601,18 @@
 
                 // setup attr and styles to container
                 $customContainer.attr({
-                        id: _id + '-container',
-                        'class': _containerClass
-                    }).css(SETTINGS.customContainerCss);
+                    id: _id + '-container',
+                    'class': _containerClass
+                }).css(SETTINGS.customContainerCss);
 
                 // create custom element
                 $customEl = $("<" + SETTINGS.customEle + "/>");
 
                 // setup attr and styles to custom element
                 $customEl.attr({
-                        id: _id,
-                        'class': _class
-                    }).css(SETTINGS.customElCss);
+                    id: _id,
+                    'class': _class
+                }).css(SETTINGS.customElCss);
 
 
                 // add container before element
@@ -800,10 +800,10 @@
                 $customEl = $("<" + DEFAULTS.customEle + "/>");
 
                 $customEl.attr({
-                        id: DEFAULTS.classPrefix + $el.attr("name") + "-" + $el
-                            .val(),
-                        'class': _class + ' customForm-hidden ' + _groupClass
-                    });
+                    id: DEFAULTS.classPrefix + $el.attr("name") + "-" + $el
+                        .val(),
+                    'class': _class + ' customForm-hidden ' + _groupClass
+                });
 
                 // append it to the markup before the element
                 $el.before($customEl);
@@ -1001,18 +1001,18 @@
 
                 // setup attr and styles to container
                 $customContainer.attr({
-                        id: _id + '-container',
-                        'class': _containerClass
-                    }).css(SETTINGS.customContainerCss);
+                    id: _id + '-container',
+                    'class': _containerClass
+                }).css(SETTINGS.customContainerCss);
 
                 // create custom element
                 $customEl = $("<" + SETTINGS.customEle + "/>");
 
                 // setup attr and styles to custom element
                 $customEl.attr({
-                        id: _id,
-                        'class': _class
-                    }).css(SETTINGS.customElCss);
+                    id: _id,
+                    'class': _class
+                }).css(SETTINGS.customElCss);
 
 
                 // add container before element
@@ -1310,7 +1310,7 @@
                     };
 
                     return lookupTable[typeof match === 'string' ? 'string' :
-                    'array']();
+                        'array']();
                 },
                 checkFilter = function(filter, $element) {
 
@@ -1339,7 +1339,7 @@
 
 
                         if (typeof _tag === 'string' || checkFilter(_tag.filter,
-                                $element)) {
+                            $element)) {
                             callModule(_modulename, element, _options);
                         }
                     }
@@ -1352,7 +1352,7 @@
                         };
 
                         lookupTable[getTag($(this)[0]) ? 'getModule' :
-                        'getSupportedChildren']($(this), options);
+                            'getSupportedChildren']($(this), options);
                     });
                 },
                 addSupportedElement = function(module, tag) {
@@ -1418,7 +1418,7 @@
                     };
 
                     lookupTable[getTag($(this)[0]) ? "validTag" :
-                    "checkChildrenForValidTag"]($(this), options);
+                        "checkChildrenForValidTag"]($(this), options);
                 });
             };
 
