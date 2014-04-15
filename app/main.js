@@ -40,7 +40,7 @@
                     APP.module[moduleName](settings);
                 },
                 setGlobalOptions = function(options) {
-                    // Global options are options that are 
+                    // Global options are options that are
                     // not namespaced by a module name
 
                     // Reset on each call
@@ -66,7 +66,7 @@
                     };
 
                     return lookupTable[typeof match === 'string' ? 'string' :
-                        'array']();
+                    'array']();
                 },
                 checkFilter = function(filter, $element) {
 
@@ -95,7 +95,7 @@
 
 
                         if (typeof _tag === 'string' || checkFilter(_tag.filter,
-                            $element)) {
+                                $element)) {
                             callModule(_modulename, element, _options);
                         }
                     }
@@ -108,7 +108,7 @@
                         };
 
                         lookupTable[getTag($(this)[0]) ? 'getModule' :
-                            'getSupportedChildren']($(this), options);
+                        'getSupportedChildren']($(this), options);
                     });
                 },
                 addSupportedElement = function(module, tag) {
@@ -167,14 +167,14 @@
             return function(options) {
                 setGlobalOptions(options);
 
-                $(this).each(function() {
+                return $(this).each(function() {
                     var lookupTable = {
                         validTag: getModule,
                         checkChildrenForValidTag: getSupportedChildren
                     };
 
                     lookupTable[getTag($(this)[0]) ? "validTag" :
-                        "checkChildrenForValidTag"]($(this), options);
+                    "checkChildrenForValidTag"]($(this), options);
                 });
             };
 
