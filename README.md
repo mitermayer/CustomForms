@@ -106,6 +106,7 @@ A module will need to extend class ```app/lib/BaseField.js``` and implement ```m
 
 ## Change log
 
+ - 1.0.7 - Compatibility with jQuery.noConflict() mode
  - 1.0.6 - When instantiating customForms it is now chainable.
  - 1.0.5 - Fixing Jquery plugin repositiory referencing.
  - 1.0.4 - BUGFIX - Radio button checked state initialization when not in the last element of a group.

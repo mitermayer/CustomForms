@@ -18,56 +18,56 @@
      * Setup configuration
      */
     module('Radio', {
-            setup: function() {
+        setup: function() {
 
-                form = $('<form />');
+            form = $('<form />');
 
-                $('#qunit-fixture').append(form);
+            $('#qunit-fixture').append(form);
 
-                // generate 3 radio buttons for testing
-                for (var i = 0; i < totalItems; i++) {
+            // generate 3 radio buttons for testing
+            for (var i = 0; i < totalItems; i++) {
 
-                    var _input = $('<input />');
+                var _input = $('<input />');
 
-                    // Setting the type on a radio button after the value resets the value in IE6-9,
-                    // to avoid that instead of setting all attributes to the radio at the same type,
-                    // manually set type attribute before the other attributes on the test suit setup
-                    _input.attr('type', 'radio');
+                // Setting the type on a radio button after the value resets the value in IE6-9,
+                // to avoid that instead of setting all attributes to the radio at the same type,
+                // manually set type attribute before the other attributes on the test suit setup
+                _input.attr('type', 'radio');
 
-                    var optAttr = $.extend({}, attr, {
-                            value: attr.value + i
-                        });
+                var optAttr = $.extend({}, attr, {
+                    value: attr.value + i
+                });
 
-                    // Lets make the second item checked by default
-                    if (i === 1) {
-                        optAttr.checked = "checked";
-                    }
-
-                    form.append(_input);
-
-                    _input.attr(optAttr);
-
-                    radio[i] = customformsjs.module.Radio({
-                            element: _input.get(0),
-                            classPrefix: settings.classPrefix
-                        });
-
-                    input[i] = _input;
-
-                    customEl[i] = $('#' + settings.classPrefix + _input.attr(
-                            "name") +
-                        "-" + _input.val());
-
+                // Lets make the second item checked by default
+                if (i === 1) {
+                    optAttr.checked = "checked";
                 }
-            },
-            teardown: function() {
-                form = null;
-                radio = [];
-                input = [];
-                customEl = [];
-                $('#qunit-fixture').html('');
+
+                form.append(_input);
+
+                _input.attr(optAttr);
+
+                radio[i] = customformsjs.module.Radio({
+                    element: _input.get(0),
+                    classPrefix: settings.classPrefix
+                });
+
+                input[i] = _input;
+
+                customEl[i] = $('#' + settings.classPrefix + _input.attr(
+                        "name") +
+                    "-" + _input.val());
+
             }
-        });
+        },
+        teardown: function() {
+            form = null;
+            radio = [];
+            input = [];
+            customEl = [];
+            $('#qunit-fixture').html('');
+        }
+    });
 
     /*
      * Initialization tests
