@@ -1,3 +1,5 @@
+/* jshint unused:false */
+
 (function(global, $) {
 
     "use strict";
