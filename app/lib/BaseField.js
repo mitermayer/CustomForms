@@ -1,4 +1,6 @@
-(function(global) {
+/* jshint unused:false */
+
+(function(global, $) {
 
     "use strict";
 
@@ -80,12 +82,12 @@
 
             // setup default validator
             _validators.push({
-                validator: function(val) {
-                    // checks if value is not undefined
-                    return val !== "";
-                },
-                message: "value can't be undefined."
-            });
+                    validator: function(val) {
+                        // checks if value is not undefined
+                        return val !== "";
+                    },
+                    message: "value can't be undefined."
+                });
 
             // setup custom validators
             if (obj.validators) {
@@ -93,9 +95,9 @@
                     var _validator = obj.validators[v];
 
                     _validators.push({
-                        validator: _validators.validator || _validator,
-                        message: _validator.message
-                    });
+                            validator: _validators.validator || _validator,
+                            message: _validator.message
+                        });
                 }
             }
 
@@ -265,4 +267,4 @@
         this.init();
     };
 
-}(this));
+}(this, jQuery));

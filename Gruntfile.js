@@ -43,7 +43,7 @@ module.exports = function(grunt) {
                     browser: true,
                     globals: {
                         module: false,
-                        $: false
+                        jQuery: false
                     }
                 },
                 gruntfile: {

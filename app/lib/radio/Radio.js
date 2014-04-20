@@ -1,4 +1,4 @@
-(function(global) {
+(function(global, $) {
 
     "use strict";
 
@@ -121,10 +121,10 @@
                 $customEl = $("<" + DEFAULTS.customEle + "/>");
 
                 $customEl.attr({
-                    id: DEFAULTS.classPrefix + $el.attr("name") + "-" + $el
-                        .val(),
-                    'class': _class + ' customForm-hidden ' + _groupClass
-                });
+                        id: DEFAULTS.classPrefix + $el.attr("name") + "-" + $el
+                            .val(),
+                        'class': _class + ' customForm-hidden ' + _groupClass
+                    });
 
                 // append it to the markup before the element
                 $el.before($customEl);
@@ -174,4 +174,4 @@
         }
     };
 
-}(this));
+}(this, jQuery));
