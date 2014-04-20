@@ -19,44 +19,44 @@
      * Setup configuration
      */
     module('file', {
-        setup: function() {
+            setup: function() {
 
-            var options;
+                var options;
 
-            form = $('<form />');
+                form = $('<form />');
 
-            input = $('<input />');
-            input.attr(attr);
+                input = $('<input />');
+                input.attr(attr);
 
-            form.append(input);
+                form.append(input);
 
-            $('#qunit-fixture').append(form);
+                $('#qunit-fixture').append(form);
 
-            file = customformsjs.module.File({
-                element: input.get(0),
-                classPrefix: settings.classPrefix,
-                holderTxt: settings.holderTxt
-            });
+                file = customformsjs.module.File({
+                        element: input.get(0),
+                        classPrefix: settings.classPrefix,
+                        holderTxt: settings.holderTxt
+                    });
 
-            var _customElId = settings.classPrefix + (input.attr("id") ||
-                input
-                .attr('name'));
-            var _customElContainerId = _customElId + '-container';
+                var _customElId = settings.classPrefix + (input.attr("id") ||
+                    input
+                    .attr('name'));
+                var _customElContainerId = _customElId + '-container';
 
-            customEl = $('#' + _customElId);
-            customElContainer = $('#' + _customElContainerId);
+                customEl = $('#' + _customElId);
+                customElContainer = $('#' + _customElContainerId);
 
-        },
-        teardown: function() {
-            form = null;
-            file = null;
-            input = null;
-            customEl = null;
-            customElContainer = null;
+            },
+            teardown: function() {
+                form = null;
+                file = null;
+                input = null;
+                customEl = null;
+                customElContainer = null;
 
-            $('#qunit-fixture').html('');
-        }
-    });
+                $('#qunit-fixture').html('');
+            }
+        });
 
     /*
      * Initialization tests
