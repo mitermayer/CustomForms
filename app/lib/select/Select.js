@@ -1,4 +1,4 @@
-(function(global) {
+(function(global, $) {
 
     "use strict";
 
@@ -213,4 +213,4 @@
         tagName: 'select'
     };
 
-}(this));
+}(this, jQuery));

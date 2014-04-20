@@ -1,4 +1,4 @@
-(function(global) {
+(function(global, $) {
 
     "use strict";
 
@@ -163,4 +163,4 @@
         }
     };
 
-}(this));
+}(this, jQuery));

@@ -1,4 +1,4 @@
-(function(global) {
+(function(global, $) {
 
     /**
      * @namespace
@@ -183,4 +183,4 @@
     // assign to jquery as a pluggin
     $.fn.cstmForm = fieldFactory;
 
-}(this));
+}(this, jQuery));
