@@ -1,7 +1,7 @@
 {
     "name": "customformsjs",
     "title": "Customformsjs - webforms made by engineers",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "description": "Javascript Library to aid on creation of beautiful form elements",
     "keywords": [
         "form",

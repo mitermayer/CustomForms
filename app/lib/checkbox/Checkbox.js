@@ -65,7 +65,7 @@
         var SETTINGS = obj ? $.extend(true, {}, DEFAULTS, obj) : DEFAULTS,
             $el = $(SETTINGS.element),
             $customEl = null,
-            _class = DEFAULTS.classPrefix + 'checkbox',
+            _class = SETTINGS.classPrefix + 'checkbox',
 
             attachEvents = function() {
                 $el.focusin(function() {
@@ -106,13 +106,13 @@
              */
             SETTINGS.init = function() {
                 // hide element
-                $el.css(DEFAULTS.hideCss);
+                $el.css(SETTINGS.hideCss);
 
                 // create custom element
-                $customEl = $("<" + DEFAULTS.customEle + "/>");
+                $customEl = $("<" + SETTINGS.customEle + "/>");
 
                 $customEl.attr({
-                    id: DEFAULTS.classPrefix + ($el.attr("id") || $el.attr(
+                    id: SETTINGS.classPrefix + ($el.attr("id") || $el.attr(
                         "name")),
                     'class': _class + ' customForm-hidden'
                 });

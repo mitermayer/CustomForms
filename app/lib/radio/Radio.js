@@ -1,5 +1,4 @@
 (function(global, $) {
-
     "use strict";
 
     var APP = global.customformsjs = global.customformsjs || {},
@@ -115,13 +114,13 @@
              */
             SETTINGS.init = function() {
                 // hide element
-                $el.css(DEFAULTS.hideCss);
+                $el.css(SETTINGS.hideCss);
 
                 // create custom element
-                $customEl = $("<" + DEFAULTS.customEle + "/>");
+                $customEl = $("<" + SETTINGS.customEle + "/>");
 
                 $customEl.attr({
-                    id: DEFAULTS.classPrefix + $el.attr("name") + "-" + $el
+                    id: SETTINGS.classPrefix + $el.attr("name") + "-" + $el
                         .val(),
                     'class': _class + ' customForm-hidden ' + _groupClass
                 });

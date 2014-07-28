@@ -336,7 +336,7 @@
         var SETTINGS = obj ? $.extend(true, {}, DEFAULTS, obj) : DEFAULTS,
             $el = $(SETTINGS.element),
             $customEl = null,
-            _class = DEFAULTS.classPrefix + 'checkbox',
+            _class = SETTINGS.classPrefix + 'checkbox',
 
             attachEvents = function() {
                 $el.focusin(function() {
@@ -377,13 +377,13 @@
              */
             SETTINGS.init = function() {
                 // hide element
-                $el.css(DEFAULTS.hideCss);
+                $el.css(SETTINGS.hideCss);
 
                 // create custom element
-                $customEl = $("<" + DEFAULTS.customEle + "/>");
+                $customEl = $("<" + SETTINGS.customEle + "/>");
 
                 $customEl.attr({
-                    id: DEFAULTS.classPrefix + ($el.attr("id") || $el.attr(
+                    id: SETTINGS.classPrefix + ($el.attr("id") || $el.attr(
                         "name")),
                     'class': _class + ' customForm-hidden'
                 });
@@ -548,11 +548,11 @@
         var instance = false;
 
         var $el = $(obj.element),
-            $customEl,
-            $customContainer,
+            $customEl = null,
+            $customContainer = null,
             SETTINGS = obj ? $.extend(true, {}, DEFAULTS, obj) : DEFAULTS,
-            _id = DEFAULTS.classPrefix + ($el.attr('id') || $el.attr('name')),
-            _class = DEFAULTS.classPrefix + 'file',
+            _id = SETTINGS.classPrefix + ($el.attr('id') || $el.attr('name')),
+            _class = SETTINGS.classPrefix + 'file',
             _containerClass = _class + '-container',
             _size = {
                 width: 0,
@@ -596,7 +596,7 @@
              */
             SETTINGS.init = function() {
                 // hide element
-                $el.css(DEFAULTS.hideCss);
+                $el.css(SETTINGS.hideCss);
 
                 //// create custom element
                 $customContainer = $("<" + SETTINGS.containerEle + "/>");
@@ -680,7 +680,6 @@
 }(this, jQuery));
 
 (function(global, $) {
-
     "use strict";
 
     var APP = global.customformsjs = global.customformsjs || {},
@@ -796,13 +795,13 @@
              */
             SETTINGS.init = function() {
                 // hide element
-                $el.css(DEFAULTS.hideCss);
+                $el.css(SETTINGS.hideCss);
 
                 // create custom element
-                $customEl = $("<" + DEFAULTS.customEle + "/>");
+                $customEl = $("<" + SETTINGS.customEle + "/>");
 
                 $customEl.attr({
-                    id: DEFAULTS.classPrefix + $el.attr("name") + "-" + $el
+                    id: SETTINGS.classPrefix + $el.attr("name") + "-" + $el
                         .val(),
                     'class': _class + ' customForm-hidden ' + _groupClass
                 });
@@ -961,8 +960,8 @@
             $el = $(SETTINGS.element),
             $customEl = null,
             $customContainer = null,
-            _id = DEFAULTS.classPrefix + ($el.attr('id') || $el.attr('name')),
-            _class = DEFAULTS.classPrefix + 'select',
+            _id = SETTINGS.classPrefix + ($el.attr('id') || $el.attr('name')),
+            _class = SETTINGS.classPrefix + 'select',
             _containerClass = _class + '-container',
             _size = {
                 width: 0,
@@ -996,7 +995,7 @@
              */
             SETTINGS.init = function() {
                 // hide element
-                $el.css(DEFAULTS.hideCss);
+                $el.css(SETTINGS.hideCss);
 
                 //// create custom element
                 $customContainer = $("<" + SETTINGS.containerEle + "/>");
