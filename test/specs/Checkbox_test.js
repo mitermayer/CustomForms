@@ -1,102 +1,128 @@
 (function(global) {
-
-    var checkbox,
-        input,
-        customEl,
-        form,
-        settings = {
-            classPrefix: 'custom-'
-        },
-        attr = {
-            name: 'something',
+    var checkbox, customEl, form, input,
+        ATTR = {
+            checked: false,
             id: 'something',
+            name: 'something',
             type: 'checkbox',
-            value: '1',
-            checked: false
+            value: '1'
+        },
+        SETTINGS = {
+            classPrefix: 'custom-'
         };
 
-    /*
-     * Setup configuration
-     */
-    module('Checkbox', {
-        setup: function() {
-
-            form = $('<form />');
-
-            input = $('<input />');
-
-            input.attr(attr);
-
-            $('#qunit-fixture').append(form.append(input));
-
-            checkbox = customformsjs.module.Checkbox({
-                element: input.get(0),
-                classPrefix: settings.classPrefix
-            });
-
-            customEl = $('#' + settings.classPrefix + attr.id);
-
-        },
-        teardown: function() {
-            checkbox = null;
-            customEl = null;
-            form = null;
-            input = null;
-            $('#qunit-fixture').html('');
-        }
+    module('Checkbox - initialization', {
+        setup: setup,
+        teardown: tearDown
     });
 
-    /*
-     * Initialization tests
-     */
-    test('Test initiliazation.', function() {
+    test('Testing module is available.', function() {
+        ok(customformsjs.module.Checkbox, 'The Checkbox module must be defined.');
+    });
 
-        ok(checkbox, 'The checkbox object must be defined.');
+    test('Testing module is instantiated.', function() {
+        ok(checkbox, 'The checkbox module must be successfuly instantiated.');
+    });
 
-        strictEqual(input.prop('checked'), customEl.hasClass('checked'),
-            'At first when input checkbox is initialized, it should have class "checked" based on the checkbox current "checked property".');
-
+    test('Testing custom element has "custom-checkbox" class applied to it.', function() {
         strictEqual(customEl.hasClass('custom-checkbox'), true,
-            'Custom elment should have class custom-checkbox when initializing');
+            'Custom element should have class custom-checkbox when initializing.');
     });
 
-    /*
-     * Interaction tests
-     */
-    test('Test interactions.', function() {
+    test('Testing element does not have class "checked" when input does not have checked property upon initialization.', function() {
+        strictEqual(customEl.hasClass('checked'), false,
+            'Custom element should not have class "checked".');
+    });
 
-        // setting checked state true, than clicking on it.
-        input.prop('checked', true);
-        input.click();
+    test('Testing element has class "checked" when input has checked property upon initialization.', function() {
+        initializeCheckboxWithCheckedStateValue(true);
+
+        strictEqual(customEl.hasClass('checked'), true,
+            'custom element should have class "checked".');
+    });
+
+    module('Checkbox - interactions.', {
+        setup: setup,
+        tearDown: tearDown
+    });
+
+    test('Testing that when "checked" element is clicked will remove "checked" class from custom element.', function() {
+        changeInputCheckedValueAndCLickOnIt(true);
+
         strictEqual(customEl.hasClass('checked'), false,
             'When element property checked is set to false, customEl should not have class checked.');
+    });
 
-        // setting checked state false, than clicking on it.
-        input.prop('checked', false);
-        input.click();
+    test('Testing that when "unchecked" element is clicked will add "checked" class to custom element.', function() {
+        changeInputCheckedValueAndCLickOnIt(false);
+
         strictEqual(customEl.hasClass('checked'), true,
             'When element property checked is set to true, customEl should have class checked.');
+    });
 
-        customEl.click();
+    test('Testing that when "unchecked" custom element is clicked it will add "checked" property to element.', function() {
+        changeInputCheckedValueAndCLickOnCustomElement(false);
+
+        strictEqual(input.prop('checked'), true,
+            'When customEl is clicked and previously it did have class checked, it should updated input checked property to false.');
+    });
+
+    test('Testing that when "checked" custom element is clicked it will remove "checked" property from element.', function() {
+        changeInputCheckedValueAndCLickOnCustomElement(true);
+
         strictEqual(input.prop('checked'), false,
             'When customEl is clicked and previously it did have class checked, it should updated input checked property to false.');
+    });
 
-        customEl.click();
-        strictEqual(input.prop('checked'), true,
-            'When customEl is clicked and previously it didnt have class checked, it should updated input checked property to true.');
-
+    test('Testing that when focus is triggered on element it adds class "focus" to custom element.', function() {
         input.focus();
+
         strictEqual(customEl.hasClass('focus'), true,
             'When element receive focus, customEl should have class focus added to it.');
+    });
 
-        input.blur();
+    test('Testing that custom element removes class "focus" when element loses focus.', function() {
+        input.focus().blur();
+
         strictEqual(customEl.hasClass('focus'), false,
             'When element loses focus, customEl should have class focus removed from it.');
-
-
-        strictEqual(customEl.hasClass('custom-checkbox'), true,
-            'Custom elment should have class custom-textfield when initializing');
-
     });
+
+    function changeInputCheckedValueAndCLickOnCustomElement(val) {
+        input.prop('checked', val);
+        customEl.click();
+    }
+
+    function changeInputCheckedValueAndCLickOnIt(val) {
+        input.prop('checked', val);
+        input.click();
+    }
+
+    function initializeCheckboxWithCheckedStateValue(checked) {
+        form = $('<form />');
+        input = $('<input />');
+        input.attr(ATTR).prop('checked', typeof checked !== 'undefined' ? checked : ATTR.checked);
+
+        $('#qunit-fixture').html(form.append(input));
+
+        checkbox = customformsjs.module.Checkbox({
+            element: input[0],
+            classPrefix: SETTINGS.classPrefix
+        });
+
+        customEl = $('#' + SETTINGS.classPrefix + ATTR.id);
+    }
+
+    function setup() {
+        initializeCheckboxWithCheckedStateValue(ATTR.checked);
+    }
+
+    function tearDown() {
+        checkbox = null;
+        customEl = null;
+        form = null;
+        input = null;
+        $('#qunit-fixture').html('');
+    }
 
 }(this));

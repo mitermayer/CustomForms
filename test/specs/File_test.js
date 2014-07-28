@@ -1,15 +1,14 @@
 (function(global) {
-
     var form,
         file,
         input,
         customEl,
         customElContainer,
-        settings = {
+        SETTINGS = {
             classPrefix: 'custom-',
             holderTxt: 'insert..'
         },
-        attr = {
+        ATTR = {
             name: 'something',
             type: 'file',
             id: 'somthingelse'
@@ -18,88 +17,82 @@
     /*
      * Setup configuration
      */
-    module('file', {
-        setup: function() {
-
-            var options;
-
-            form = $('<form />');
-
-            input = $('<input />');
-            input.attr(attr);
-
-            form.append(input);
-
-            $('#qunit-fixture').append(form);
-
-            file = customformsjs.module.File({
-                element: input.get(0),
-                classPrefix: settings.classPrefix,
-                holderTxt: settings.holderTxt
-            });
-
-            var _customElId = settings.classPrefix + (input.attr("id") ||
-                input
-                .attr('name'));
-            var _customElContainerId = _customElId + '-container';
-
-            customEl = $('#' + _customElId);
-            customElContainer = $('#' + _customElContainerId);
-
-        },
-        teardown: function() {
-            form = null;
-            file = null;
-            input = null;
-            customEl = null;
-            customElContainer = null;
-
-            $('#qunit-fixture').html('');
-        }
+    module('File - initialization', {
+        setup: setup,
+        teardown: tearDown
     });
 
-    /*
-     * Initialization tests
-     */
-    test('Test initiliazation.', function() {
+    test('Testing module is available.', function() {
+        ok(customformsjs.module.File, 'The File module must be defined.');
+    });
 
-        // check if we have a radio object
-        ok(file, 'The file object  must be defined.');
+    test('Testing module is instantiated.', function() {
+        ok(file, 'The File module must be successfuly instantiated.');
+    });
 
-        // custom container must be a valid html element
-        notStrictEqual(customElContainer.length, 0,
-            'When initializing customElContainer must be a valid html element.');
-
-        // custom element must be a valid html element
-        notStrictEqual(customEl.length, 0,
-            'When initializing customEl must be a valid html element.');
-
-        // input should now be inside the custom container 
-        strictEqual(input.parent()[0], customElContainer[0],
-            'When initialized file should be now instide of custom container.');
-
-        // input next sibbling should be custom element
-        strictEqual(input.next()[0], customEl[0],
-            'When initialized file should be followed by custom element.');
-
-        // checked stated should be a reflection of the input checked property
-        strictEqual(customEl.html(), settings.holderTxt,
-            'When initializing file and there is not a file value attached to the input, custom element should have holder text.');
-
+    test('Testing custom element has "custom-file" class applied to it.', function() {
         strictEqual(customEl.hasClass('custom-file'), true,
-            'Custom elment should have class custom-file when initializing');
-
+            'Custom element should have class custom-file when initializing.');
     });
 
-    /*
-     * Interaction tests
-     */
-    test('Test interactions.', function() {
-
-        expect(0);
-        // Browsers dont allow much functionality to be triggered programaticly on file in puts for security reasons.
-        // So there is not much that can be tested in here.
-
+    test('Testing custom element container has "custom-file-container" class applied to it.', function() {
+        strictEqual(customElContainer.hasClass('custom-file-container'), true,
+            'Custom element container should have class custom-file-container when initializing.');
     });
 
+    test('Testing custom element has a holder text applied to it when it is empty valued.', function() {
+        strictEqual(customEl.html(), SETTINGS.holderTxt,
+            'When initializing file and there is not a file value attached to the input, custom element should have holder text.');
+    });
+
+    function initializeFileWithValue() {
+        form = $('<form />');
+        input = $('<input />');
+        input.attr(ATTR).val(val);
+
+        $('#qunit-fixture').html(form.append(input));
+
+        textfield = customformsjs.module.Text({
+            element: input[0],
+            force: true
+        });
+    }
+
+    function setup() {
+        var options,
+            _customElContainerId,
+            _customElId;
+
+        form = $('<form />');
+
+        input = $('<input />');
+        input.attr(ATTR);
+
+        form.append(input);
+
+        $('#qunit-fixture').append(form);
+
+        file = customformsjs.module.File({
+            element: input.get(0),
+            classPrefix: SETTINGS.classPrefix,
+            holderTxt: SETTINGS.holderTxt
+        });
+
+        _customElId = SETTINGS.classPrefix + (input.attr("id") || input.attr('name'));
+
+        _customElContainerId = _customElId + '-container';
+
+        customEl = $('#' + _customElId);
+        customElContainer = $('#' + _customElContainerId);
+    }
+
+    function tearDown() {
+        form = null;
+        file = null;
+        input = null;
+        customEl = null;
+        customElContainer = null;
+
+        $('#qunit-fixture').html('');
+    }
 }(this));

@@ -1,118 +1,143 @@
 (function(global) {
-
-    var checkbox,
-        input,
-        customEl,
-        form,
-        settings = {
-            classPrefix: 'custom-'
-        },
-        attr = {
-            name: 'something',
+    var checkbox, customEl, form, input,
+        ATTR = {
+            checked: false,
             id: 'something',
+            name: 'something',
             type: 'checkbox',
-            value: '1',
-            checked: false
+            value: '1'
+        },
+        SETTINGS = {
+            classPrefix: 'custom-'
         };
 
-    /*
-     * Setup configuration
-     */
-    module('Checkbox', {
-        setup: function() {
-
-            form = $('<form />');
-
-            input = $('<input />');
-
-            input.attr(attr);
-
-            $('#qunit-fixture').append(form.append(input));
-
-            checkbox = customformsjs.module.Checkbox({
-                element: input.get(0),
-                classPrefix: settings.classPrefix
-            });
-
-            customEl = $('#' + settings.classPrefix + attr.id);
-
-        },
-        teardown: function() {
-            checkbox = null;
-            customEl = null;
-            form = null;
-            input = null;
-            $('#qunit-fixture').html('');
-        }
+    module('Checkbox - initialization', {
+        setup: setup,
+        teardown: tearDown
     });
 
-    /*
-     * Initialization tests
-     */
-    test('Test initiliazation.', function() {
+    test('Testing module is available.', function() {
+        ok(customformsjs.module.Checkbox, 'The Checkbox module must be defined.');
+    });
 
-        ok(checkbox, 'The checkbox object must be defined.');
+    test('Testing module is instantiated.', function() {
+        ok(checkbox, 'The checkbox module must be successfuly instantiated.');
+    });
 
-        strictEqual(input.prop('checked'), customEl.hasClass('checked'),
-            'At first when input checkbox is initialized, it should have class "checked" based on the checkbox current "checked property".');
-
+    test('Testing custom element has "custom-checkbox" class applied to it.', function() {
         strictEqual(customEl.hasClass('custom-checkbox'), true,
-            'Custom elment should have class custom-checkbox when initializing');
+            'Custom element should have class custom-checkbox when initializing.');
     });
 
-    /*
-     * Interaction tests
-     */
-    test('Test interactions.', function() {
+    test('Testing element does not have class "checked" when input does not have checked property upon initialization.', function() {
+        strictEqual(customEl.hasClass('checked'), false,
+            'Custom element should not have class "checked".');
+    });
 
-        // setting checked state true, than clicking on it.
-        input.prop('checked', true);
-        input.click();
+    test('Testing element has class "checked" when input has checked property upon initialization.', function() {
+        initializeCheckboxWithCheckedStateValue(true);
+
+        strictEqual(customEl.hasClass('checked'), true,
+            'custom element should have class "checked".');
+    });
+
+    module('Checkbox - interactions.', {
+        setup: setup,
+        tearDown: tearDown
+    });
+
+    test('Testing that when "checked" element is clicked will remove "checked" class from custom element.', function() {
+        changeInputCheckedValueAndCLickOnIt(true);
+
         strictEqual(customEl.hasClass('checked'), false,
             'When element property checked is set to false, customEl should not have class checked.');
+    });
 
-        // setting checked state false, than clicking on it.
-        input.prop('checked', false);
-        input.click();
+    test('Testing that when "unchecked" element is clicked will add "checked" class to custom element.', function() {
+        changeInputCheckedValueAndCLickOnIt(false);
+
         strictEqual(customEl.hasClass('checked'), true,
             'When element property checked is set to true, customEl should have class checked.');
+    });
 
-        customEl.click();
+    test('Testing that when "unchecked" custom element is clicked it will add "checked" property to element.', function() {
+        changeInputCheckedValueAndCLickOnCustomElement(false);
+
+        strictEqual(input.prop('checked'), true,
+            'When customEl is clicked and previously it did have class checked, it should updated input checked property to false.');
+    });
+
+    test('Testing that when "checked" custom element is clicked it will remove "checked" property from element.', function() {
+        changeInputCheckedValueAndCLickOnCustomElement(true);
+
         strictEqual(input.prop('checked'), false,
             'When customEl is clicked and previously it did have class checked, it should updated input checked property to false.');
+    });
 
-        customEl.click();
-        strictEqual(input.prop('checked'), true,
-            'When customEl is clicked and previously it didnt have class checked, it should updated input checked property to true.');
-
+    test('Testing that when focus is triggered on element it adds class "focus" to custom element.', function() {
         input.focus();
+
         strictEqual(customEl.hasClass('focus'), true,
             'When element receive focus, customEl should have class focus added to it.');
+    });
 
-        input.blur();
+    test('Testing that custom element removes class "focus" when element loses focus.', function() {
+        input.focus().blur();
+
         strictEqual(customEl.hasClass('focus'), false,
             'When element loses focus, customEl should have class focus removed from it.');
-
-
-        strictEqual(customEl.hasClass('custom-checkbox'), true,
-            'Custom elment should have class custom-textfield when initializing');
-
     });
+
+    function changeInputCheckedValueAndCLickOnCustomElement(val) {
+        input.prop('checked', val);
+        customEl.click();
+    }
+
+    function changeInputCheckedValueAndCLickOnIt(val) {
+        input.prop('checked', val);
+        input.click();
+    }
+
+    function initializeCheckboxWithCheckedStateValue(checked) {
+        form = $('<form />');
+        input = $('<input />');
+        input.attr(ATTR).prop('checked', typeof checked !== 'undefined' ? checked : ATTR.checked);
+
+        $('#qunit-fixture').html(form.append(input));
+
+        checkbox = customformsjs.module.Checkbox({
+            element: input[0],
+            classPrefix: SETTINGS.classPrefix
+        });
+
+        customEl = $('#' + SETTINGS.classPrefix + ATTR.id);
+    }
+
+    function setup() {
+        initializeCheckboxWithCheckedStateValue(ATTR.checked);
+    }
+
+    function tearDown() {
+        checkbox = null;
+        customEl = null;
+        form = null;
+        input = null;
+        $('#qunit-fixture').html('');
+    }
 
 }(this));
 
 (function(global) {
-
     var form,
         file,
         input,
         customEl,
         customElContainer,
-        settings = {
+        SETTINGS = {
             classPrefix: 'custom-',
             holderTxt: 'insert..'
         },
-        attr = {
+        ATTR = {
             name: 'something',
             type: 'file',
             id: 'somthingelse'
@@ -121,90 +146,84 @@
     /*
      * Setup configuration
      */
-    module('file', {
-        setup: function() {
-
-            var options;
-
-            form = $('<form />');
-
-            input = $('<input />');
-            input.attr(attr);
-
-            form.append(input);
-
-            $('#qunit-fixture').append(form);
-
-            file = customformsjs.module.File({
-                element: input.get(0),
-                classPrefix: settings.classPrefix,
-                holderTxt: settings.holderTxt
-            });
-
-            var _customElId = settings.classPrefix + (input.attr("id") ||
-                input
-                .attr('name'));
-            var _customElContainerId = _customElId + '-container';
-
-            customEl = $('#' + _customElId);
-            customElContainer = $('#' + _customElContainerId);
-
-        },
-        teardown: function() {
-            form = null;
-            file = null;
-            input = null;
-            customEl = null;
-            customElContainer = null;
-
-            $('#qunit-fixture').html('');
-        }
+    module('File - initialization', {
+        setup: setup,
+        teardown: tearDown
     });
 
-    /*
-     * Initialization tests
-     */
-    test('Test initiliazation.', function() {
+    test('Testing module is available.', function() {
+        ok(customformsjs.module.File, 'The File module must be defined.');
+    });
 
-        // check if we have a radio object
-        ok(file, 'The file object  must be defined.');
+    test('Testing module is instantiated.', function() {
+        ok(file, 'The File module must be successfuly instantiated.');
+    });
 
-        // custom container must be a valid html element
-        notStrictEqual(customElContainer.length, 0,
-            'When initializing customElContainer must be a valid html element.');
-
-        // custom element must be a valid html element
-        notStrictEqual(customEl.length, 0,
-            'When initializing customEl must be a valid html element.');
-
-        // input should now be inside the custom container 
-        strictEqual(input.parent()[0], customElContainer[0],
-            'When initialized file should be now instide of custom container.');
-
-        // input next sibbling should be custom element
-        strictEqual(input.next()[0], customEl[0],
-            'When initialized file should be followed by custom element.');
-
-        // checked stated should be a reflection of the input checked property
-        strictEqual(customEl.html(), settings.holderTxt,
-            'When initializing file and there is not a file value attached to the input, custom element should have holder text.');
-
+    test('Testing custom element has "custom-file" class applied to it.', function() {
         strictEqual(customEl.hasClass('custom-file'), true,
-            'Custom elment should have class custom-file when initializing');
-
+            'Custom element should have class custom-file when initializing.');
     });
 
-    /*
-     * Interaction tests
-     */
-    test('Test interactions.', function() {
-
-        expect(0);
-        // Browsers dont allow much functionality to be triggered programaticly on file in puts for security reasons.
-        // So there is not much that can be tested in here.
-
+    test('Testing custom element container has "custom-file-container" class applied to it.', function() {
+        strictEqual(customElContainer.hasClass('custom-file-container'), true,
+            'Custom element container should have class custom-file-container when initializing.');
     });
 
+    test('Testing custom element has a holder text applied to it when it is empty valued.', function() {
+        strictEqual(customEl.html(), SETTINGS.holderTxt,
+            'When initializing file and there is not a file value attached to the input, custom element should have holder text.');
+    });
+
+    function initializeFileWithValue() {
+        form = $('<form />');
+        input = $('<input />');
+        input.attr(ATTR).val(val);
+
+        $('#qunit-fixture').html(form.append(input));
+
+        textfield = customformsjs.module.Text({
+            element: input[0],
+            force: true
+        });
+    }
+
+    function setup() {
+        var options,
+            _customElContainerId,
+            _customElId;
+
+        form = $('<form />');
+
+        input = $('<input />');
+        input.attr(ATTR);
+
+        form.append(input);
+
+        $('#qunit-fixture').append(form);
+
+        file = customformsjs.module.File({
+            element: input.get(0),
+            classPrefix: SETTINGS.classPrefix,
+            holderTxt: SETTINGS.holderTxt
+        });
+
+        _customElId = SETTINGS.classPrefix + (input.attr("id") || input.attr('name'));
+
+        _customElContainerId = _customElId + '-container';
+
+        customEl = $('#' + _customElId);
+        customElContainer = $('#' + _customElContainerId);
+    }
+
+    function tearDown() {
+        form = null;
+        file = null;
+        input = null;
+        customEl = null;
+        customElContainer = null;
+
+        $('#qunit-fixture').html('');
+    }
 }(this));
 
 (function(global) {
@@ -244,143 +263,277 @@
 }(this));
 
 (function(global) {
-
-    var form,
-        radio = [],
-        input = [],
+    var TOTAL_ITEMS = 3,
+        DEFAULT_CHECKED_OPTION = 1,
         customEl = [],
-        totalItems = 3,
-        settings = {
-            classPrefix: 'custom-'
-        },
-        attr = {
+        form, input = [],
+        radio = [],
+        ATTR = {
+            type: 'radio',
             name: 'something',
             value: 'dummy',
             checked: false
+        },
+        SETTINGS = {
+            classPrefix: 'custom-'
         };
 
-    /*
-     * Setup configuration
-     */
-    module('Radio', {
-        setup: function() {
-
-            form = $('<form />');
-
-            $('#qunit-fixture').append(form);
-
-            // generate 3 radio buttons for testing
-            for (var i = 0; i < totalItems; i++) {
-
-                var _input = $('<input />');
-
-                // Setting the type on a radio button after the value resets the value in IE6-9,
-                // to avoid that instead of setting all attributes to the radio at the same type,
-                // manually set type attribute before the other attributes on the test suit setup
-                _input.attr('type', 'radio');
-
-                var optAttr = $.extend({}, attr, {
-                    value: attr.value + i
-                });
-
-                // Lets make the second item checked by default
-                if (i === 1) {
-                    optAttr.checked = "checked";
-                }
-
-                form.append(_input);
-
-                _input.attr(optAttr);
-
-                radio[i] = customformsjs.module.Radio({
-                    element: _input.get(0),
-                    classPrefix: settings.classPrefix
-                });
-
-                input[i] = _input;
-
-                customEl[i] = $('#' + settings.classPrefix + _input.attr(
-                        "name") +
-                    "-" + _input.val());
-
-            }
-        },
-        teardown: function() {
-            form = null;
-            radio = [];
-            input = [];
-            customEl = [];
-            $('#qunit-fixture').html('');
-        }
+    module('Radio - initialization.', {
+        setup: setup,
+        teardown: tearDown
     });
 
-    /*
-     * Initialization tests
-     */
-    test('Test initiliazation.', function() {
-
-        for (var i = 0; i < totalItems; i++) {
-
-            // check if we have a radio object
-            ok(radio[i], 'The radio object ' + i + '  must be defined.');
-
-            // checked stated should be a reflection of the input checked property
-            strictEqual(input[i].prop('checked'), customEl[i].hasClass(
-                    'checked'),
-                'After initliazed, radios checked class should reflect on their relative inputs checked property.');
-            strictEqual(customEl[i].hasClass('custom-radio'), true,
-                'Custom elment should have class custom-radio when initializing');
-
-        }
-
+    test('Testing module is available.', function() {
+        ok(customformsjs.module.Radio, 'The Radio module must be defined.');
     });
 
-    /*
-     * Interaction tests
-     */
-    test('Test interactions.', function() {
+    test('Testing module is instantiated.', function() {
+        ok(radio[0], 'The radio module must be successfuly instantiated.');
+    });
 
-        for (var i = 0; i < totalItems; i++) {
+    test('Testing custom element has "custom-radio" class applied to it.', function() {
+        strictEqual(customEl[0].hasClass('custom-radio'), true,
+            'Custom element should have class custom-radio when initializing.');
+    });
 
-            if (i === 0) {
-                input[i].prop("checked", false);
-                customEl[i].click();
-                strictEqual(customEl[i].hasClass('checked'), true,
-                    'When clicking on item one, it should add a class of Checked to customEl item one.');
-            } else {
-                strictEqual(customEl[i].hasClass('checked'), false,
-                    'Item one is currently checked and only one item can be checked at a time.');
-            }
-        }
+    test('Testing element have class "checked" when input have checked property upon initialization.', function() {
+        strictEqual(customEl[DEFAULT_CHECKED_OPTION].hasClass('checked'), true,
+            'Custom element should not have class "checked".');
+    });
 
+    test('Testing element does not have class "checked" when input does not have checked property upon initialization.', function() {
+        strictEqual(customEl[0].hasClass('checked'), false,
+            'Custom element should not have class "checked".');
+    });
+
+    test('Testing no checked elements upon initialization.', function() {
+        initializeRadioModule(); // initialize with no checked element
+
+        strictEqual(getCheckedCustomElement().length, 0,
+            'No Custom element should have class "checked".');
+    });
+
+    module('Radio - interactions.', {
+        setup: setup,
+        tearDown: tearDown
+    });
+
+    test('Testing that when focus is triggered on element it adds class "focus" to custom element.', function() {
         input[0].focus();
+
         strictEqual(customEl[0].hasClass('focus'), true,
             'When element receive focus, customEl should have class focus added to it.');
+    });
 
-        input[0].blur();
+    test('Testing that custom element removes class "focus" when element loses focus.', function() {
+        input[0].focus().blur();
+
         strictEqual(customEl[0].hasClass('focus'), false,
             'When element loses focus, customEl should have class focus removed from it.');
-
     });
+
+    test('Testing that when another "unchecked" custom element is clicked it will remove "checked" class from previously checked custom element.', function() {
+        customEl[0].click();
+
+        strictEqual(customEl[DEFAULT_CHECKED_OPTION].hasClass('checked'), false,
+            'When element property checked is set to false, customEl should not have class checked.');
+    });
+
+    test('Testing that when "unchecked" custom element is clicked it will add "checked" class to that custom element.', function() {
+        customEl[0].click();
+
+        strictEqual(customEl[0].hasClass('checked'), true,
+            'When element property checked is set to false, customEl should not have class checked.');
+    });
+
+    test('Testing that when "unchecked" when element is clicked it will add "checked" class to custom element.', function() {
+        input[0].click();
+
+        strictEqual(customEl[0].hasClass('checked'), true,
+            'When element property checked is set to false, customEl should not have class checked.');
+    });
+
+    test('Testing that when "unchecked" when element has property checked changed it will add "checked" class to custom element.', function() {
+        input[0].prop('checked', true).change();
+
+        strictEqual(customEl[0].hasClass('checked'), true,
+            'When element property checked is set to false, customEl should not have class checked.');
+    });
+
+    test('Testing that when another "unchecked" custom element is clicked it will remove "checked" class from previously checked custom element.', function() {
+        input[0].click();
+
+        strictEqual(customEl[DEFAULT_CHECKED_OPTION].hasClass('checked'), false,
+            'When element property checked is set to false, customEl should not have class checked.');
+    });
+
+    test('Testing that can only exist one checked element at a time, when clicking custom element.', function() {
+        customEl[0].click();
+        customEl[1].click();
+
+        strictEqual(getCheckedCustomElement().length, 1,
+            'There can only be a single checked element at a time.');
+    });
+
+    test('Testing that can only exist one checked element at a time, when clicking element.', function() {
+        input[0].click();
+        input[1].click();
+
+        strictEqual(getCheckedCustomElement().length, 1,
+            'There can only be a single checked element at a time.');
+    });
+
+    test('Testing that can only exist one checked element at a time, when changing element checked property.', function() {
+        input[0].prop('checked', true);
+        input[1].prop('checked', true);
+
+        strictEqual(getCheckedCustomElement().length, 1,
+            'There can only be a single checked element at a time.');
+    });
+
+    test('Testing that clicking on custom-element from a different form wont change the other item of another form.', function() {
+        initializeRadioModule([{
+            numOfItems: TOTAL_ITEMS,
+            form: $('<form id="first"/>')
+        }, {
+            numOfItems: TOTAL_ITEMS,
+            ATTR: {
+                name: 'foo'
+            },
+            form: $('<form id="second"/>')
+        }]);
+
+        strictEqual(getCheckedCustomElement().length, 0, 'All custom radio should be unchecked.');
+
+        $('#first').find('.custom-radio').first().click();
+        $('#second').find('.custom-radio').first().click();
+
+        strictEqual(getCheckedCustomElement().length, 2, 'Even if they have the same name they should still be able to be both checked since they are in different forms.');
+    });
+
+    test('Testing that clicking on element from a different form wont change the other item of another form.', function() {
+        initializeRadioModule([{
+            numOfItems: TOTAL_ITEMS,
+            form: $('<form id="first"/>')
+        }, {
+            numOfItems: TOTAL_ITEMS,
+            ATTR: {
+                name: 'foo'
+            },
+            form: $('<form id="second"/>')
+        }]);
+
+        strictEqual(getCheckedCustomElement().length, 0, 'All custom radio should be unchecked.');
+
+        $('#first').find('input').first().click();
+        $('#second').find('input').first().click();
+
+        strictEqual(getCheckedCustomElement().length, 2, 'Even if they have the same name they should still be able to be both checked since they are in different forms.');
+    });
+
+    function getCheckedCustomElement(className) {
+        var elements = className || SETTINGS.classPrefix + 'radio';
+
+        return $('.' + elements).filter('.checked');
+    }
+
+    function createFixture(options) {
+
+        var baseValue = options.baseValue || ATTR.name,
+            checkedItemIndex = options.checkedItemIndex,
+            form = options.form,
+            numOfItems = options.numOfItems,
+            attr = $.extend({}, ATTR, options.ATTR),
+            optAttr,
+            $input;
+
+        for (var i = 0; i < numOfItems; i++) {
+
+            $input = $('<input />');
+            optAttr = $.extend({}, attr, {
+                value: attr.value + i
+            });
+
+            // Lets make the second item checked by default
+            if (checkedItemIndex && i === checkedItemIndex) {
+                optAttr.checked = 'checked';
+            }
+
+            $input.attr(optAttr);
+
+            form.append($input);
+
+            radio[i] = customformsjs.module.Radio({
+                element: $input[0],
+                classPrefix: SETTINGS.classPrefix
+            });
+
+            input[i] = $input;
+
+            customEl[i] = $('#' + SETTINGS.classPrefix + $input.attr(
+                    'name') +
+                '-' + $input.val());
+        }
+    }
+
+    function createMultipleFixtures(fixtureSettingsArr) {
+        for (var i = 0, len = fixtureSettingsArr.length; i < len; i++) {
+            var fixture = fixtureSettingsArr[i];
+
+            fixture.baseValue = ATTR.name + i;
+            createFixture(fixture);
+        }
+    }
+
+    function initializeRadioModule(settings) {
+        var data = settings || [{
+            numOfItems: TOTAL_ITEMS,
+            checkedItemIndex: null,
+            form: $('<form/>')
+        }];
+
+        $('#qunit-fixture').html('');
+
+        for (var i = 0, len = data.length; i < len; i++) {
+            $('#qunit-fixture').append(data[i].form);
+        }
+
+        createMultipleFixtures(data);
+    }
+
+    function setup() {
+        initializeRadioModule([{
+            numOfItems: TOTAL_ITEMS,
+            checkedItemIndex: DEFAULT_CHECKED_OPTION,
+            form: $('<form />')
+        }]);
+    }
+
+    function tearDown() {
+        form = null;
+        radio = [];
+        input = [];
+        customEl = [];
+        $('#qunit-fixture').html('');
+    }
 
 }(this));
 
 (function(global) {
-
     var form,
         select,
         input,
         customEl,
         customElContainer,
-        settings = {
+        SETTINGS = {
             classPrefix: 'custom-'
         },
-        optVal = [
+        OPTION_VALUES = [
             'default',
             'foo',
             'moo'
         ],
-        attr = {
+        ATTR = {
             name: 'something',
             id: 'somthingelse'
         };
@@ -388,410 +541,471 @@
     /*
      * Setup configuration
      */
-    module('Select', {
-        setup: function() {
-
-            var options;
-
-            form = $('<form />');
-
-            input = $('<select />');
-            input.attr(attr);
-
-
-            for (var i = 0, len = optVal.length; i < len; i++) {
-                if (i === 0) {
-                    options += "<option>" + optVal[i] + "</option>";
-                } else {
-                    options += "<option value='" + i + "'>" + optVal[i] +
-                        "</option>";
-                }
-            }
-
-            // add options, make default with no value
-            input.html(options);
-
-            form.append(input);
-
-            $('#qunit-fixture').append(form);
-
-            select = customformsjs.module.Select({
-                element: input.get(0),
-                classPrefix: settings.classPrefix
-            });
-
-            var _customElId = settings.classPrefix + (input.attr("id") ||
-                input
-                .attr('name'));
-            var _customElContainerId = _customElId + '-container';
-
-            customEl = $('#' + _customElId);
-            customElContainer = $('#' + _customElContainerId);
-
-        },
-        teardown: function() {
-            form = null;
-            select = null;
-            input = null;
-            customEl = null;
-            customElContainer = null;
-
-            $('#qunit-fixture').html('');
-        }
+    module('Select - initialization', {
+        setup: setup,
+        teardown: tearDown
     });
 
-    /*
-     * Initialization tests
-     */
-    test('Test initiliazation.', function() {
+    test('Testing module is available.', function() {
+        ok(customformsjs.module.Select, 'The Select module must be defined.');
+    });
 
-        // check if we have a radio object
-        ok(select, 'The select object  must be defined.');
+    test('Testing module is instantiated.', function() {
+        ok(select, 'The Select module must be successfuly instantiated.');
+    });
 
-        // custom container must be a valid html element
-        notStrictEqual(customElContainer.length, 0,
-            'When initializing customElContainer must be a valid html element.');
-
-        // custom element must be a valid html element
-        notStrictEqual(customEl.length, 0,
-            'When initializing customEl must be a valid html element.');
-
-        // input should now be inside the custom container 
-        strictEqual(input.parent()[0], customElContainer[0],
-            'When initialized select should be now instide of custom container.');
-        // input next sibbling should be custom element
-        strictEqual(input.next()[0], customEl[0],
-            'When initialized select should be followed by custom element.');
-
-        // checked stated should be a reflection of the input checked property
-        strictEqual(customEl.html(), optVal[0],
-            'When initializing customEl text must be "default" since it is the first option node from the select elemet.');
-
+    test('Testing custom element has "custom-select" class applied to it.', function() {
         strictEqual(customEl.hasClass('custom-select'), true,
-            'Custom elment should have class custom-select when initializing');
+            'Custom element should have class custom-select when initializing.');
+    });
+
+    test('Testing custom element container has "custom-select-container" class applied to it.', function() {
+        strictEqual(customElContainer.hasClass('custom-select-container'), true,
+            'Custom element container should have class custom-select-container when initializing.');
+    });
+
+    test('Testing custom element text when initialized with no selected option.', function() {
+        strictEqual(customEl.html(), OPTION_VALUES[0],
+            'When initializing customEl text must be "default" since it is the first option node from the select element.');
+    });
+
+    test('Testing custom element text when initialized with a pre selected option.', function() {
+        var selectedIndex = 2;
+
+        initializeSelectModule(selectedIndex);
+
+        strictEqual(customEl.html(), OPTION_VALUES[selectedIndex],
+            'When initializing customEl text must be "moo" since it is the pre selected option node from the select element.');
     });
 
     /*
      * Interaction tests
      */
-    test('Test interactions.', function() {
+    module('Select - interactions.', {
+        setup: setup,
+        tearDown: tearDown
+    });
+
+    test('Testing that when focus is triggered on element it adds class "focus" to custom element container.', function() {
+        input.focus();
+
+        strictEqual(customElContainer.hasClass('focus'), true,
+            'When element receive focus, customElContainer should have class focus added to it.');
+    });
+
+    test('Testing that customElContainer removes class "focus" when element loses focus.', function() {
+        input.focus().blur();
+
+        strictEqual(customElContainer.hasClass('focus'), false,
+            'When element loses focus, customElContainer should have class focus removed from it.');
+    });
+
+    test('Testing custom element text when element value gets updated.', function() {
+        var selectedIndex = 2;
 
         // The change event definition
         // For select boxes, checkboxes, and radio buttons, the event is fired immediately when the user makes a selection with the mouse, but for the other element types the event is deferred until the element loses focus.
         // So in orther to unit test this, we need to call trigger manually since it can only activate change event with a mouse selection.
-        //
-        for (var i = 0, len = optVal.length; i < len; i++) {
-            input.val(i).trigger('change');
-            strictEqual(customEl.html(), optVal[i],
-                'When changing the select value, custom element text must reflect to the option selected text.');
+        input.val(selectedIndex).trigger('change');
+
+        strictEqual(customEl.html(), OPTION_VALUES[selectedIndex],
+            'When changing the select value, custom element text must reflect to the option selected text.');
+    });
+
+    function createOption(attr, text) {
+        var $option = $('<option />');
+
+        $option.attr(attr).html(text);
+
+        return $option;
+    }
+
+    function initializeSelectModule(selectedIndex) {
+        var options,
+            _customElId,
+            _customElContainerId,
+            _$input,
+            attr;
+
+        form = $('<form />');
+
+        input = $('<select />');
+        input.attr(ATTR);
+
+        for (var i = 0, len = OPTION_VALUES.length; i < len; i++) {
+            attr = {};
+
+            // having first element with no value
+            if (i !== 0) {
+                attr.value = i;
+            }
+
+            _$input = createOption(attr, OPTION_VALUES[i]);
+            _$input.prop('selected', i === selectedIndex);
+
+            input.append(_$input);
         }
 
-        input.focus();
-        strictEqual(customElContainer.hasClass('focus'), true,
-            'When element gain focus, custom element container should have class focus added to it.');
+        form.append(input);
 
-        input.blur();
-        strictEqual(customElContainer.hasClass('focus'), false,
-            'When element loses focus, custom element container should have class focus removed from it.');
+        $('#qunit-fixture').html(form);
 
-    });
+        select = customformsjs.module.Select({
+            element: input.get(0),
+            classPrefix: SETTINGS.classPrefix
+        });
+
+        _customElId = SETTINGS.classPrefix + (input.attr('id') || input.attr('name'));
+        _customElContainerId = _customElId + '-container';
+
+        customEl = $('#' + _customElId);
+        customElContainer = $('#' + _customElContainerId);
+    }
+
+    function setup() {
+        initializeSelectModule();
+    }
+
+    function tearDown() {
+        form = null;
+        select = null;
+        input = null;
+        customEl = null;
+        customElContainer = null;
+
+        $('#qunit-fixture').html('');
+    }
 
 }(this));
 
 (function(global) {
-
-    var textfield,
-        input,
-        form,
-        trimrgb = function(rgbcolor) {
-            return rgbcolor.replace(/[ ]/g, '');
-        },
-        hexToRgb = function(hex, opacity) {
-
-            var h = hex.replace('#', ''),
-                alpha = typeof opacity !== 'undefined',
-                prefix = 'rgb' + (alpha ? 'a' : '');
-
-            h = h.match(new RegExp('(.{' + h.length / 3 + '})', 'g'));
-
-            for (var i = 0; i < h.length; i++) {
-                h[i] = parseInt(h[i].length == 1 ? h[i] + h[i] : h[i], 16);
-            }
-
-            if (alpha) {
-                h.push(opacity);
-            }
-
-            return prefix + '(' + h.join(',') + ')';
-        },
-        colorProxy = function(color) {
-            return (/rgb/).test(color) ? trimrgb(color) : hexToRgb(color);
-        },
-        attr = {
-            name: 'something',
+    var form, input, textfield,
+        ATTR = {
             id: 'something',
+            name: 'something',
+            placeholder: 'defaultText',
             type: 'text',
-            value: '',
-            placeholder: 'defaultText'
+            value: ''
         },
-        css = {
+        CSS = {
             color: colorProxy('rgb(0, 0, 255)')
         };
 
-    /*
-     * Setup configuration
-     */
-    module('Text', {
-        setup: function() {
-
-            form = $('<form />');
-
-            input = $('<input />');
-
-            input.attr(attr).css(css);
-
-            $('#qunit-fixture').append(form.append(input));
-
-            textfield = customformsjs.module.Text({
-                element: input.get(0),
-                force: true
-            });
-        },
-        teardown: function() {
-            textfield = null;
-            form = null;
-            input = null;
-            $('#qunit-fixture').html('');
-        }
+    module('Textfield - initialization.', {
+        setup: setup,
+        tearDown: tearDown
     });
 
-    /*
-     * Initialization tests
-     */
-    test('Test initiliazation.', function() {
+    test('Testing module is available.', function() {
+        ok(customformsjs.module.Text, 'The textfield module must be defined.');
+    });
 
-        var _color;
+    test('Testing module is instantiated.', function() {
+        ok(textfield, 'The textfield module must be successfuly instantiated.');
+    });
 
-        ok(textfield, 'The textfield object must be defined.');
+    test('Testing custom element has "custom-textfield" class applied to it.', function() {
+        strictEqual(input.hasClass('custom-textfield'), true,
+            'Custom element should have class custom-textfield when initializing.');
+    });
 
-        _color = colorProxy(input.css("color"));
+    test('Testing custom placeholder value is applied to input when it is empty valued.', function() {
         strictEqual(input.val(), input.attr('placeholder'),
-            'At first input value should be the same as placeholder value.');
-        notStrictEqual(_color, css.color,
-            'At first input value should not have default color since it has a placeholder value.');
+            'Upon initialization input color should be overwrittin.');
+    });
 
-        input.val("somthing");
-        textfield.sync().validate();
-        textfield = customformsjs.module.Text({
-            element: input.get(0),
-            force: true
-        });
-        _color = colorProxy(input.css("color"));
+    test('Testing custom placeholder value is not applied to input when it has a valid value.', function() {
+        initializeTextFieldWithValue('foo');
+
         notStrictEqual(input.val(), input.attr('placeholder'),
             'When element is intialized with a valid value it should remain with its default value.');
-        strictEqual(_color, css.color,
+    });
+
+    test('Testing custom placeholder color with an empty valued input.', function() {
+        notStrictEqual(colorProxy(input.css('color')), CSS.color,
+            'Upon initialization input value should be the same as the placeholder value.');
+    });
+
+    test('Testing custom placeholder color with a valid valued input.', function() {
+        initializeTextFieldWithValue('bar');
+
+        strictEqual(colorProxy(input.css('color')), CSS.color,
             'When element is intialized with a valid value it should have its default color applied to it.');
-
-        strictEqual(input.hasClass('custom-textfield'), true,
-            'Custom elment should have class custom-textfield when initializing');
-
     });
 
-
-    /*
-     * Test model updates
-     */
-    test('Test updating values', function() {
-
-        var _color;
-
-        textfield.update('Tomate');
-        _color = colorProxy(input.css("color"));
-        strictEqual(input.val(), input.attr('placeholder'),
-            'After running the method "update" without saving, should keep the input value unchanged.');
-        strictEqual(_color, css.color,
-            'When updating to a valid value, color value should be "blue"');
-
-        textfield.save();
-        strictEqual(input.val(), 'Tomate',
-            'Input value should be updated to "Tomate".');
-
-        textfield.update('', true).save();
-        strictEqual(input.val(), '',
-            'Even if failing on validation Input value should now be set to an empty string "" when called with force parameter.');
-
-        textfield.update(input.attr('placeholder'), true).save();
-        _color = colorProxy(input.css("color"));
-        strictEqual(input.val(), input.attr('placeholder'),
-            'Even if failing on validation Input value should now be set to Placeholder value when called with force parameter.');
-        strictEqual(colorProxy(input.css("color")), _color,
-            'When updating to an invalid value, color value placeholder color should be "' +
-            _color + '"');
-
-
+    module('Textfield - data synchronization.', {
+        setup: setup,
+        tearDown: tearDown
     });
 
-    /*
-     * Test model saving
-     */
-    test('Test saving values', function() {
+    test('Testing overwriting custom element value with element value.', function() {
+        input.val('foo');
 
-        textfield.update("DUMMY").save();
-        strictEqual(input.val(), 'DUMMY',
-            'Input value should be updated to "DUMMY".');
-
-        textfield.update(1).save();
-        strictEqual(typeof input.val(), 'string',
-            'Input value should still be of type string even when updated with a number.');
-
-        textfield.update(true).save();
-        strictEqual(typeof input.val(), 'string',
-            'Input value should still be of type string even when updated with a boolean.');
-
+        textfield.bind('sync', function() {
+            strictEqual(input.val(), 'foo',
+                'Input and Model value should be "foo".');
+        }).sync();
     });
 
-    /*
-     * Test model synchronization
-     */
-    test('Test synchronizing values', function() {
-
-        textfield.bind("sync", function(event) {
-
-            var value = event.data;
-
-            strictEqual(input.val(), value,
-                'Model and input should share same value when input is directly updated and than sync is called, expected: ' +
-                input.val());
-
-            strictEqual(typeof value, 'string',
-                'value :' + value + ' should be of type string');
-
-        });
-
-        input.val('OtherValue');
-        textfield.sync();
-
-        input.val(1);
-        textfield.sync();
-
-        input.val(true);
-        textfield.sync();
-
-        input.val("");
-        textfield.sync();
-
-        input.val(false);
-        textfield.sync();
-
+    test('Testing updating without saving will not update input value.', function() {
+        textfield.bind('update', function() {
+            notStrictEqual(input.val(), 'foo',
+                'After running the method "update" without saving, input value should be unchanged.');
+        }).update('foo');
     });
 
-    /*
-     * Test model validator integration
-     */
-    test('Test validators', function() {
+    test('Testing overwriting input value with custom element value.', function() {
+        textfield.bind('save', function() {
+            strictEqual(input.val(), 'bar',
+                'Input value should be "bar".');
+        }).update('bar').save();
+    });
 
-        strictEqual(textfield.validate("").success, false,
+    module('Textfield - validators.', {
+        setup: setup,
+        tearDown: tearDown
+    });
+
+    test('Testing empty string.', function() {
+        strictEqual(textfield.validate('').success, false,
             '"" string should fail on validation.');
+    });
 
-        strictEqual(textfield.validate(input.attr("placeholder")).success,
+    test('Testing placeholder value.', function() {
+        strictEqual(textfield.validate(input.attr('placeholder')).success,
             false,
             'placeholder value should fail on validation.');
+    });
 
-        strictEqual(textfield.validate('Somthing else').success, true,
-            '"Something else" should pass on validation.');
+    test('Testing placeholder value.', function() {
+        strictEqual(textfield.validate('foo').success, true,
+            '"foo" should pass on validation.');
+    });
 
-
+    test('Testing custom validator.', function() {
         textfield = customformsjs.module.Text({
-            element: input.get(0),
+            element: input[0],
             force: true,
             validators: [
 
                 function(val) {
-                    return val !== "dummy";
-                },
-                function(val) {
-                    return typeof val !== "number";
+                    return val !== 'bar';
                 }
             ]
         });
 
-        strictEqual(textfield.validate("dummy").success, false,
-            '"dummy" should fail validation');
-
-        strictEqual(textfield.validate(1).success, false,
-            '1 should fail since it uses number validation.');
-
+        strictEqual(textfield.validate('bar').success, false,
+            '"bar" should fail validation.');
     });
 
-
-    /*
-     * Test model events handling
-     */
-    test('Test events', function() {
-
-        expect(6);
-
-        textfield.bind("save", function() {
-            ok(true,
-                'Event save should be called when model is saved.');
-        }).save();
-
-        textfield.bind("sync", function() {
-            ok(true,
-                'Event save should be called when model is synchronized.');
-        }).sync();
-
-        textfield
-            .bind("update", function() {
-                ok(true,
-                    'Event save should be called when model is updated.');
-            })
-            .bind("validate", function() {
-                ok(true,
-                    'Event validation should be called when model is query for validation.');
-            }).update("bones");
-
-
+    test('Testing multiple custom validators.', function() {
         textfield = customformsjs.module.Text({
-            element: input.get(0),
+            element: input[0],
             force: true,
-            events: ["someevent", "customevent"]
+            validators: [
+
+                function(val) {
+                    return val !== 'foo';
+                },
+                function(val) {
+                    return typeof val !== 'bar';
+                }
+            ]
         });
 
-        textfield.bind("someevent", function() {
+        strictEqual(textfield.validate('foo').success && textfield.validate('bar').success, false,
+            '"foo" and "bar" should fail validation.');
+    });
+
+    module('Textfield - events.', {
+        setup: setup,
+        tearDown: tearDown
+    });
+
+    test('Testing "save" event.', function() {
+        textfield.bind('save', function() {
             ok(true,
-                'Custom Event someevnt should be called when model triggers it.');
-        }).trigger("someevent");
-
-        textfield.bind("customevent", function() {
-            strictEqual(textfield.validate('Somthing else').success, true,
-                '"customevent" should pass "Hello world!" as a parameter when triggered.');
-        }).trigger("customevent", "Hello world!");
-
+                '"save" callback should be called when model value is saved.');
+        }).save();
     });
 
-    /*
-     * Markup related tests
-     */
-    test('Test markup', function() {
+    test('Testing "sync" event.', function() {
+        textfield.bind('sync', function() {
+            ok(true,
+                '"sync" callback should be called when model value is synchronized.');
+        }).sync();
+    });
 
+    test('Testing "update" event.', function() {
+        textfield.bind('update', function() {
+            ok(true,
+                '"update" callback should be called when model value is updated.');
+        }).update('foo');
+    });
+
+    test('Testing "update" event triggers validate event.', function() {
+        textfield.bind('validate', function() {
+            ok(true,
+                '"validate" callback should be called when model value is updated.');
+        }).update('bones');
+    });
+
+    test('Testing custom event triggers callback.', function() {
+        textfield = customformsjs.module.Text({
+            element: input[0],
+            force: true,
+            events: ['foo']
+        });
+
+        textfield.bind('foo', function(event) {
+            ok(true,
+                '"foo" callback should be called when event "foo" is triggered.');
+        }).trigger('foo');
+    });
+
+    test('Testing custom event triggered with no data.', function() {
+        textfield = customformsjs.module.Text({
+            element: input[0],
+            force: true,
+            events: ['foo']
+        });
+
+        textfield.bind('foo', function(event) {
+            strictEqual(typeof event.data, "undefined",
+                'event.data should not be undefined.');
+        }).trigger('foo');
+    });
+
+    test('Testing custom event triggered with data.', function() {
+        textfield = customformsjs.module.Text({
+            element: input[0],
+            force: true,
+            events: ['bar']
+        });
+
+        textfield.bind('bar', function(event) {
+            strictEqual(event.data, 'Hello world!',
+                'event.data value should be "Hello world!".');
+        }).trigger('bar', 'Hello world!');
+    });
+
+
+    module('Textfield - interactions.', {
+        setup: setup,
+        tearDown: tearDown
+    });
+
+    test('Testing that when element receives focus it adds class "focus" to it.', function() {
         input.focus();
-        strictEqual(input.val(), "",
-            'Value should become empty when input receive focus and has placeholder value on it.');
+        strictEqual(input.hasClass('focus'), true,
+            'When element receive focus, customEl should have class focus added to it.');
+    });
 
-        input.blur();
+    test('Testing that when element loses focus it removes class "focus" from it.', function() {
+        input.focus().blur();
+        strictEqual(input.hasClass('focus'), false,
+            'When element loses focus, customEl should have class focus removed from it.');
+    });
+
+    test('Testing input value when receiving focus with an invalid value.', function() {
+        input.focus();
+        strictEqual(input.val(), '',
+            'Input value should be ' + "" + ' when input receive focus and has an invalid value.');
+    });
+
+    test('Testing input value when receiving focus with a valid value.', function() {
+        input.focus().val('foo');
+        strictEqual(input.val(), 'foo', 'Input value should be ' + "foo" + ' when input receive and loses focus and has a valid value.');
+    });
+
+    test('Testing input value when receiving and losing focus while invalid.', function() {
+        input.focus().blur();
         strictEqual(input.val(), input.attr('placeholder'),
-            'Value should of placeholder when input receive loses focus has an invalid value on it.');
-
-        input.val("something");
-        input.focus();
-        notStrictEqual(input.val(), "",
-            'When focus on an element with valid data should not clear it, instead should append text to it.');
-
-        input.blur();
-        notStrictEqual(input.val(), input.attr('placeholder'),
-            'When losing focus on an elment with valid data it should not update to placeholder value.');
-
+            'Input Value should be the placeholder value when input receive and loses focus and has an invalid value.');
     });
+
+    test('Testing input value when receiving and losing focus while valid.', function() {
+        focusAndUpdateValue('foo');
+
+        strictEqual(input.val(), 'foo',
+            'Input value should be ' + "foo" + ' when input receive and loses focus.');
+    });
+
+    test('Testing custom placeholder color after a valid value change.', function() {
+        focusAndUpdateValue('foo');
+
+        strictEqual(colorProxy(input.css('color')), CSS.color,
+            'When updating to a valid value, color should no longer be the placeholder color."');
+    });
+
+    test('Testing custom placeholder color after an invalid value change.', function() {
+        focusAndUpdateValue('');
+
+        notStrictEqual(colorProxy(input.css('color')), CSS.color,
+            'When updating to an invalid value, placeholder color should be kept."');
+    });
+
+    test('Testing custom placeholder color after an invalid value change with the placeholder value.', function() {
+        focusAndUpdateValue('defaultText');
+
+        notStrictEqual(colorProxy(input.css('color')), CSS.color,
+            'When updating to an invalid value, placeholder color should be kept."');
+    });
+
+    function colorProxy(color) {
+        return (/rgb/).test(color) ? trimrgb(color) : hexToRgb(color);
+    }
+
+    function focusAndUpdateValue(val) {
+        input.focus();
+        input.val(val);
+        input.blur();
+    }
+
+    function initializeTextFieldWithValue(val) {
+        form = $('<form />');
+        input = $('<input />');
+        input.attr(ATTR).css(CSS).val(val);
+
+        $('#qunit-fixture').html(form.append(input));
+
+        textfield = customformsjs.module.Text({
+            element: input[0],
+            force: true
+        });
+    }
+
+    function hexToRgb(hex, opacity) {
+        var h = hex.replace('#', ''),
+            alpha = typeof opacity !== 'undefined',
+            prefix = 'rgb' + (alpha ? 'a' : '');
+
+        h = h.match(new RegExp('(.{' + h.length / 3 + '})', 'g'));
+
+        for (var i = 0; i < h.length; i++) {
+            h[i] = parseInt(h[i].length == 1 ? h[i] + h[i] : h[i], 16);
+        }
+
+        if (alpha) {
+            h.push(opacity);
+        }
+
+        return prefix + '(' + h.join(',') + ')';
+    }
+
+    function setup() {
+        initializeTextFieldWithValue(ATTR.value);
+    }
+
+    function tearDown() {
+        textfield = null;
+        form = null;
+        input = null;
+        $('#qunit-fixture').html('');
+    }
+
+    function trimrgb(rgbcolor) {
+        return rgbcolor.replace(/[ ]/g, '');
+    }
 
 }(this));

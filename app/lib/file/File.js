@@ -110,11 +110,11 @@
         var instance = false;
 
         var $el = $(obj.element),
-            $customEl,
-            $customContainer,
+            $customEl = null,
+            $customContainer = null,
             SETTINGS = obj ? $.extend(true, {}, DEFAULTS, obj) : DEFAULTS,
-            _id = DEFAULTS.classPrefix + ($el.attr('id') || $el.attr('name')),
-            _class = DEFAULTS.classPrefix + 'file',
+            _id = SETTINGS.classPrefix + ($el.attr('id') || $el.attr('name')),
+            _class = SETTINGS.classPrefix + 'file',
             _containerClass = _class + '-container',
             _size = {
                 width: 0,
@@ -158,7 +158,7 @@
              */
             SETTINGS.init = function() {
                 // hide element
-                $el.css(DEFAULTS.hideCss);
+                $el.css(SETTINGS.hideCss);
 
                 //// create custom element
                 $customContainer = $("<" + SETTINGS.containerEle + "/>");

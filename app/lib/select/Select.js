@@ -102,8 +102,8 @@
             $el = $(SETTINGS.element),
             $customEl = null,
             $customContainer = null,
-            _id = DEFAULTS.classPrefix + ($el.attr('id') || $el.attr('name')),
-            _class = DEFAULTS.classPrefix + 'select',
+            _id = SETTINGS.classPrefix + ($el.attr('id') || $el.attr('name')),
+            _class = SETTINGS.classPrefix + 'select',
             _containerClass = _class + '-container',
             _size = {
                 width: 0,
@@ -137,7 +137,7 @@
              */
             SETTINGS.init = function() {
                 // hide element
-                $el.css(DEFAULTS.hideCss);
+                $el.css(SETTINGS.hideCss);
 
                 //// create custom element
                 $customContainer = $("<" + SETTINGS.containerEle + "/>");
