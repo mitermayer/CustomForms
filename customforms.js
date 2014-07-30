@@ -1,6 +1,16 @@
 /* jshint unused:false */
 
-(function(global, $) {
+(function(factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define('customformsjs/basefield', ['jquery'], function($) {
+            factory(window, $);
+        });
+    } else {
+        // Browser globals
+        factory(window, jQuery);
+    }
+}(function(global, $) {
 
     "use strict";
 
@@ -211,9 +221,9 @@
          */
         this.validate = function(val) {
             var ret = {
-                success: true,
-                message: []
-            },
+                    success: true,
+                    message: []
+                },
                 message = '"' + val + '" is not a valid value.';
 
             for (var v = 0, l = _validators.length; v < l; v++) {
@@ -267,9 +277,19 @@
         this.init();
     };
 
-}(this, jQuery));
+}));
 
-(function(global, $) {
+(function(factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define('customformsjs/checkbox', ['jquery', 'customformsjs/basefield'], function($) {
+            factory(window, $);
+        });
+    } else {
+        // Browser globals
+        factory(window, jQuery);
+    }
+}(function(global, $) {
 
     "use strict";
 
@@ -434,9 +454,19 @@
         }
     };
 
-}(this, jQuery));
+}));
 
-(function(global, $) {
+(function(factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define('customformsjs/file', ['jquery', 'customformsjs/basefield'], function($) {
+            factory(window, $);
+        });
+    } else {
+        // Browser globals
+        factory(window, jQuery);
+    }
+}(function(global, $) {
 
     "use strict";
 
@@ -677,9 +707,19 @@
         }
     };
 
-}(this, jQuery));
+}));
 
-(function(global, $) {
+(function(factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define('customformsjs/radio', ['jquery', 'customformsjs/basefield'], function($) {
+            factory(window, $);
+        });
+    } else {
+        // Browser globals
+        factory(window, jQuery);
+    }
+}(function(global, $) {
     "use strict";
 
     var APP = global.customformsjs = global.customformsjs || {},
@@ -854,9 +894,19 @@
         }
     };
 
-}(this, jQuery));
+}));
 
-(function(global, $) {
+(function(factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define('customformsjs/select', ['jquery', 'customformsjs/basefield'], function($) {
+            factory(window, $);
+        });
+    } else {
+        // Browser globals
+        factory(window, jQuery);
+    }
+}(function(global, $) {
 
     "use strict";
 
@@ -1071,9 +1121,19 @@
         tagName: 'select'
     };
 
-}(this, jQuery));
+}));
 
-(function(global, $) {
+(function(factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define('customformsjs/text', ['jquery', 'customformsjs/basefield'], function($) {
+            factory(window, $);
+        });
+    } else {
+        // Browser globals
+        factory(window, jQuery);
+    }
+}(function(global, $) {
 
     'use strict';
 
@@ -1241,9 +1301,26 @@
         }
     };
 
-}(this, jQuery));
+}));
 
-(function(global, $) {
+(function(factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define('customformsjs', [
+            'jquery',
+            'customformsjs/checkbox',
+            'customformsjs/radio',
+            'customformsjs/text',
+            'customformsjs/file',
+            'customformsjs/select'
+        ], function($) {
+            factory(window, $);
+        });
+    } else {
+        // Browser globals
+        factory(window, jQuery);
+    }
+}(function(global, $) {
 
     /**
      * @namespace
@@ -1386,7 +1463,8 @@
                                 string: addSupportedElement
                             };
 
-                        lookupTable[$.isArray(_tag) ? 'array' : 'string'](key,
+                        lookupTable[$.isArray(_tag) ? 'array' : 'string'](
+                            key,
                             _tag);
                     });
                 };
@@ -1428,4 +1506,4 @@
     // assign to jquery as a pluggin
     $.fn.cstmForm = fieldFactory;
 
-}(this, jQuery));
+}));

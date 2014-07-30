@@ -1,4 +1,21 @@
-(function(global, $) {
+(function(factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define('customformsjs', [
+            'jquery',
+            'customformsjs/checkbox',
+            'customformsjs/radio',
+            'customformsjs/text',
+            'customformsjs/file',
+            'customformsjs/select'
+        ], function($) {
+            factory(window, $);
+        });
+    } else {
+        // Browser globals
+        factory(window, jQuery);
+    }
+}(function(global, $) {
 
     /**
      * @namespace
@@ -141,7 +158,8 @@
                                 string: addSupportedElement
                             };
 
-                        lookupTable[$.isArray(_tag) ? 'array' : 'string'](key,
+                        lookupTable[$.isArray(_tag) ? 'array' : 'string'](
+                            key,
                             _tag);
                     });
                 };
@@ -183,4 +201,4 @@
     // assign to jquery as a pluggin
     $.fn.cstmForm = fieldFactory;
 
-}(this, jQuery));
+}));

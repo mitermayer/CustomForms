@@ -43,7 +43,9 @@ module.exports = function(grunt) {
                     browser: true,
                     globals: {
                         module: false,
-                        jQuery: false
+                        jQuery: false,
+                        require: false,
+                        define: false
                     }
                 },
                 gruntfile: {
@@ -107,12 +109,16 @@ module.exports = function(grunt) {
                     store: 'components',
                     dest: 'demo',
                     destfile: 'vendor',
-                    /*
-            customtarget: {
-                jquery: 'demo/jquery'
-            },
-            */
                     packages: {
+                        jquery: ''
+                    }
+                },
+                latestAMD: {
+                    store: 'components',
+                    dest: 'demo',
+                    destfile: 'vendor-amd',
+                    packages: {
+                        almond: '',
                         jquery: ''
                     }
                 },
@@ -120,11 +126,6 @@ module.exports = function(grunt) {
                     store: 'components',
                     dest: 'demo',
                     destfile: 'vendor-old',
-                    /*
-            customtarget: {
-                jquery: 'demo/jquery'
-            },
-            */
                     packages: {
                         jquery: '1.6.0'
                     }
@@ -133,6 +134,9 @@ module.exports = function(grunt) {
             clean: {
                 installLatest: {
                     src: '<%= bowerful.latest.store.src %>'
+                },
+                installLatestAMD: {
+                    src: '<%= bowerful.latestAMD.store.src %>'
                 },
                 installOlder: {
                     src: '<%= bowerful.older.store.src %>'
@@ -162,7 +166,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-jsbeautifier');
 
     // install
-    grunt.registerTask('install', 'Install javascript components defined on Gruntfile', ['bowerful:latest', 'clean:installLatest', 'bowerful:older', 'clean:installOlder']);
+    grunt.registerTask('install', 'Install javascript components defined on Gruntfile', ['bowerful:latest', 'clean:installLatest', 'bowerful:latestAMD','clean:installLatestAMD','bowerful:older', 'clean:installOlder']);
 
     // test
     grunt.registerTask('test', 'build and integration test', ['install', 'lint', 'utest']);

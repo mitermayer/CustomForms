@@ -1,4 +1,14 @@
-(function(global, $) {
+(function(factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define('customformsjs/file', ['jquery', 'customformsjs/basefield'], function($) {
+            factory(window, $);
+        });
+    } else {
+        // Browser globals
+        factory(window, jQuery);
+    }
+}(function(global, $) {
 
     "use strict";
 
@@ -239,4 +249,4 @@
         }
     };
 
-}(this, jQuery));
+}));
