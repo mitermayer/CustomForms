@@ -2,7 +2,7 @@
 
 # Customformsjs ##
 
-Current version: 1.0.9.1 - 30/07/2014
+Current version: 1.0.9a - 30/07/2014
 AMD compatible.
 
 After 2 long years **version 1.0** is now released, the goal of customforms was to provide an
