@@ -1,4 +1,5 @@
-[![Build Status](https://circleci.com/gh/mitermayer/CustomForms.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/mitermayer/CustomForms)
+[![Circle CI](https://circleci.com/gh/mitermayer/CustomForms.svg?style=shield)](https://circleci.com/gh/mitermayer/CustomForms)
+
 [![Build Status](https://travis-ci.org/mitermayer/CustomForms.png?branch=refactor)](https://travis-ci.org/mitermayer/CustomForms)
 
 # Customformsjs ##
