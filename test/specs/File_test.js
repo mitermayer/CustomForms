@@ -18,9 +18,9 @@
      * Setup configuration
      */
     module('File - initialization', {
-        setup: setup,
-        teardown: tearDown
-    });
+            setup: setup,
+            teardown: tearDown
+        });
 
     test('Testing module is available.', function() {
         ok(customformsjs.module.File, 'The File module must be defined.');
@@ -35,15 +35,18 @@
             'Custom element should have class custom-file when initializing.');
     });
 
-    test('Testing custom element container has "custom-file-container" class applied to it.', function() {
-        strictEqual(customElContainer.hasClass('custom-file-container'), true,
-            'Custom element container should have class custom-file-container when initializing.');
-    });
+    test(
+        'Testing custom element container has "custom-file-container" class applied to it.', function() {
+            strictEqual(customElContainer.hasClass('custom-file-container'),
+                true,
+                'Custom element container should have class custom-file-container when initializing.');
+        });
 
-    test('Testing custom element has a holder text applied to it when it is empty valued.', function() {
-        strictEqual(customEl.html(), SETTINGS.holderTxt,
-            'When initializing file and there is not a file value attached to the input, custom element should have holder text.');
-    });
+    test(
+        'Testing custom element has a holder text applied to it when it is empty valued.', function() {
+            strictEqual(customEl.html(), SETTINGS.holderTxt,
+                'When initializing file and there is not a file value attached to the input, custom element should have holder text.');
+        });
 
     function initializeFileWithValue() {
         form = $('<form />');
@@ -53,9 +56,9 @@
         $('#qunit-fixture').html(form.append(input));
 
         textfield = customformsjs.module.Text({
-            element: input[0],
-            force: true
-        });
+                element: input[0],
+                force: true
+            });
     }
 
     function setup() {
@@ -73,12 +76,13 @@
         $('#qunit-fixture').append(form);
 
         file = customformsjs.module.File({
-            element: input.get(0),
-            classPrefix: SETTINGS.classPrefix,
-            holderTxt: SETTINGS.holderTxt
-        });
+                element: input.get(0),
+                classPrefix: SETTINGS.classPrefix,
+                holderTxt: SETTINGS.holderTxt
+            });
 
-        _customElId = SETTINGS.classPrefix + (input.attr("id") || input.attr('name'));
+        _customElId = SETTINGS.classPrefix + (input.attr("id") || input.attr(
+                'name'));
 
         _customElContainerId = _customElId + '-container';
 

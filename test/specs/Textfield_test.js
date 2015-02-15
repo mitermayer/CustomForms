@@ -12,9 +12,9 @@
         };
 
     module('Textfield - initialization.', {
-        setup: setup,
-        tearDown: tearDown
-    });
+            setup: setup,
+            tearDown: tearDown
+        });
 
     test('Testing module is available.', function() {
         ok(customformsjs.module.Text, 'The textfield module must be defined.');
@@ -29,17 +29,19 @@
             'Custom element should have class custom-textfield when initializing.');
     });
 
-    test('Testing custom placeholder value is applied to input when it is empty valued.', function() {
-        strictEqual(input.val(), input.attr('placeholder'),
-            'Upon initialization input color should be overwrittin.');
-    });
+    test(
+        'Testing custom placeholder value is applied to input when it is empty valued.', function() {
+            strictEqual(input.val(), input.attr('placeholder'),
+                'Upon initialization input color should be overwrittin.');
+        });
 
-    test('Testing custom placeholder value is not applied to input when it has a valid value.', function() {
-        initializeTextFieldWithValue('foo');
+    test(
+        'Testing custom placeholder value is not applied to input when it has a valid value.', function() {
+            initializeTextFieldWithValue('foo');
 
-        notStrictEqual(input.val(), input.attr('placeholder'),
-            'When element is intialized with a valid value it should remain with its default value.');
-    });
+            notStrictEqual(input.val(), input.attr('placeholder'),
+                'When element is intialized with a valid value it should remain with its default value.');
+        });
 
     test('Testing custom placeholder color with an empty valued input.', function() {
         notStrictEqual(colorProxy(input.css('color')), CSS.color,
@@ -54,9 +56,9 @@
     });
 
     module('Textfield - data synchronization.', {
-        setup: setup,
-        tearDown: tearDown
-    });
+            setup: setup,
+            tearDown: tearDown
+        });
 
     test('Testing overwriting custom element value with element value.', function() {
         input.val('foo');
@@ -82,9 +84,9 @@
     });
 
     module('Textfield - validators.', {
-        setup: setup,
-        tearDown: tearDown
-    });
+            setup: setup,
+            tearDown: tearDown
+        });
 
     test('Testing empty string.', function() {
         strictEqual(textfield.validate('').success, false,
@@ -104,15 +106,15 @@
 
     test('Testing custom validator.', function() {
         textfield = customformsjs.module.Text({
-            element: input[0],
-            force: true,
-            validators: [
+                element: input[0],
+                force: true,
+                validators: [
 
-                function(val) {
-                    return val !== 'bar';
-                }
-            ]
-        });
+                    function(val) {
+                        return val !== 'bar';
+                    }
+                ]
+            });
 
         strictEqual(textfield.validate('bar').success, false,
             '"bar" should fail validation.');
@@ -120,27 +122,28 @@
 
     test('Testing multiple custom validators.', function() {
         textfield = customformsjs.module.Text({
-            element: input[0],
-            force: true,
-            validators: [
+                element: input[0],
+                force: true,
+                validators: [
 
-                function(val) {
-                    return val !== 'foo';
-                },
-                function(val) {
-                    return typeof val !== 'bar';
-                }
-            ]
-        });
+                    function(val) {
+                        return val !== 'foo';
+                    },
+                    function(val) {
+                        return typeof val !== 'bar';
+                    }
+                ]
+            });
 
-        strictEqual(textfield.validate('foo').success && textfield.validate('bar').success, false,
+        strictEqual(textfield.validate('foo').success && textfield.validate(
+                'bar').success, false,
             '"foo" and "bar" should fail validation.');
     });
 
     module('Textfield - events.', {
-        setup: setup,
-        tearDown: tearDown
-    });
+            setup: setup,
+            tearDown: tearDown
+        });
 
     test('Testing "save" event.', function() {
         textfield.bind('save', function() {
@@ -172,10 +175,10 @@
 
     test('Testing custom event triggers callback.', function() {
         textfield = customformsjs.module.Text({
-            element: input[0],
-            force: true,
-            events: ['foo']
-        });
+                element: input[0],
+                force: true,
+                events: ['foo']
+            });
 
         textfield.bind('foo', function(event) {
             ok(true,
@@ -185,10 +188,10 @@
 
     test('Testing custom event triggered with no data.', function() {
         textfield = customformsjs.module.Text({
-            element: input[0],
-            force: true,
-            events: ['foo']
-        });
+                element: input[0],
+                force: true,
+                events: ['foo']
+            });
 
         textfield.bind('foo', function(event) {
             strictEqual(typeof event.data, "undefined",
@@ -198,10 +201,10 @@
 
     test('Testing custom event triggered with data.', function() {
         textfield = customformsjs.module.Text({
-            element: input[0],
-            force: true,
-            events: ['bar']
-        });
+                element: input[0],
+                force: true,
+                events: ['bar']
+            });
 
         textfield.bind('bar', function(event) {
             strictEqual(event.data, 'Hello world!',
@@ -211,31 +214,35 @@
 
 
     module('Textfield - interactions.', {
-        setup: setup,
-        tearDown: tearDown
-    });
+            setup: setup,
+            tearDown: tearDown
+        });
 
-    test('Testing that when element receives focus it adds class "focus" to it.', function() {
-        input.focus();
-        strictEqual(input.hasClass('focus'), true,
-            'When element receive focus, customEl should have class focus added to it.');
-    });
+    test(
+        'Testing that when element receives focus it adds class "focus" to it.', function() {
+            input.focus();
+            strictEqual(input.hasClass('focus'), true,
+                'When element receive focus, customEl should have class focus added to it.');
+        });
 
-    test('Testing that when element loses focus it removes class "focus" from it.', function() {
-        input.focus().blur();
-        strictEqual(input.hasClass('focus'), false,
-            'When element loses focus, customEl should have class focus removed from it.');
-    });
+    test(
+        'Testing that when element loses focus it removes class "focus" from it.', function() {
+            input.focus().blur();
+            strictEqual(input.hasClass('focus'), false,
+                'When element loses focus, customEl should have class focus removed from it.');
+        });
 
     test('Testing input value when receiving focus with an invalid value.', function() {
         input.focus();
         strictEqual(input.val(), '',
-            'Input value should be ' + "" + ' when input receive focus and has an invalid value.');
+            'Input value should be ' + "" +
+            ' when input receive focus and has an invalid value.');
     });
 
     test('Testing input value when receiving focus with a valid value.', function() {
         input.focus().val('foo');
-        strictEqual(input.val(), 'foo', 'Input value should be ' + "foo" + ' when input receive and loses focus and has a valid value.');
+        strictEqual(input.val(), 'foo', 'Input value should be ' + "foo" +
+            ' when input receive and loses focus and has a valid value.');
     });
 
     test('Testing input value when receiving and losing focus while invalid.', function() {
@@ -248,7 +255,8 @@
         focusAndUpdateValue('foo');
 
         strictEqual(input.val(), 'foo',
-            'Input value should be ' + "foo" + ' when input receive and loses focus.');
+            'Input value should be ' + "foo" +
+            ' when input receive and loses focus.');
     });
 
     test('Testing custom placeholder color after a valid value change.', function() {
@@ -265,12 +273,13 @@
             'When updating to an invalid value, placeholder color should be kept."');
     });
 
-    test('Testing custom placeholder color after an invalid value change with the placeholder value.', function() {
-        focusAndUpdateValue('defaultText');
+    test(
+        'Testing custom placeholder color after an invalid value change with the placeholder value.', function() {
+            focusAndUpdateValue('defaultText');
 
-        notStrictEqual(colorProxy(input.css('color')), CSS.color,
-            'When updating to an invalid value, placeholder color should be kept."');
-    });
+            notStrictEqual(colorProxy(input.css('color')), CSS.color,
+                'When updating to an invalid value, placeholder color should be kept."');
+        });
 
     function colorProxy(color) {
         return (/rgb/).test(color) ? trimrgb(color) : hexToRgb(color);
@@ -290,9 +299,9 @@
         $('#qunit-fixture').html(form.append(input));
 
         textfield = customformsjs.module.Text({
-            element: input[0],
-            force: true
-        });
+                element: input[0],
+                force: true
+            });
     }
 
     function hexToRgb(hex, opacity) {

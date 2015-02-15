@@ -21,9 +21,9 @@
      * Setup configuration
      */
     module('Select - initialization', {
-        setup: setup,
-        teardown: tearDown
-    });
+            setup: setup,
+            teardown: tearDown
+        });
 
     test('Testing module is available.', function() {
         ok(customformsjs.module.Select, 'The Select module must be defined.');
@@ -38,46 +38,52 @@
             'Custom element should have class custom-select when initializing.');
     });
 
-    test('Testing custom element container has "custom-select-container" class applied to it.', function() {
-        strictEqual(customElContainer.hasClass('custom-select-container'), true,
-            'Custom element container should have class custom-select-container when initializing.');
-    });
+    test(
+        'Testing custom element container has "custom-select-container" class applied to it.', function() {
+            strictEqual(customElContainer.hasClass('custom-select-container'),
+                true,
+                'Custom element container should have class custom-select-container when initializing.');
+        });
 
-    test('Testing custom element text when initialized with no selected option.', function() {
-        strictEqual(customEl.html(), OPTION_VALUES[0],
-            'When initializing customEl text must be "default" since it is the first option node from the select element.');
-    });
+    test(
+        'Testing custom element text when initialized with no selected option.', function() {
+            strictEqual(customEl.html(), OPTION_VALUES[0],
+                'When initializing customEl text must be "default" since it is the first option node from the select element.');
+        });
 
-    test('Testing custom element text when initialized with a pre selected option.', function() {
-        var selectedIndex = 2;
+    test(
+        'Testing custom element text when initialized with a pre selected option.', function() {
+            var selectedIndex = 2;
 
-        initializeSelectModule(selectedIndex);
+            initializeSelectModule(selectedIndex);
 
-        strictEqual(customEl.html(), OPTION_VALUES[selectedIndex],
-            'When initializing customEl text must be "moo" since it is the pre selected option node from the select element.');
-    });
+            strictEqual(customEl.html(), OPTION_VALUES[selectedIndex],
+                'When initializing customEl text must be "moo" since it is the pre selected option node from the select element.');
+        });
 
     /*
      * Interaction tests
      */
     module('Select - interactions.', {
-        setup: setup,
-        tearDown: tearDown
-    });
+            setup: setup,
+            tearDown: tearDown
+        });
 
-    test('Testing that when focus is triggered on element it adds class "focus" to custom element container.', function() {
-        input.focus();
+    test(
+        'Testing that when focus is triggered on element it adds class "focus" to custom element container.', function() {
+            input.focus();
 
-        strictEqual(customElContainer.hasClass('focus'), true,
-            'When element receive focus, customElContainer should have class focus added to it.');
-    });
+            strictEqual(customElContainer.hasClass('focus'), true,
+                'When element receive focus, customElContainer should have class focus added to it.');
+        });
 
-    test('Testing that customElContainer removes class "focus" when element loses focus.', function() {
-        input.focus().blur();
+    test(
+        'Testing that customElContainer removes class "focus" when element loses focus.', function() {
+            input.focus().blur();
 
-        strictEqual(customElContainer.hasClass('focus'), false,
-            'When element loses focus, customElContainer should have class focus removed from it.');
-    });
+            strictEqual(customElContainer.hasClass('focus'), false,
+                'When element loses focus, customElContainer should have class focus removed from it.');
+        });
 
     test('Testing custom element text when element value gets updated.', function() {
         var selectedIndex = 2;
@@ -100,8 +106,7 @@
     }
 
     function initializeSelectModule(selectedIndex) {
-        var options,
-            _customElId,
+        var _customElId,
             _customElContainerId,
             _$input,
             attr;
@@ -130,11 +135,12 @@
         $('#qunit-fixture').html(form);
 
         select = customformsjs.module.Select({
-            element: input.get(0),
-            classPrefix: SETTINGS.classPrefix
-        });
+                element: input.get(0),
+                classPrefix: SETTINGS.classPrefix
+            });
 
-        _customElId = SETTINGS.classPrefix + (input.attr('id') || input.attr('name'));
+        _customElId = SETTINGS.classPrefix + (input.attr('id') || input.attr(
+                'name'));
         _customElContainerId = _customElId + '-container';
 
         customEl = $('#' + _customElId);
