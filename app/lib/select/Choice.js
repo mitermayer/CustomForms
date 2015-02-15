@@ -1,7 +1,24 @@
+/**
+ *
+ * TODO:
+ *
+ * INVESTIGATE WHY WE ARE NOT USING SYNC AND SAVE EVENTS BINDING AND USING JUST VALIDATORS INSTEAD. IF APPLICABLE CREATE A NEW TRELLO CARD TO ADDRESS THIS ISSUE.
+ *
+ * [BUG] When a select module is active it is currently affecting this module
+ * Add support for arrow movement.
+ * Add support for going to option based on character pressed.
+ * Add only crucial styles on the defaults and the rest on the main.css
+ * Write unit tests.
+ * Make container close on bur, and fix minor bugs
+ * Clean up and refactor.
+ * Move this file to a different folder. Create a Basic/Advanced logic
+ * Write documentation.
+ *
+ */
 (function(factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
-        define('customformsjs/select', ['jquery', 'customformsjs/basefield'], function(
+        define('customformsjs/choice', ['jquery', 'customformsjs/basefield'], function(
             $) {
             factory(window, $);
         });
@@ -22,14 +39,14 @@
              * @constant
              * @default
              * @access private
-             * @memberof customformsjs.module.Select
+             * @memberof customformsjs.module.Choice
              */
             DEFAULTS = {
-                active: true,
+                active: false,
                 ready: function() {},
                 customEle: 'a',
                 containerEle: 'div',
-                autoHide: true,
+                autoHide: false,
                 classPrefix: 'custom-',
                 hideCss: {
                     opacity: '0',
@@ -53,7 +70,11 @@
                     overflow: "hidden",
                     'white-space': "nowrap",
                     'text-overflow': "ellipsis"
-                }
+                },
+                customListCss: {
+                    'max-height': '300px'
+                },
+                customListItemCss: {}
             };
 
 
@@ -63,9 +84,9 @@
          * and the select field is made transparent to create the illusion of a
          * custom element. Options can be passed to extend the defaults.
          *
-         * @module Select
-         * @param {Object} obj Options to initialize Select module.
-         * @name customformsjs.module.Select
+         * @module Choice
+         * @param {Object} obj Options to initialize Choice module.
+         * @name customformsjs.module.Choice
          * @example
          * var DEFAULTS = {
          *      active: true, // active by default
@@ -101,11 +122,11 @@
          *      validators: [] // custom validators can be added.
          * };
          *
-         * customformsjs.module.Select(DEFAULTS);
+         * customformsjs.module.Choice(DEFAULTS);
          *
-         * @returns {Object} Returns an Instance of module Select.
+         * @returns {Object} Returns an Instance of module Choice.
          */
-        module.Select = function(obj) {
+        module.Choice = function(obj) {
 
             var instance = false;
 
@@ -113,15 +134,13 @@
                 $el = $(SETTINGS.element),
                 $customEl = null,
                 $customContainer = null,
-                _id = SETTINGS.classPrefix + ($el.attr('id') || $el.attr('name')),
-                _class = SETTINGS.classPrefix + 'select',
+                $customList = null,
+                $listItems = null,
+                _id = DEFAULTS.classPrefix + ($el.attr('id') || $el.attr('name')),
+                _class = DEFAULTS.classPrefix + 'choice',
                 _containerClass = _class + '-container',
-                _size = {
-                    width: 0,
-                    height: 0
-                },
-
                 attachEvents = function() {
+
                     $el.focusin(function() {
                         $customContainer.addClass("focus");
                     })
@@ -129,8 +148,62 @@
                             $customContainer.removeClass("focus");
                         })
                         .change(function() {
-                            instance.validate();
+                            instance.sync().validate();
+                        })
+                        .keydown(function(e) {
+                            var ENTER = 13,
+                                SPACE = 32,
+                                TAB = 9,
+                                key = e.which;
+
+                            if (key === ENTER || key === SPACE) {
+                                $customList.toggleClass("open");
+                                e.preventDefault();
+                            } else if (key === TAB) {
+                                if ($customList.hasClass("open")) {
+                                    e.preventDefault();
+                                    $customList.removeClass("open");
+                                }
+                            } else {
+                                setTimeout(function() {
+                                    $el.trigger("change");
+                                }, 0);
+                            }
                         });
+
+                    $customContainer.click(function(e) {
+                        e.preventDefault();
+                        $el.focus();
+                        $customList.toggleClass("open");
+                    })
+                        .mouseleave(function() {
+                            global.clearTimeout(instance.closeTimer);
+                            instance.closeTimer = global.setTimeout(function() {
+                                $customList.removeClass("open");
+                            }, 500);
+                        })
+                        .mouseenter(function() {
+                            global.clearTimeout(instance.closeTimer);
+                        });
+
+                    $listItems.click(function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        $customList.removeClass("open");
+                        $listItems.removeClass("selected");
+
+                        $(this).addClass("selected");
+
+                        instance.validate();
+                    }).mouseover(function() {
+
+                        $listItems.removeClass("selected");
+
+                        $(this).addClass("selected");
+
+                        instance.validate();
+                    });
                 };
 
             if (SETTINGS.active) {
@@ -140,17 +213,19 @@
                 /**
                  * Initializer for module. Will create custom elements and apply
                  * default styles to it. Here will also be browser specific features.
-                 * Select module works by adding a custom element behind the browser
+                 * Choice module works by adding a custom element behind the browser
                  * select form field and making it transparent.
                  *
                  * @function
-                 * @memberof customformsjs.module.Select
+                 * @memberof customformsjs.module.Choice
                  */
                 SETTINGS.init = function() {
                     // hide element
-                    $el.css(SETTINGS.hideCss);
+                    if (SETTINGS.autoHide) {
+                        $el.css(DEFAULTS.hideCss);
+                    }
 
-                    //// create custom element
+                    // create custom element
                     $customContainer = $("<" + SETTINGS.containerEle + "/>");
 
                     // setup attr and styles to container
@@ -168,7 +243,6 @@
                             'class': _class
                         }).css(SETTINGS.customElCss);
 
-
                     // add container before element
                     $el.before($customContainer);
 
@@ -178,12 +252,34 @@
                     // move custom element inside container
                     $customContainer.append($customEl);
 
-                    // only after object is added to the DOM we can calculate its dimensions
-                    _size.height = $customContainer.css("height");
-                    _size.width = $customContainer.css("width");
 
-                    // we than extend elCss with the dimensions and apply them to element.
-                    $el.css($.extend({}, SETTINGS.elCss, _size));
+                    // TODO: Create a list ul and append before $customEl with li matching the options on the select
+                    // While doing that check for property 'selected' and 'value' and 'disabled' and do similar iplementation on those
+                    $customList = $("<ul />");
+                    $customList.css(SETTINGS.customListCss);
+
+                    $el.find('option').each(function() {
+                        var $customListItem = $("<li />"),
+                            $option = $(this);
+
+                        $customListItem.css(SETTINGS.customListItemCss);
+
+
+                        if ($el.val() === $option.val()) {
+                            $customEl.html($option.html());
+                            $customListItem.addClass("selected");
+                        }
+
+                        $customListItem.html($option.html()).attr("customValue",
+                            $option.val());
+                        $customListItem.css(SETTINGS.customListItemCss);
+                        $customList.append($customListItem);
+                    });
+
+                    // store a reference to all list items
+                    $listItems = $customList.find("li");
+
+                    $customContainer.append($customList);
 
                     SETTINGS.ready();
                 };
@@ -195,15 +291,28 @@
                  * Applying the option value the custom element as a text node.
                  *
                  * @function
-                 * @memberof customformsjs.module.Select
+                 * @memberof customformsjs.module.Choice
                  */
                 instance.bind('validate', function() {
-                    var _selectedText = $el.find('option:selected').text();
-
-                    _selectedText = _selectedText || $el.find('option').first()
-                        .text();
+                    var _selected = $customList.find('.selected'),
+                        _selectedText = _selected.text() || $el.find('option').first()
+                            .text();
 
                     $customEl.html(_selectedText);
+                    $el.val(_selected.attr('customValue'));
+                });
+
+                instance.bind('sync', function(event) {
+
+                    $listItems.removeClass("selected");
+
+                    $listItems.each(function() {
+                        if ($(this).attr("customValue") === event.data) {
+                            $(this).addClass("selected");
+                            return false;
+                        }
+                    });
+                    $(this).addClass("selected");
                 });
 
                 instance.validate();
@@ -219,9 +328,14 @@
          * Element must be an object with a tagname 'select'
          *
          * @property {Object} blueprint used to see if element meet module requirements.
-         * @memberof customformsjs.module.Select
+         * @memberof customformsjs.module.Choice
          */
-        module.Select.blueprint = {
-            tagName: 'select'
+        module.Choice.blueprint = {
+            tagName: 'select',
+            filter: {
+                select: {
+                    customType: 'list-select'
+                }
+            }
         };
     }));
